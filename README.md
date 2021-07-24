@@ -72,10 +72,12 @@ Your program should show a menu that lets users choose data (area and range), su
 #### Java
 - [Code Conventions for the Java Programming Language](https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html)
 - [Java Quick Reference](https://apstudents.collegeboard.org/ap/pdf/ap-computer-science-a-java-quick-reference_0.pdf)
+- ![Modifiers](image/modifiers.png)
 #### Scrum Guide
 - [The 2020 Scrum GuideTM](https://scrumguides.org/scrum-guide.html)
 #### Git Guide
 - [Git Reference](https://git-scm.com/docs)
+
 
 
 ### 3. Key people
