@@ -82,7 +82,8 @@ eg:
 
 
 - [Java Quick Reference](https://apstudents.collegeboard.org/ap/pdf/ap-computer-science-a-java-quick-reference_0.pdf)
-- ![Modifiers](Modifiers.jpg)
+- Java Class Modifiers
+![Modifiers](Modifiers.jpg)
 #### Scrum Guide
 - [The 2020 Scrum GuideTM](https://scrumguides.org/scrum-guide.html)
 #### Git Guide
