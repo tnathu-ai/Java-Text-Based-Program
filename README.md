@@ -71,8 +71,8 @@ Your program should show a menu that lets users choose data (area and range), su
 - [Cloning a Project from GitHub](https://www.youtube.com/watch?v=aBVOAnygcZw)
 #### Java
 - [Code Conventions for the Java Programming Language](https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html)
-ex:
-+ ***Variable name:*** sname, stockprice
+
+eg:
 + ***Class Name:*** (n) Student, ThuJavaClass
 + ***Interface Name*** (adj) Runable, Serializable
 + ***Constructor:*** Abc()
