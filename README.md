@@ -5,6 +5,7 @@ Implement a text-based program using Java language and OOP techniques.
 ##### Video Demonstration: 
 
 ## Assignment Requirements
+- [Notion Display](https://first-network-e11.notion.site/Prog-JAVA-Group-Asm-199a53a3094f4ca286f713a6da9eb67a)
 
 ### 1. Three Main Parts
 + OOP design and implementation: you need to design and implement a class hierarchy to make your program flexible and easy to maintain
@@ -71,7 +72,7 @@ Your program should show a menu that lets users choose data (area and range), su
 
 ## Implementation
 
-### 2. Coding styles & conventions
+### 2. Coding styles & conventions 
 #### IntelliJ IDEA
 - [IntelliJ IDEA Guide](https://www.jetbrains.com/help/idea/getting-started.html)
 - [Set up a Git repository](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html)
@@ -95,6 +96,8 @@ eg:
 - [The 2020 Scrum GuideTM](https://scrumguides.org/scrum-guide.html)
 #### Git Guide
 - [Git Reference](https://git-scm.com/docs)
+#### Gitflow
+- [Kuri Gitflow](https://youtu.be/w8fMSsyq2u8)
 
 
 
