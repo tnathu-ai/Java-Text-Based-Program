@@ -71,8 +71,18 @@ Your program should show a menu that lets users choose data (area and range), su
 - [Cloning a Project from GitHub](https://www.youtube.com/watch?v=aBVOAnygcZw)
 #### Java
 - [Code Conventions for the Java Programming Language](https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html)
+ex:
+***Variable name:*** sname, stockprice
+***Class Name:*** (n) Student, ThuJavaClass
+***Interface Name*** (adj) Runable, Serializable
+***Constructor:*** Abc()
+***Variable name:*** sname, stockprice
+***Method:*** (v) abc(), run(), actionPerformed()
+**Constant:*** DENSITY, MIN_PRICE
+
+
 - [Java Quick Reference](https://apstudents.collegeboard.org/ap/pdf/ap-computer-science-a-java-quick-reference_0.pdf)
-- ![Modifiers](Modifiers.png)
+- ![Modifiers](Modifiers.jpg)
 #### Scrum Guide
 - [The 2020 Scrum GuideTM](https://scrumguides.org/scrum-guide.html)
 #### Git Guide
