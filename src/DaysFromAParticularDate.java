@@ -13,7 +13,8 @@ public class DaysFromAParticularDate {
             String row;
 
             //put header in an array
-            //to skip the 1st line header for reading only data
+            //readLine the header to skip the 1st line so that the data will
+            // be in the array of their own
             String header = csvReader.readLine();
             String[] headerArray = header.split(",");
             System.out.println(Arrays.toString(headerArray));
