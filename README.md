@@ -36,10 +36,8 @@ The possible ways of specifying groupings are (explanation of b.1):
 No grouping: each day is a separate group.
 
 Number of groups: a number is specified and you must divide your data into that number of groups. You need to divide your data as equally as possible. For example, if your data consist of 10 days (day 1 to day 10) and 3 groups are needed, then you can divide your data into either
-[day 1 to day 3], [day 4 to day 6], [day 7 to day 10]
-[day 1 to day 3], [day 4 to day 7], [day 8 to day 10]
-[day 1 to day 4], [day 5 to day 7], [day 8 to day 10]
-|  | |  |
+
+|   |    |    |
 |------------|-------------|-------------|
 | [day 1 to day 3] | [day 4 to day 6] | [day 7 to day 10] |
 | [day 1 to day 3] | [day 4 to day 7] | [day 8 to day 10] |
@@ -65,7 +63,7 @@ New Total: total new cases/new deaths/new vaccinated people in a group.
 + Display summary data in a table. There are 2 columns: the first column named “Range” and the second column named “Value.” In the table, display a row for each group. 
 + For each group, the “Range” column shows “date1 – date2,” where date1 and date2 are the first dates and last dates of a group, respectively. If a group contains just 1 date, it shows that date only. The “Value” column of a group shows the calculated value (New Total or Up To) described above.
 | Rage | Value | 
-|------------|-------------|
+|:---:|:---:|
 | [b.1] | [b.3] | 
 | [...] | [...] | 
 
