@@ -43,7 +43,7 @@ Number of groups: a number is specified and you must divide your data into that 
 |------------|-------------|-------------|
 | [day 1 to day 3] | [day 4 to day 6] | [day 7 to day 10] |
 | [day 1 to day 3] | [day 4 to day 7] | [day 8 to day 10] |
-|[day 1 to day 4] | [day 5 to day 7] | [day 8 to day 10] |
+| [day 1 to day 4] | [day 5 to day 7] | [day 8 to day 10] |
 
 
 **Note** that you can only put **consecutive days** into a group. In other words, putting day 1, day 2, and day 4 into a group is invalid.
