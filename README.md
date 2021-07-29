@@ -66,8 +66,8 @@ New Total: total new cases/new deaths/new vaccinated people in a group.
 + For each group, the “Range” column shows “date1 – date2,” where date1 and date2 are the first dates and last dates of a group, respectively. If a group contains just 1 date, it shows that date only. The “Value” column of a group shows the calculated value (New Total or Up To) described above.
 | Rage | Value | 
 |------------|-------------|
-| b.1 | b.3 | 
-| ... | ... | 
+| [b.1] | [b.3] | 
+| [...] | [...] | 
 
 
 ##### Chart display: 
