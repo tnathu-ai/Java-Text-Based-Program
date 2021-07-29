@@ -25,9 +25,9 @@ Note: Dr. Tri has not checked the data thoroughly. From what I learn so far, the
 You will use the OOP paradigm to design and develop this project. There are **3 main object hierarchies** in this project.
 
 #### a. Data: each data object has a geographic area, which can be either a country (e.g., Vietnam) or a continent (e.g., Asia), and a time range. The time range can be specified as one of the following:
-A pair of start date and end dates (inclusive) (e.g., 1/1/2021 and 8/1/2021)
-A number of days or weeks from a particular date (e.g., 2 days from 1/20/2021 means there are 3 days 1/20/2021, 1/21/2021, and 1/22/2021)
-A number of days or weeks to a particular date (e.g., 1 week to 1/8/2021 means there are 8 days from 1/1/2021 to 1/8/2021)
++ A pair of start date and end dates (inclusive) (e.g., 1/1/2021 and 8/1/2021)
++ A number of days or weeks from a particular date (e.g., 2 days from 1/20/2021 means there are 3 days 1/20/2021, 1/21/2021, and 1/22/2021)
++ A number of days or weeks to a particular date (e.g., 1 week to 1/8/2021 means there are 8 days from 1/1/2021 to 1/8/2021)
 
 #### b. Summary: this is the data after processed and ready to display. To create summary data, original data are grouped (b.1), a metric is chosen (b.2), and a result is calculated (b.3). 
 ##### Original data are grouped (b.1)
