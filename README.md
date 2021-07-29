@@ -39,6 +39,12 @@ Number of groups: a number is specified and you must divide your data into that 
 [day 1 to day 3], [day 4 to day 6], [day 7 to day 10]
 [day 1 to day 3], [day 4 to day 7], [day 8 to day 10]
 [day 1 to day 4], [day 5 to day 7], [day 8 to day 10]
+|  | |  |
+|------------|-------------|-------------|
+| [day 1 to day 3] | [day 4 to day 6] | [day 7 to day 10] |
+| [day 1 to day 3] | [day 4 to day 7] | [day 8 to day 10] |
+|[day 1 to day 4] | [day 5 to day 7] | [day 8 to day 10] |
+
 
 **Note** that you can only put **consecutive days** into a group. In other words, putting day 1, day 2, and day 4 into a group is invalid.
 
@@ -58,6 +64,12 @@ New Total: total new cases/new deaths/new vaccinated people in a group.
 ##### Tabular display: 
 + Display summary data in a table. There are 2 columns: the first column named “Range” and the second column named “Value.” In the table, display a row for each group. 
 + For each group, the “Range” column shows “date1 – date2,” where date1 and date2 are the first dates and last dates of a group, respectively. If a group contains just 1 date, it shows that date only. The “Value” column of a group shows the calculated value (New Total or Up To) described above.
+| Rage | Value | 
+|------------|-------------|
+| b.1 | b.3 | 
+| ... | ... | 
+
+
 ##### Chart display: 
 + Display summary data in a textual chart. The chart area consists of 24 rows x 80 cols. 
 + The x-coordinate direction is left to right, and the y-coordinate direction is from bottom to top. The x-coordinate represents the groups, and the y-coordinate represents the calculated summary results. 
