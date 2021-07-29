@@ -71,7 +71,7 @@ New Total: total new cases/new deaths/new vaccinated people in a group.
 ##### Chart display: 
 + Display summary data in a textual chart. The chart area consists of 24 rows x 80 cols. 
 + The x-coordinate direction is left to right, and the y-coordinate direction is from bottom to top. The x-coordinate represents the groups, and the y-coordinate represents the calculated summary results. 
-+ You should position the groups as equally as possible on the x-coordinate. And you should use the minimum and maximum result values to position a result on the y-coordinate linearly. 
++ You should position the groups as equally as possible on the x-coordinate. And you should use the minimum and maximum result values to position a result on the y-coordinate linearly (**RATIO**). 
 + The left-most column should display all | (pipe) characters, while the bottom-most row should display all _ (underscore) characters. (That means you have 23 rows and 79 columns left to display data points). 
 + Each summary data point is represented as an asterisk *.
 ##### User interface
