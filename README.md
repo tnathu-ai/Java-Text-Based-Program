@@ -86,7 +86,7 @@ eg:
 + ***Constructor:*** Abc()
 + ***Variable name:*** sname, stockprice
 + ***Method:*** (v) abc(), run(), actionPerformed()
-+ **Constant:*** DENSITY, MIN_PRICE
++ ***Constant:*** DENSITY, MIN_PRICE
 
 
 - [Java Quick Reference](https://apstudents.collegeboard.org/ap/pdf/ap-computer-science-a-java-quick-reference_0.pdf)
