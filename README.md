@@ -65,9 +65,7 @@ New Total: total new cases/new deaths/new vaccinated people in a group.
 
 | RANGE  | VALUE   |    |
 |------------|-------------|-------------|
-| [day 1 to day 3] | [day 4 to day 6] | [day 7 to day 10] |
-| [day 1 to day 3] | [day 4 to day 7] | [day 8 to day 10] |
-| [day 1 to day 4] | [day 5 to day 7] | [day 8 to day 10] |
+| [b.1] | [b.3] |  |
 
 
 ##### Chart display: 
