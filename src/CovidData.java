@@ -11,8 +11,10 @@ public class CovidData {
     protected int people_vaccinated;
     protected int population;
 
-    public CovidData(String iso_code, String location, Date date, int new_cases, int new_deaths, int people_vaccinated, int population) {
+    public CovidData(String iso_code, String continent, String location, Date date, int new_cases, int new_deaths, int people_vaccinated, int population) {
         this.iso_code = iso_code;
+        this.continent = continent;
+        this.location = location;
         this.date = date;
         this.new_cases = new_cases;
         this.new_deaths = new_deaths;
