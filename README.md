@@ -87,8 +87,11 @@ Your program should show a menu that lets users choose data (area and range), su
 - [IntelliJ IDEA Guide](https://www.jetbrains.com/help/idea/getting-started.html)
 - [Set up a Git repository](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html)
 - [Cloning a Project from GitHub](https://www.youtube.com/watch?v=aBVOAnygcZw)
+
+
 #### Java
 - [Code Conventions for the Java Programming Language](https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html)
+- Kernighan & Ritchie Style
 
 eg:
 + ***Class Name:*** (n) Student, ThuJavaClass
