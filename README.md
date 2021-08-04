@@ -91,6 +91,7 @@ Your program should show a menu that lets users choose data (area and range), su
 
 #### Java
 - [Code Conventions for the Java Programming Language](https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html)
+- [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html)
 - Kernighan & Ritchie Style
 
 eg:
