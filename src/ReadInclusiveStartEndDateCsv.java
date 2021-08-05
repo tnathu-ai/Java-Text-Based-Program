@@ -36,12 +36,28 @@ public class ReadInclusiveStartEndDateCsv {
         String headers;
         String line;
 //        ArrayList<String> covidData = null;
-        try (BufferedReader br =
-                     new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br =  new BufferedReader(new FileReader(file))) {
             headers = br.readLine();
             while ((line = br.readLine()) != null) {
                 // use split(“,”) method to split row and separate each field.
                 String[] data = line.split(",");
+
+                // get data from each column
+                String iso_code = data[0];
+                String continent = data[1];
+                String location = data[2];
+
+                String date = data[3];
+                String new_cases = data[4];
+                String new_deaths = data[5];
+                String people_vaccinated = data[6];
+                String population = data[7];
+
+                // create new data
+                CovidData cat = new CovidData();
+                cat.setLocation(location);
+
+
 //                if (continent.contains(data[1])){
 //                    System.out.println(continent + " exists");
 //                    return;
