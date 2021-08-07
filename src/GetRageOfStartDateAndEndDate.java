@@ -59,16 +59,35 @@ public class GetRageOfStartDateAndEndDate {
         for (List<String> line : lines) {
             int columnNumber = 1;
             for (String value : line) {
+//                while (lines.get(rowNumber).get(columnNumber) == name) {
+//
+//                }
 //                String s = lines.get(Integer.parseInt(value)).get(1);
-                List<List<String>> sub = lines.subList(rowNumber,columnNumber);
+                List<List<String>> sub = lines.subList(rowNumber, columnNumber);
 //                    System.out.println("location or country name: " + sub);
 //                    s = s + 1;
-                System.out.println("Row: " + rowNumber + ", Column: " + columnNumber + ", header: " + value + ", Accumulate rows: " + lines.get(rowNumber).get(columnNumber)
-                + ", sub: " + sub);
+                System.out.println("Row: " + rowNumber + ", Column: " + columnNumber + ", header: " + value + ", Data: " + lines.get(rowNumber).get(columnNumber)
+                + ", Accumulative rows: " + sub);
                 columnNumber++;
                 }
             rowNumber++;
             }
+
+//        int rowNumber = 1;
+//        for (List<String> line : lines) {
+//            int columnNumber = 1;
+//            for (String value : line)
+////                String s = lines.get(Integer.parseInt(value)).get(1);
+//                List<List<String>> sub = lines.subList(rowNumber,columnNumber);
+////                    System.out.println("location or country name: " + sub);
+////                    s = s + 1;
+//                System.out.println("Row: " + rowNumber + ", Column: " + columnNumber + ", header: " + value + ", Accumulate rows: " + lines.get(rowNumber).get(columnNumber)
+//                        + ", sub: " + sub);
+//                columnNumber++;
+//            }
+//            rowNumber++;
+//        }
+
         }
     }
 
