@@ -3,10 +3,67 @@ import java.text.DateFormat;
 import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.function.UnaryOperator;
 
-public class DaysFromAParticularDate {
-    public static void main(String args[]) throws IOException, ParseException {
+class DataDetail {
+    String iso_code;
+    String continent;
+    String location;
+    String date;
+    long new_cases;
+    long new_deaths;
+    long people_vaccinated;
+    long population;
+
+    public DataDetail(String iso_code,
+                      String continent,
+                      String location,
+                      String date,
+                      long new_cases,
+                      long new_deaths,
+                      long people_vaccinated,
+                      long population) {
+        this.iso_code = iso_code;
+        this.continent = continent;
+        this.location = location;
+        this.date = date;
+        this.new_cases = new_cases;
+        this.new_deaths = new_deaths;
+        this.people_vaccinated = people_vaccinated;
+        this.population = population;
+    }
+
+    public String getIso_code() {
+        return iso_code;
+    }
+
+    public String getContinent() {
+        return continent;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public long getNew_cases() { return new_cases; }
+
+    public long getNew_deaths() {
+        return new_deaths;
+    }
+
+    public long getPeople_vaccinated() {
+        return people_vaccinated;
+    }
+
+    public long getPopulation() {
+        return population;
+    }
+
+//MAIN METHOD: user input
+    public static void main (String args[]) throws IOException, ParseException {
         String pathToCSV = "Data/covid-data.csv";
         String pathToNewCSV = "Data/covid-data-zero.csv";
         replaceNullCsv(pathToCSV, pathToNewCSV);
@@ -14,25 +71,21 @@ public class DaysFromAParticularDate {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter the Continent or Country: ");
         String location = input.nextLine();
-        getDataFromLocation(pathToNewCSV, location);
-        TimeRange(pathToCSV, pathToNewCSV, location);
-    }
 
-    public static void TimeRange(String pathToCSV, String pathToNewCSV, String location) throws ParseException,
-            IOException {
-        Scanner input = new Scanner(System.in);
-        System.out.print("Choose a date you want in this format 'M/d/yyyy'(9/2/2020 or 9/20/2020): ");
+        System.out.print("Choose a date you want in this format 'MM/dd/yyyy': ");
         String chosenDate = input.nextLine();
 
         System.out.print("Enter the number of days that are away from the date you chose: ");
         int dayAway = input.nextInt();
 
-        System.out.println("There are 3 ways you can choose to group your" +
+        System.out.println("\nThere are 3 ways you can choose to group your" +
                 " days: ");
         System.out.println("1. No grouping: each day is a separate group.");
-        System.out.println("2. Choose the number of groups that the number of days will be divided equally into each " +
+        System.out.println("2. Choose the number of groups that the number of days will be divided equally into " +
+                "each " +
                 "group");
-        System.out.println("3. Choose the number of days in each divided group (Note: The program will choose the " +
+        System.out.println("3. Choose the number of days in each divided group (Note: The program will choose the" +
+                " " +
                 "most optimal number for grouping equally");
         System.out.println();
         int option;
@@ -41,128 +94,262 @@ public class DaysFromAParticularDate {
             option = input.nextInt();
         } while (option != 1 && option != 2 && option != 3);
 
+        ProcessData(pathToNewCSV, location, chosenDate, dayAway, option);
+    }
 
+//ALL METHODS (sorted by Group Types):
+    //1. ProcessData : the order sequence of processing/handling Data (row by row)
+    //2. SplitDay, SplitGroup , PutDataIntoGroup
+    //3. Handle TIME-related functions
+    //4. Filter Data according to Date, Location
+    //5. Miscellaneous
+    public static void ProcessData(String pathToNewCSV, String location,
+                                   String chosenDate, int dayAway, int option) throws ParseException, IOException {
         if (option == 1) {
             String endDate = displayStartEndDate(chosenDate, dayAway);
-            System.out.println(getDatesBetween(chosenDate, endDate));
-            ArrayList<Date> getDatesBetweenArr = new ArrayList<Date>();
-            getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
+//                System.out.println(getDatesBetween(chosenDate, endDate));
+
+            //Get and Print the Date Range
+            ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
             System.out.println(convertDateToString(getDatesBetweenArr));
+            System.out.println("\niso_code, continent, location, date, new_cases, new_deaths, people_vaccinated, " +
+                    "population");
+
+            //Start reading 1 row of data & Process immediately
+            BufferedReader csvReader =
+                    new BufferedReader(new FileReader(pathToNewCSV));
+            String row = "";
+            csvReader.readLine();
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(",", -1);
+
+                int i = 0;
+
+                DataDetail dataRow = new DataDetail(data[i],
+                        data[i + 1],
+                        data[i + 2],
+                        data[i + 3],
+                        Long.parseLong(data[i + 4]),
+                        Long.parseLong(data[i + 5]),
+                        Long.parseLong(data[i + 6]),
+                        Long.parseLong(data[i + 7]));
+
+                //Deal with 1 row of data
+                DataDetail returnRowLocation = getDataFromLocation (dataRow, location);
+//                getDataFromLocation(dataRow, location);
+                if (returnRowLocation != null) {
+                    DataDetail returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
+                    if (returnRow != null) {
+                        System.out.println(returnRow.toPrintString());
+                    }
+                }
+            }
 
         } else if (option == 2) {
             int groups;
             do {
+                Scanner input = new Scanner(System.in);
                 System.out.print("Enter the number of groups (smaller than the number of days): ");
                 groups = input.nextInt();
-
-                ArrayList<Integer> groupsArr = new ArrayList<Integer>();
-                ArrayList<Date> getDatesBetweenArr = new ArrayList<Date>();
-                ArrayList<ArrayList<String>> groupsDaysArr = new ArrayList<ArrayList<String>>();
-                ArrayList<ArrayList<String>> groupsDaysArrFinal = new ArrayList<ArrayList<String>>();
-                ArrayList<ArrayList<String>> dateDataArr = new ArrayList<ArrayList<String>>();
-
-                String endDate = displayStartEndDate(chosenDate, dayAway);
-                getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
-                groupsArr = splitGroupsEqually(dayAway, groups);
-
-                //get the data of the dates user wants
-                dateDataArr = getDataFromDate(chosenDate, endDate, pathToNewCSV, location);
-//                System.out.println(groupsDaysArr);
-                int count = 1;
-                int k = 0;
-
-                    for (int i =0; i<groupsArr.size(); i++) {
-                        System.out.println("Group " + count);
-
-                        for (int j = 0; j < groupsArr.get(i); j++) {
-                            ArrayList<String> dateElement = new ArrayList<>();
-                            dateElement = dateDataArr.get(k);
-
-                            //add dates to 2d arraylist
-//                            for (String text: dateElement) {
-//                                groupsDaysArr.get(j).add(text);
-//                            }
-                            Collections.addAll(groupsDaysArr, dateElement);
-                            k+=1;
-                        }
-                        System.out.println(groupsDaysArr);
-                        groupsDaysArrFinal.addAll(groupsDaysArr);
-                        groupsDaysArr.clear();
-//                        System.out.println(groupsDaysArrFinal);
-                        count += 1;
-                    }
             } while (groups > dayAway);
 
+            //Get and Print the Date Range
+            String endDate = displayStartEndDate(chosenDate, dayAway);
+//                System.out.println(getDatesBetween(chosenDate, endDate));
+            ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
+            System.out.println(convertDateToString(getDatesBetweenArr));
+            System.out.println("\niso_code, continent, location, date, new_cases, new_deaths, people_vaccinated, " +
+                    "population");
+
+            //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
+            ArrayList<Integer> groupsSplittedArr = splitGroupsEqually(dayAway, groups);
+            ArrayList<DataDetail> bigGroup = new ArrayList<DataDetail>();
+
+            //Start reading 1 row of data & Process immediately
+            BufferedReader csvReader =
+                    new BufferedReader(new FileReader(pathToNewCSV));
+            String row = "";
+            csvReader.readLine();
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(",", -1);
+                int i = 0;
+
+                DataDetail dataRow = new DataDetail(data[i],
+                        data[i + 1],
+                        data[i + 2],
+                        data[i + 3],
+                        Long.parseLong(data[i + 4]),
+                        Long.parseLong(data[i + 5]),
+                        Long.parseLong(data[i + 6]),
+                        Long.parseLong(data[i + 7]));
+
+                //Deal with 1 row of data
+                DataDetail returnRowLocation = getDataFromLocation(dataRow, location);
+//                getDataFromLocation(dataRow, location);
+                if (returnRowLocation != null) {
+                    DataDetail returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
+                    if (returnRow != null) {
+                        bigGroup.add(returnRow);
+                    }
+                }
+            }
+        putDataInGroup(bigGroup, groupsSplittedArr);
+
         } else if (option == 3) {
-            System.out.print("Enter the number of days in each divided group: ");
-            int daysPerGroup = input.nextInt();
-            splitEqualDays(dayAway, daysPerGroup);
+            int daysPerGroup;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Enter the number of days in each group (larger than 1): ");
+                daysPerGroup = input.nextInt();
+
+            } while (daysPerGroup > dayAway && daysPerGroup > 1);
+
+            //Get and Print the Date Range
+            String endDate = displayStartEndDate(chosenDate, dayAway);
+//                System.out.println(getDatesBetween(chosenDate, endDate));
+            ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
+            System.out.println(convertDateToString(getDatesBetweenArr));
+            System.out.println("\niso_code, continent, location, date, new_cases, new_deaths, people_vaccinated, " +
+                    "population");
+
+            //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
+            ArrayList<Integer> groupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
+            ArrayList<DataDetail> bigGroup = new ArrayList<DataDetail>();
+
+            //Start reading 1 row of data & Process immediately
+            BufferedReader csvReader =
+                    new BufferedReader(new FileReader(pathToNewCSV));
+            String row = "";
+            csvReader.readLine();
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(",", -1);
+                int i = 0;
+
+                DataDetail dataRow = new DataDetail(data[i],
+                        data[i + 1],
+                        data[i + 2],
+                        data[i + 3],
+                        Long.parseLong(data[i + 4]),
+                        Long.parseLong(data[i + 5]),
+                        Long.parseLong(data[i + 6]),
+                        Long.parseLong(data[i + 7]));
+
+                //Deal with 1 row of data
+                DataDetail returnRowLocation = getDataFromLocation (dataRow, location);
+//                getDataFromLocation(dataRow, location);
+                if (returnRowLocation != null) {
+                    DataDetail returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
+                    if (returnRow != null) {
+                        bigGroup.add(returnRow);
+                    }
+                }
+            }
+            putDataInGroup(bigGroup, groupsSplittedArr);
 
         } else {
-            TimeRange(pathToCSV, pathToNewCSV, location);
+            //Just in case sth else happens
+            ProcessData(pathToNewCSV, location, chosenDate, dayAway, option);
         }
+    }
+
+    ////////////////////////////////////////////////////////////////
+    //SPLITDAY, SPLITGROUP FUNCTIONS
+    public static void putDataInGroup(ArrayList<DataDetail> bigGroup,
+                                     ArrayList<Integer> groupsSplittedArr) {
+        ArrayList<DataDetail> groupsDaysArr = new ArrayList<DataDetail>();
+        ArrayList<ArrayList<DataDetail>> groupsDaysArrFinal = new ArrayList<ArrayList<DataDetail>>();
+
+        int count = 1;
+        int k = 0;
+
+        for (int outerInd = 0; outerInd < groupsSplittedArr.size(); outerInd++) {
+            System.out.println("GROUP " + count);
+
+            for (int innerInd = 0; innerInd < groupsSplittedArr.get(outerInd); innerInd++) {
+                DataDetail dateElement = bigGroup.get(k);
+                groupsDaysArr.add(dateElement);
+                k += 1;
+            }
+
+            for (DataDetail gda: groupsDaysArr) {
+                System.out.println(gda.toPrintString());
+            }
+            Collections.addAll(groupsDaysArrFinal, groupsDaysArr);
+            groupsDaysArr.clear();
+            count += 1;
+        }
+//            System.out.println(groupsDaysArrFinal);
     }
 
     public static ArrayList<Integer> splitGroupsEqually(int x, int n) {
         //x: dayAway
         //n: groups
-        ArrayList<Integer> groupsArr = new ArrayList<Integer>();
+        ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
         int g;
         // If x % n == 0 then the minimum
         // difference is 0 and all
         // numbers are x / n
         if (x % n == 0) {
-            for(int i=0; i<n; i++) {
-                g = x/n;
-                System.out.print((x / n) + " ");
-                groupsArr.add(g);
+            for (int i = 0; i < n; i++) {
+                g = x / n;
+//                        System.out.print((x / n) + " ");
+                groupsSplittedArr.add(g);
             }
         } else {
             // upto n-(x % n) the values will be x / n
             // after that the values will be x / n + 1
             int num1 = n - (x % n);
-            int num2 = x/n;
+            int num2 = x / n;
 
-            for(int i=0; i<n; i++) {
+            for (int i = 0; i < n; i++) {
                 if (i >= num1) {
                     g = num2 + 1;
-                    System.out.print((num2 + 1) + " ");
-                    groupsArr.add(g);
-                }
-                else {
+//                            System.out.print((num2 + 1) + " ");
+                    groupsSplittedArr.add(g);
+                } else {
                     g = num2;
-                    System.out.print(num2 + " ");
-                    groupsArr.add(g);
+//                            System.out.print(num2 + " ");
+                    groupsSplittedArr.add(g);
                 }
             }
         }
-        return groupsArr;
+        return groupsSplittedArr;
     }
 
-    public static void splitEqualDays(int x, int d) {
+    public static ArrayList<Integer> splitEqualDays(int x, int d) {
         //x: dayAway
         //n: groups
         //d: daysPerGroup
-        for (int n = 2; n < x; n++) {
-            // If x % n == 0 then the minimum
-            // difference is 0 and all
-            // numbers are x / n
-            if (x % d == 0) {
-                System.out.print("You can divide into " + (x / d) + " groups");
-                break;
-            } else if (x % n == 0) {
-                for (int i = 0; i < n; i++) {
-                    System.out.print((x / n) + " ");
+        ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
+            for (int n = 2; n < x; n++) {
+                // If x % n == 0 then the minimum
+                // difference is 0 and all
+                // numbers are x / n
+                if (x % d == 0) {
+                    System.out.println("You can divide into " + (x / d) + " groups");
+                    for (int i = 0; i < n; i++) {
+                        groupsSplittedArr.add(x/d);
+                    }
+                    break;
+
+                } else if (x % n == 0) {
+                    for (int i = 0; i < n; i++) {
+//                                System.out.print((x / n) + " ");
+                        groupsSplittedArr.add(x/n);
+                    }
+
+                } else {
+                    System.out.println("It is not possible to divide equally!!!");
+                    System.out.println("The data should be divided equally into:" + groupsSplittedArr);
                 }
-            } else {
-                System.out.println("It is not possible to divide equally!!!");
             }
-        }
+//                System.out.println(groupsSplittedArr);
+        return groupsSplittedArr;
     }
 
-
-
-    public static String displayStartEndDate(String chosenDate, int dayAway) {
+    ////////////////////////////////////////////////////////////////
+    //Handle TIME-related functions
+    public static String displayStartEndDate (String chosenDate,int dayAway){
         //Specifying date format
         SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
         Calendar c = new GregorianCalendar();
@@ -182,10 +369,11 @@ public class DaysFromAParticularDate {
         String endDate = sdf.format(c.getTime());
         //Displaying the new Date after addition of Days
         System.out.println("Date after Addition: " + endDate);
+        System.out.print("\n");
         return endDate;
     }
 
-    public static ArrayList<Date> getDatesBetween(String startDate, String endDate) throws ParseException {
+    public static ArrayList<Date> getDatesBetween (String startDate, String endDate) throws ParseException {
         //convert String to Date
         SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
         Date sDate = sdf.parse(startDate);
@@ -206,11 +394,11 @@ public class DaysFromAParticularDate {
         return datesInRange;
     }
 
-    public static ArrayList<String> convertDateToString(ArrayList<Date> ArrList) {
+    public static ArrayList<String> convertDateToString (ArrayList < Date > ArrList) {
         DateFormat df = new SimpleDateFormat("M/d/yyyy");
         ArrayList<String> dateToStrArr = new ArrayList<String>();
 
-        for (int i = 0; i<ArrList.size(); i++) {
+        for (int i = 0; i < ArrList.size(); i++) {
             Date DateInArr = ArrList.get(i);
             String dateToString = df.format(DateInArr);
             dateToStrArr.add(dateToString);
@@ -218,110 +406,60 @@ public class DaysFromAParticularDate {
         return dateToStrArr;
     }
 
-    public static ArrayList<ArrayList<String>> getDataFromDate(String chosenDate, String endDate, String pathToNewCSV
-            , String location) throws ParseException, IOException {
-        ArrayList<ArrayList<String>> dateDataArr = new ArrayList<ArrayList<String>>();
-        ArrayList<ArrayList<String>> locationData = new ArrayList<ArrayList<String>>();
+    ////////////////////////////////////////////////////////////////
+    //FUNCTIONS: Filter Data according to Date, Location
+    public static DataDetail getDataFromDate (String chosenDate, String endDate, DataDetail dataRow) throws ParseException {
         ArrayList<Date> datesInRange = new ArrayList<Date>();
         ArrayList<String> datesInRangeStr = new ArrayList<String>();
-//        String datesInRangeStr;
+        DataDetail locationData = null;
 
-        locationData = getDataFromLocation(pathToNewCSV, location);
-        datesInRange = getDatesBetween(chosenDate, endDate);
-        datesInRangeStr = convertDateToString(datesInRange);
+        if (dataRow == null) {
+            locationData = null;
 
-        for (int i = 0; i < datesInRangeStr.size(); i++) {
-            String inputDate = datesInRangeStr.get(i);
-            if (locationData.get(i).contains(inputDate)) {
-                //store the data which already filtered according to the
-                // location to a new array 'locationData'.
-                //Convert databyRow.get(i) into Array
-                String[] rowData = locationData.get(i).toArray(new String[1]);
+        } else if (dataRow != null) {
+            datesInRange = getDatesBetween(chosenDate, endDate);
+            datesInRangeStr = convertDateToString(datesInRange);
 
-                //Allocate a new space for a new data
-                dateDataArr.add(new ArrayList<>());
-                //Cuz Arrays.asList only accepts Array
-                dateDataArr.get(i).addAll(Arrays.asList(rowData));
-            } else {
-                continue;
-            }
-        }
-        return dateDataArr;
-    }
+            for (String d : datesInRangeStr) {
+                String inputDate = d;
 
-    public static ArrayList<ArrayList<String>> getDataFromLocation(String pathToNewCSV, String location) throws IOException {
-        ArrayList<ArrayList<String>> dataByRow = readCSV(pathToNewCSV);
-        ArrayList<ArrayList<String>> locationData =
-                new ArrayList<ArrayList<String>>();
-
-        // add the data (related to the input location) into
-        // a new 'locationData' array
-        //check each object array in the dataByRow array if it has the
-        // location the user enter
-        for (int i = 0; i < dataByRow.size(); i++) {
-            if (dataByRow.get(i).contains(location)) {
-                //store the data which already filtered according to the
-                // location to a new array 'locationData'.
-                //Convert databyRow.get(i) into Array
-                String[] rowData = dataByRow.get(i).toArray(new String[1]);
-
-                //Allocate a new space for a new data
-                locationData.add(new ArrayList<>());
-                //Cuz Arrays.asList only accepts Array
-                locationData.get(i).addAll(Arrays.asList(rowData));
-            } else {
-                continue;
+                if ((dataRow.getDate().toString().equals(inputDate))) {
+                    locationData = dataRow;
+                    break;
+                } else {
+                    locationData = null;
+                }
             }
         }
         return locationData;
-    }
-
-
-    public static ArrayList<ArrayList<String>> readCSV(String pathToNewCSV) throws IOException {
-//        try {
-            BufferedReader csvReader =
-                    new BufferedReader(new FileReader(pathToNewCSV));
-            String row = "";
-
-            //put header in an array
-            //readLine the header to skip the 1st line so that the data will
-            // be in the array of their own
-            String header = csvReader.readLine();
-            String[] headerArray = header.split(",");
-            System.out.println(Arrays.toString(headerArray));
-
-            //use 2D array to easily choose data
-            //dataByRow[][]
-            ArrayList<ArrayList<String>> dataByRow =
-                    new ArrayList<ArrayList<String>>();
-            int i = 0;
-
-            //read line by line till the end
-            while ((row = csvReader.readLine()) != null) {
-                String[] data = row.split(",", -1);
-
-                dataByRow.add(new ArrayList<String>());
-                dataByRow.get(i).addAll(Arrays.asList(data));
-                i++;
-
-                //test reading file
-//                for (String d : data) {
-//                    System.out.println(d + "\t");
-//                }
-//                System.out.println();
-            }
-//            System.out.println(dataByRow);
-            return dataByRow;
-//            csvReader.close();
-
-//        } catch (Exception e) {
-//            //pinpoint the error in the code
-//            e.printStackTrace();
+        //        if (locationData != null) {
+//            System.out.println(locationData.toPrintString());
 //        }
     }
 
-    public static void replaceNullCsv(String pathToCSV,
-                                           String pathToNewCSV) {
+
+    public static DataDetail getDataFromLocation (DataDetail dataRow,
+            String inputlocation){
+        if (dataRow.getContinent().equalsIgnoreCase(inputlocation) == false
+                && dataRow.getLocation().equalsIgnoreCase(inputlocation) == false) {
+            dataRow = null;
+        }
+//                if (dataRow != null) {
+//                    System.out.println(dataRow);
+//                }
+        return dataRow;
+    }
+
+    ////////////////////////////////////////////////////////////////
+    //FUNCTIONS: miscellaneous
+    // use for print class Object (cuz else it'll print only the reference add of the object)
+    public String toPrintString () {
+        return iso_code + "," + continent + "," + location + "," + date + "," + new_cases + "," + new_deaths + "," +
+                people_vaccinated + "," + population;
+    }
+
+    public static void replaceNullCsv (String pathToCSV,
+            String pathToNewCSV){
         try {
             BufferedReader csvReader =
                     new BufferedReader(new FileReader(pathToCSV));
@@ -344,7 +482,7 @@ public class DaysFromAParticularDate {
                     }
                 }
                 //add commas between elements
-                for (String s: al) {
+                for (String s : al) {
                     writableString = writableString + s + ",";
                 }
                 //remove last comma
@@ -360,8 +498,66 @@ public class DaysFromAParticularDate {
             e.printStackTrace();
         }
     }
-
 }
+
+//FUNTIONS THAT MAY BE NEEDED
+//    public static boolean isNumeric(String str) {
+//        if (str == null) {
+//            return false;
+//        }
+//        try {
+//            int i = Integer.parseInt(str);
+//            //If they can't convert it, a NumberFormatException is thrown,
+//            // indicating that the String wasn't numeric.
+//        } catch (NumberFormatException e) {
+//            return false;
+//        }
+//        return true;
+//    }
+
+
+//    public static DataDetail[] readCSVline(String pathToNewCSV) throws IOException {
+////        try {
+//        BufferedReader csvReader =
+//                new BufferedReader(new FileReader(pathToNewCSV));
+//
+//        String row;
+//        //skip header(+1)
+//        csvReader.readLine();
+//
+////            String[] headerArray = header.split(",");
+////            System.out.println(Arrays.toString(headerArray));
+//
+//        //read 1 line
+//        row = csvReader.readLine() ;
+//        String[] data = row.split(",", -1);
+//
+//        DataDetail[] dataRow = new DataDetail[8];
+//
+//        dataRow = data;
+//
+////            System.out.println(dataByRow);
+//        return dataRow;
+//        csvReader.close();
+//
+////        } catch (Exception e) {
+////            //pinpoint the error in the code
+////            e.printStackTrace();
+////        }
+//    }
+
+//        public static boolean isSpace(DataDetail[]array){
+//            boolean empty = false;
+//            for (int i = 0; i < array.length; i++) {
+//                if (array[i] == null) {
+//                    empty = true;
+//                }
+//            }
+//            return empty;
+//            //if there is space, return false
+//        }
+
+
 
 
 
