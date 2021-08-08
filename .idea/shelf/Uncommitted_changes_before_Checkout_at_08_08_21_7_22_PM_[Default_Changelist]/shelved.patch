@@ -7,12 +7,12 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/.idea/misc.xml b/.idea/misc.xml
 --- a/.idea/misc.xml	(revision 05e28fbdf4faa179819e3ec2f283005d88322f2d)
-+++ b/.idea/misc.xml	(date 1627731131210)
++++ b/.idea/misc.xml	(date 1628252963280)
 @@ -1,6 +1,6 @@
  <?xml version="1.0" encoding="UTF-8"?>
  <project version="4">
 -  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="openjdk-16" project-jdk-type="JavaSDK">
-+  <component name="ProjectRootManager">
++  <component name="ProjectRootManager" version="2" default="true">
      <output url="file://$PROJECT_DIR$/out" />
    </component>
  </project>
