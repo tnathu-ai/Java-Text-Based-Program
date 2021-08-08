@@ -12,7 +12,7 @@ public class ReadInclusiveDateRange {
     public static void main(String[] args) throws ParseException {
         // Ask for user inputs
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter the name of either desired location(COUNTRY) or CONTINENT: ");
+        System.out.println("Please enter the name of either desired location (COUNTRY) or CONTINENT: ");
         String nameLocation = scanner.nextLine();
         // set date format that match CSV file
         System.out.println("Please enter your desired start date in format dd/MM/yyyy: ");
