@@ -9,14 +9,14 @@ public class CovidData {
     private String continent;
     private String location;
     private String date;
-    private int new_cases;
-    private int new_deaths;
-    private int people_vaccinated;
-    private int population;
+    private long new_cases;
+    private long new_deaths;
+    private long people_vaccinated;
+    private long population;
 
     // Setting up 2 constructors
     // Parameterized Constructor 1
-    public CovidData(String iso_code, String continent, String location, String date, int new_cases, int new_deaths, int people_vaccinated, int population) {
+    public CovidData(String iso_code, String continent, String location, String date, long new_cases, long new_deaths, long people_vaccinated, long population) {
         this.iso_code = iso_code;
         this.continent = continent;
         this.location = location;
@@ -28,11 +28,11 @@ public class CovidData {
     }
 
     // Parameterized Constructor 2
-    public CovidData(String continent, String location, String date) {
-        this.continent = continent;
-        this.location = location;
-        this.date = date;
-    }
+//    public CovidData(String continent, String location, String date) {
+//        this.continent = continent;
+//        this.location = location;
+//        this.date = date;
+//    }
 
     public static ArrayList<String> convertDateToString(ArrayList<Date> ArrList) {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -65,19 +65,19 @@ public class CovidData {
     }
 
 
-    public int getNew_cases() {
+    public long getNew_cases() {
         return this.new_cases;
     }
 
-    public int getNew_deaths() {
+    public long getNew_deaths() {
         return this.new_deaths;
     }
 
-    public int getPeople_vaccinated() {
+    public long getPeople_vaccinated() {
         return this.people_vaccinated;
     }
 
-    public int getPopulation() {
+    public long getPopulation() {
         return this.population;
     }
 
