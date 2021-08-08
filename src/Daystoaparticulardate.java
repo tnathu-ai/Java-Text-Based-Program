@@ -11,23 +11,23 @@ import java.util.Scanner;
 
 
 class DataDetail {
-    String iso_code;
-    String continent;
-    String location;
-    String date;
-    long new_cases;
-    long new_deaths;
-    long people_vaccinated;
-    long population;
+        String iso_code;
+        String continent;
+        String location;
+        String date;
+        long new_cases;
+        long new_deaths;
+        long people_vaccinated;
+        long population;
 
-    public DataDetail(String iso_code,
-                      String continent,
-                      String location,
-                      String date,
-                      long new_cases,
-                      long new_deaths,
-                      long people_vaccinated,
-                      long population) {
+public DataDetail(String iso_code,
+        String continent,
+        String location,
+        String date,
+        long new_cases,
+        long new_deaths,
+        long people_vaccinated,
+        long population) {
         this.iso_code = iso_code;
         this.continent = continent;
         this.location = location;
@@ -36,37 +36,37 @@ class DataDetail {
         this.new_deaths = new_deaths;
         this.people_vaccinated = people_vaccinated;
         this.population = population;
-    }
+        }
 
-    public String getIso_code() {
+public String getIso_code() {
         return iso_code;
-    }
+        }
 
-    public String getContinent() {
+public String getContinent() {
         return continent;
-    }
+        }
 
-    public String getLocation() {
+public String getLocation() {
         return location;
-    }
+        }
 
-    public String getDate() {
+public String getDate() {
         return date;
-    }
+        }
 
-    public long getNew_cases() { return new_cases; }
+public long getNew_cases() { return new_cases; }
 
-    public long getNew_deaths() {
+public long getNew_deaths() {
         return new_deaths;
-    }
+        }
 
-    public long getPeople_vaccinated() {
+public long getPeople_vaccinated() {
         return people_vaccinated;
-    }
+        }
 
-    public long getPopulation() {
+public long getPopulation() {
         return population;
-    }
+        }
 
 
 public class Daystoaparticulardate {
@@ -122,7 +122,7 @@ public class Daystoaparticulardate {
 
             //Start reading 1 row of data & Process immediately
             BufferedReader csvReader =
-                    new BufferedReader(new FileReader(pathToNewCSV));
+                    new BufferedReader(new FileReader(newCSV));
             String row = "";
             csvReader.readLine();
             while ((row = csvReader.readLine()) != null) {
@@ -175,7 +175,7 @@ public class Daystoaparticulardate {
 
             //Start reading 1 row of data & Process immediately
             BufferedReader csvReader =
-                    new BufferedReader(new FileReader(pathToNewCSV));
+                    new BufferedReader(new FileReader(newCSV));
             String row = "";
             csvReader.readLine();
             while ((row = csvReader.readLine()) != null) {
@@ -284,7 +284,7 @@ public class Daystoaparticulardate {
             groupsDaysArr.clear();
             count += 1;
         }
-           System.out.println(groupsDaysArrFinal);
+        System.out.println(groupsDaysArrFinal);
     }
 
     public static String displayStartEndDate (String chosenDate,int dayAway){
@@ -364,9 +364,9 @@ public class Daystoaparticulardate {
                                        String pathToNewCSV){
         try {
             BufferedReader csvReader =
-                    new BufferedReader(new FileReader(pathToCSV));
+                    new BufferedReader(new FileReader(CSV));
             BufferedWriter csvWriter =
-                    new BufferedWriter(new FileWriter(pathToNewCSV));
+                    new BufferedWriter(new FileWriter(newCSV));
             String line = "";
 
             while ((line = csvReader.readLine()) != null) {
