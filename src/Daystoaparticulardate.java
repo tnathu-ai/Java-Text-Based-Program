@@ -287,6 +287,122 @@ public class Daystoaparticulardate {
            System.out.println(groupsDaysArrFinal);
     }
 
+    public static String displayStartEndDate (String chosenDate,int dayAway){
+        //Specifying date format
+        SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
+        Calendar c = new GregorianCalendar();
+        try {
+            Date date = sdf.parse(chosenDate);
+            //Setting the date to the given date
+            c.setTime(date);
+//            System.out.println(date);
+        } catch (ParseException e) {
+            System.out.println("invalid input");
+            e.printStackTrace();
+        }
+
+        //Number of Days to subtract
+        c.subtract(Calendar.DAY_OF_MONTH, dayAway);
+        //Day after subtracting the days to the input date
+        String endDate = sdf.format(c.getTime());
+        //Displaying the new Date after addition of Days
+        System.out.println("Date after Subtraction: " + endDate);
+        System.out.print("\n");
+        return endDate;
+    }
+
+    public static DataDetail getDataFromDate (String chosenDate, String endDate, DataDetail dataRow) throws ParseException {
+        ArrayList<Date> datesInRange = new ArrayList<Date>();
+        ArrayList<String> datesInRangeStr = new ArrayList<String>();
+        DataDetail locationData = null;
+
+        if (dataRow == null) {
+            locationData = null;
+
+        } else if (dataRow != null) {
+            datesInRange = getDatesBetween(chosenDate, endDate);
+            datesInRangeStr = convertDateToString(datesInRange);
+
+            for (String d : datesInRangeStr) {
+                String inputDate = d;
+
+                if ((dataRow.getDate().toString().equals(inputDate))) {
+                    locationData = dataRow;
+                    break;
+                } else {
+                    locationData = null;
+                }
+            }
+        }
+        return locationData;
+        //        if (locationData != null) {
+//            System.out.println(locationData.toPrintString());
+//        }
+    }
+
+
+    public static DataDetail getDataFromLocation (DataDetail dataRow, String inputlocation){
+        if (dataRow.getContinent().equalsIgnoreCase(inputlocation) == false
+                && dataRow.getLocation().equalsIgnoreCase(inputlocation) == false) {
+            dataRow = null;
+        }
+//                if (dataRow != null) {
+//                    System.out.println(dataRow);
+//                }
+        return dataRow;
+    }
+
+    ////////////////////////////////////////////////////////////////
+    //FUNCTIONS: miscellaneous
+    // use for print class Object (cuz else it'll print only the reference add of the object)
+    public String toPrintString () {
+        return iso_code + "," + continent + "," + location + "," + date + "," + new_cases + "," + new_deaths + "," +
+                people_vaccinated + "," + population;
+    }
+
+    public static void replaceNullCsv (String pathToCSV,
+                                       String pathToNewCSV){
+        try {
+            BufferedReader csvReader =
+                    new BufferedReader(new FileReader(pathToCSV));
+            BufferedWriter csvWriter =
+                    new BufferedWriter(new FileWriter(pathToNewCSV));
+            String line = "";
+
+            while ((line = csvReader.readLine()) != null) {
+                String[] values = line.split(",", -1);
+                //make an array out of string
+                String writableString = "";
+                ArrayList<String> al = new ArrayList<>();
+
+                //use array to modify and edit
+                for (String element : values) {
+                    if (element == null || element.length() == 0) {
+                        al.add("0");
+                    } else {
+                        al.add(element);
+                    }
+                }
+                //add commas between elements
+                for (String s : al) {
+                    writableString = writableString + s + ",";
+                }
+                //remove last comma
+                writableString = writableString.substring(0,
+                        writableString.length() - 1);
+                csvWriter.write(writableString + "\n");
+//                System.out.println(writableString);
+            }
+            csvWriter.close();
+            csvReader.close();
+        } catch (Exception e) {
+            //pinpoint the error in the code
+            e.printStackTrace();
+        }
+    }
+}
+
+
 }
 
 
