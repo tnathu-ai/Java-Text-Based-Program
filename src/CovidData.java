@@ -1,20 +1,22 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-
 public class CovidData {
-    // Protected fields
-    protected String iso_code;
-    protected String continent;
-    protected String location;
-    protected Date date;
-    protected int new_cases;
-    protected int new_deaths;
-    protected int people_vaccinated;
-    protected int population;
+    // private fields
+    private String iso_code;
+    private String continent;
+    private String location;
+    private String date;
+    private int new_cases;
+    private int new_deaths;
+    private int people_vaccinated;
+    private int population;
 
-    // Setting up 3 constructors
+    // Setting up 2 constructors
     // Parameterized Constructor 1
-    public CovidData() {
+    public CovidData(String iso_code, String continent, String location, String date, int new_cases, int new_deaths, int people_vaccinated, int population) {
         this.iso_code = iso_code;
         this.continent = continent;
         this.location = location;
@@ -24,16 +26,26 @@ public class CovidData {
         this.people_vaccinated = people_vaccinated;
         this.population = population;
     }
-    // I thought that we can have multiple constructors???
-    // Parameterized Constructor 2
-//    public CovidData(String continent, Date date) {
-//        this(continent, date);            // calling parameterized Constructor
-//    }
-//    // Parameterized Constructor 3
-//    public  CovidData(String location, Date date) {
-//        this(location, date); // calling parameterized Constructor
-//    }
 
+    // Parameterized Constructor 2
+    public CovidData(String continent, String location, String date) {
+        this.continent = continent;
+        this.location = location;
+        this.date = date;
+    }
+
+    public static ArrayList<String> convertDateToString(ArrayList<Date> ArrList) {
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        ArrayList<String> dateToStrArr = new ArrayList<String>();
+
+        for (int i = 0; i < ArrList.size(); i++) {
+            Date DateInArr = ArrList.get(i);
+            String dateToString = df.format(DateInArr);
+            dateToStrArr.add(dateToString);
+        }
+        return dateToStrArr;
+
+    }
 
     public String getIso_code() {
         return this.iso_code;
@@ -43,19 +55,12 @@ public class CovidData {
         return this.continent;
     }
 
-    public void setContinent() {
-        this.continent = continent;
-    }
-
     public String getLocation() {
         return this.location;
     }
 
-    public void setLocation(String location) {
-        this.location = this.location;
-    }
 
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
 
