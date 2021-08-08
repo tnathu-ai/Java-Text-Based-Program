@@ -113,8 +113,6 @@ class DataDetail {
             //Get and Print the Date Range
             ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
             System.out.println(convertDateToString(getDatesBetweenArr));
-            System.out.println("\niso_code, continent, location, date, new_cases, new_deaths, people_vaccinated, " +
-                    "population");
 
             //Start reading 1 row of data & Process immediately
             BufferedReader csvReader =
@@ -159,8 +157,6 @@ class DataDetail {
 //                System.out.println(getDatesBetween(chosenDate, endDate));
             ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
             System.out.println(convertDateToString(getDatesBetweenArr));
-            System.out.println("\niso_code, continent, location, date, new_cases, new_deaths, people_vaccinated, " +
-                    "population");
 
             //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
             ArrayList<Integer> groupsSplittedArr = splitGroupsEqually(dayAway, groups);
@@ -194,7 +190,7 @@ class DataDetail {
                     }
                 }
             }
-        putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, endDate);
+        putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
 
         } else if (option == 3) {
             int daysPerGroup;
@@ -210,8 +206,6 @@ class DataDetail {
 //                System.out.println(getDatesBetween(chosenDate, endDate));
             ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
             System.out.println(convertDateToString(getDatesBetweenArr));
-            System.out.println("\niso_code, continent, location, date, new_cases, new_deaths, people_vaccinated, " +
-                    "population");
 
             //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
             ArrayList<Integer> groupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
@@ -245,7 +239,7 @@ class DataDetail {
                     }
                 }
             }
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, endDate);
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
 
         } else {
             //Just in case sth else happens
@@ -256,7 +250,7 @@ class DataDetail {
     ////////////////////////////////////////////////////////////////
     //SPLITDAY, SPLITGROUP FUNCTIONS
     public static void putDataInGroup(ArrayList<DataDetail> bigGroup, ArrayList<Integer> groupsSplittedArr,
-                                      String originalStartDate, String originalEndDate) throws ParseException {
+                                      String originalStartDate) throws ParseException {
         ArrayList<DataDetail> groupsDaysArr = new ArrayList<DataDetail>();
         ArrayList<ArrayList<DataDetail>> groupsDaysArrFinal = new ArrayList<ArrayList<DataDetail>>();
 
@@ -341,14 +335,19 @@ class DataDetail {
         //n: groups
         //d: daysPerGroup
         ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
+        if (d==1) {
+            for (int i = 0; i <= x; i++) {
+                groupsSplittedArr.add(d);
+            }
+        } else {
             for (int n = 2; n < x; n++) {
                 // If x % n == 0 then the minimum
                 // difference is 0 and all
                 // numbers are x / n
                 if (x % d == 0) {
                     System.out.println("You can divide into " + (x / d) + " groups");
-                    for (int i = 0; i < n; i++) {
-                        groupsSplittedArr.add(x/d);
+                    for (int i = 0; i <= n; i++) {
+                        groupsSplittedArr.add(x / d);
                     }
                     break;
 
@@ -360,10 +359,10 @@ class DataDetail {
 
                 } else {
                     System.out.println("It is not possible to divide equally!!!");
-                    System.out.println("The data should be divided equally into:" + groupsSplittedArr);
                     break;
                 }
             }
+        }
 //                System.out.println(groupsSplittedArr);
         return groupsSplittedArr;
     }
@@ -474,8 +473,9 @@ class DataDetail {
     //FUNCTIONS: miscellaneous
     // use for print class Object (cuz else it'll print only the reference add of the object)
     public String toPrintString () {
-        return iso_code + "," + continent + "," + location + "," + date + "," + new_cases + "," + new_deaths + "," +
-                people_vaccinated + "," + population;
+        return "iso_code: " + iso_code + ", " + "continent: " + continent + ", " + "location: " + location + ", " +
+                "date: " + date + ", " + "new_cases: "+ new_cases + ", " + "new_deaths: " +new_deaths + ", " +
+                "people_vaccinated: " + people_vaccinated + ", " + "population: " + population;
     }
 
     public static void replaceNullCsv (String pathToCSV,
