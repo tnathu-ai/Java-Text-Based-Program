@@ -194,7 +194,7 @@ class DataDetail {
                     }
                 }
             }
-        putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, endDate);
+        putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
 
         } else if (option == 3) {
             int daysPerGroup;
@@ -245,7 +245,7 @@ class DataDetail {
                     }
                 }
             }
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, endDate);
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
 
         } else {
             //Just in case sth else happens
@@ -256,7 +256,7 @@ class DataDetail {
     ////////////////////////////////////////////////////////////////
     //SPLITDAY, SPLITGROUP FUNCTIONS
     public static void putDataInGroup(ArrayList<DataDetail> bigGroup, ArrayList<Integer> groupsSplittedArr,
-                                      String originalStartDate, String originalEndDate) throws ParseException {
+                                      String originalStartDate) throws ParseException {
         ArrayList<DataDetail> groupsDaysArr = new ArrayList<DataDetail>();
         ArrayList<ArrayList<DataDetail>> groupsDaysArrFinal = new ArrayList<ArrayList<DataDetail>>();
 
@@ -341,29 +341,29 @@ class DataDetail {
         //n: groups
         //d: daysPerGroup
         ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
-            for (int n = 2; n < x; n++) {
-                // If x % n == 0 then the minimum
-                // difference is 0 and all
-                // numbers are x / n
-                if (x % d == 0) {
-                    System.out.println("You can divide into " + (x / d) + " groups");
-                    for (int i = 0; i < n; i++) {
-                        groupsSplittedArr.add(x/d);
-                    }
-                    break;
-
-                } else if (x % n == 0) {
-                    for (int i = 0; i < n; i++) {
-//                                System.out.print((x / n) + " ");
-                        groupsSplittedArr.add(x/n);
-                    }
-
-                } else {
-                    System.out.println("It is not possible to divide equally!!!");
-                    System.out.println("The data should be divided equally into:" + groupsSplittedArr);
-                    break;
+        for (int n = 2; n < x; n++) {
+            // If x % n == 0 then the minimum
+            // difference is 0 and all
+            // numbers are x / n
+            if (x % d == 0) {
+                System.out.println("You can divide into " + (x / d) + " groups");
+                for (int i = 0; i <= n; i++) {
+                    groupsSplittedArr.add(x / d);
                 }
+                break;
+
+            } else if (x % n == 0) {
+                for (int i = 0; i < n; i++) {
+//                                System.out.print((x / n) + " ");
+                    groupsSplittedArr.add(x/n);
+                }
+
+            } else {
+                System.out.println("It is not possible to divide equally!!!");
+                System.out.println("The data should be divided equally into:" + groupsSplittedArr);
+                break;
             }
+        }
 //                System.out.println(groupsSplittedArr);
         return groupsSplittedArr;
     }
