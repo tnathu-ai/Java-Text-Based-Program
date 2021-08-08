@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.text.DateFormat;
 import java.util.*;
@@ -193,7 +194,7 @@ class DataDetail {
                     }
                 }
             }
-        putDataInGroup(bigGroup, groupsSplittedArr);
+        putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, endDate);
 
         } else if (option == 3) {
             int daysPerGroup;
@@ -244,7 +245,7 @@ class DataDetail {
                     }
                 }
             }
-            putDataInGroup(bigGroup, groupsSplittedArr);
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, endDate);
 
         } else {
             //Just in case sth else happens
@@ -254,30 +255,49 @@ class DataDetail {
 
     ////////////////////////////////////////////////////////////////
     //SPLITDAY, SPLITGROUP FUNCTIONS
-    public static void putDataInGroup(ArrayList<DataDetail> bigGroup,
-                                     ArrayList<Integer> groupsSplittedArr) {
+    public static void putDataInGroup(ArrayList<DataDetail> bigGroup, ArrayList<Integer> groupsSplittedArr,
+                                      String originalStartDate, String originalEndDate) throws ParseException {
         ArrayList<DataDetail> groupsDaysArr = new ArrayList<DataDetail>();
         ArrayList<ArrayList<DataDetail>> groupsDaysArrFinal = new ArrayList<ArrayList<DataDetail>>();
 
+
         int count = 1;
         int k = 0;
+        String osd = originalStartDate;
 
         for (int outerInd = 0; outerInd < groupsSplittedArr.size(); outerInd++) {
-            System.out.println("GROUP " + count);
+            System.out.println("\nGROUP " + count);
+            //plusDay : the number of DAYS that need to be added to the StartDay
+            int plusDay = groupsSplittedArr.get(outerInd);
+            //Get the new endDay (from the plusDay)
+            String newEndDate = displayStartEndDate(osd, plusDay);
+            //Get the new temp dayRangeStr
+            ArrayList<String> dayRangeStr = convertDateToString(getDatesBetween(osd, newEndDate));
+            System.out.println(dayRangeStr);
 
-            for (int innerInd = 0; innerInd < groupsSplittedArr.get(outerInd); innerInd++) {
+            for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
                 DataDetail dateElement = bigGroup.get(k);
-                groupsDaysArr.add(dateElement);
+                //Accept dataElement if it is in the Range of osd-oed
+                DataDetail dateData = getDataFromDate(osd, newEndDate, dateElement);
+                groupsDaysArr.add(dateData);
                 k += 1;
             }
+            k=0;
+            osd = newEndDate;
 
             for (DataDetail gda: groupsDaysArr) {
-                System.out.println(gda.toPrintString());
+                //must not null to be able to convert to String
+                if (gda != null) {
+                    System.out.println(gda.toPrintString());
+                } else {
+                    ;
+                }
             }
             Collections.addAll(groupsDaysArrFinal, groupsDaysArr);
             groupsDaysArr.clear();
             count += 1;
         }
+
 //            System.out.println(groupsDaysArrFinal);
     }
 
@@ -341,6 +361,7 @@ class DataDetail {
                 } else {
                     System.out.println("It is not possible to divide equally!!!");
                     System.out.println("The data should be divided equally into:" + groupsSplittedArr);
+                    break;
                 }
             }
 //                System.out.println(groupsSplittedArr);
@@ -369,7 +390,6 @@ class DataDetail {
         String endDate = sdf.format(c.getTime());
         //Displaying the new Date after addition of Days
         System.out.println("Date after Addition: " + endDate);
-        System.out.print("\n");
         return endDate;
     }
 
@@ -498,9 +518,22 @@ class DataDetail {
             e.printStackTrace();
         }
     }
+
+
 }
 
 //FUNTIONS THAT MAY BE NEEDED
+//public static boolean isSpace(ArrayList<Integer> array){
+//    boolean empty = false;
+//    for (int i = 0; i < array.size(); i++) {
+//        if (array.get(i) == null) {
+//            empty = true;
+//        }
+//    }
+//    return empty;
+//    //if there is space, return false
+//}
+
 //    public static boolean isNumeric(String str) {
 //        if (str == null) {
 //            return false;
@@ -546,16 +579,7 @@ class DataDetail {
 ////        }
 //    }
 
-//        public static boolean isSpace(DataDetail[]array){
-//            boolean empty = false;
-//            for (int i = 0; i < array.length; i++) {
-//                if (array[i] == null) {
-//                    empty = true;
-//                }
-//            }
-//            return empty;
-//            //if there is space, return false
-//        }
+
 
 
 
