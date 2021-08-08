@@ -44,7 +44,9 @@ public static List<CovidData> getDataFromCSV(String file, String nameLocation, S
             // use split(“,”) method to split row and separate each field.
             String[] data = line.split(",");
 
-            CovidData dataRage = new CovidData(data[1], data[2], data[3]);
+            CovidData dataRage = new CovidData(data[0], data[1], data[2],
+                    data[3], Long.parseLong(data[4]), Long.parseLong(data[5]), Long.parseLong(data[6]),
+                    Long.parseLong(data[7]));
 
             //Deal with 1 row of data
 //                getDataFromLocation(dataRage, location);
