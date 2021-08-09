@@ -81,8 +81,9 @@ public class CovidData {
         return this.population;
     }
 
-    public String toString() {
+    public String toPrintString() {
         return "Covid Data [iso_code=" + this.iso_code + ", date=" + this.date + ", new_cases=" + this.new_cases +
-                ", new_deaths=" + this.new_deaths + ", people_vaccinated=" + this.people_vaccinated + ", population=" + this.population + "]";
+                ", new_deaths=" + this.new_deaths + ", people_vaccinated=" + this.people_vaccinated + ", " +
+                "population=" + this.population + "]";
     }
 }

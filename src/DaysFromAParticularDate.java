@@ -5,66 +5,10 @@ import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-class DataDetail {
-    String iso_code;
-    String continent;
-    String location;
-    String date;
-    long new_cases;
-    long new_deaths;
-    long people_vaccinated;
-    long population;
+class DaysFromAParticularDate {
 
-    public DataDetail(String iso_code,
-                      String continent,
-                      String location,
-                      String date,
-                      long new_cases,
-                      long new_deaths,
-                      long people_vaccinated,
-                      long population) {
-        this.iso_code = iso_code;
-        this.continent = continent;
-        this.location = location;
-        this.date = date;
-        this.new_cases = new_cases;
-        this.new_deaths = new_deaths;
-        this.people_vaccinated = people_vaccinated;
-        this.population = population;
-    }
-
-    public String getIso_code() {
-        return iso_code;
-    }
-
-    public String getContinent() {
-        return continent;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public long getNew_cases() { return new_cases; }
-
-    public long getNew_deaths() {
-        return new_deaths;
-    }
-
-    public long getPeople_vaccinated() {
-        return people_vaccinated;
-    }
-
-    public long getPopulation() {
-        return population;
-    }
-
-//MAIN METHOD: user input
-    public static void main (String args[]) throws IOException, ParseException {
+    //MAIN METHOD: user input
+    public static void main(String args[]) throws IOException, ParseException {
         String pathToCSV = "Data/covid-data.csv";
         String pathToNewCSV = "Data/covid-data-zero.csv";
         replaceNullCsv(pathToCSV, pathToNewCSV);
@@ -98,7 +42,7 @@ class DataDetail {
         ProcessData(pathToNewCSV, location, chosenDate, dayAway, option);
     }
 
-//ALL METHODS (sorted by Group Types):
+    //ALL METHODS (sorted by Group Types):
     //1. ProcessData : the order sequence of processing/handling Data (row by row)
     //2. SplitDay, SplitGroup , PutDataIntoGroup
     //3. Handle TIME-related functions
@@ -124,7 +68,7 @@ class DataDetail {
 
                 int i = 0;
 
-                DataDetail dataRow = new DataDetail(data[i],
+                CovidData dataRow = new CovidData(data[i],
                         data[i + 1],
                         data[i + 2],
                         data[i + 3],
@@ -134,10 +78,10 @@ class DataDetail {
                         Long.parseLong(data[i + 7]));
 
                 //Deal with 1 row of data
-                DataDetail returnRowLocation = getDataFromLocation (dataRow, location);
+                CovidData returnRowLocation = getDataFromLocation(dataRow, location);
 //                getDataFromLocation(dataRow, location);
                 if (returnRowLocation != null) {
-                    DataDetail returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
+                    CovidData returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
                     if (returnRow != null) {
                         System.out.println(returnRow.toPrintString());
                     }
@@ -160,7 +104,7 @@ class DataDetail {
 
             //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
             ArrayList<Integer> groupsSplittedArr = splitGroupsEqually(dayAway, groups);
-            ArrayList<DataDetail> bigGroup = new ArrayList<DataDetail>();
+            ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
 
             //Start reading 1 row of data & Process immediately
             BufferedReader csvReader =
@@ -171,7 +115,7 @@ class DataDetail {
                 String[] data = row.split(",", -1);
                 int i = 0;
 
-                DataDetail dataRow = new DataDetail(data[i],
+                CovidData dataRow = new CovidData(data[i],
                         data[i + 1],
                         data[i + 2],
                         data[i + 3],
@@ -181,16 +125,16 @@ class DataDetail {
                         Long.parseLong(data[i + 7]));
 
                 //Deal with 1 row of data
-                DataDetail returnRowLocation = getDataFromLocation(dataRow, location);
+                CovidData returnRowLocation = getDataFromLocation(dataRow, location);
 //                getDataFromLocation(dataRow, location);
                 if (returnRowLocation != null) {
-                    DataDetail returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
+                    CovidData returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
                     if (returnRow != null) {
                         bigGroup.add(returnRow);
                     }
                 }
             }
-        putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
 
         } else if (option == 3) {
             int daysPerGroup;
@@ -209,7 +153,7 @@ class DataDetail {
 
             //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
             ArrayList<Integer> groupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
-            ArrayList<DataDetail> bigGroup = new ArrayList<DataDetail>();
+            ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
 
             //Start reading 1 row of data & Process immediately
             BufferedReader csvReader =
@@ -220,7 +164,7 @@ class DataDetail {
                 String[] data = row.split(",", -1);
                 int i = 0;
 
-                DataDetail dataRow = new DataDetail(data[i],
+                CovidData dataRow = new CovidData(data[i],
                         data[i + 1],
                         data[i + 2],
                         data[i + 3],
@@ -230,10 +174,10 @@ class DataDetail {
                         Long.parseLong(data[i + 7]));
 
                 //Deal with 1 row of data
-                DataDetail returnRowLocation = getDataFromLocation (dataRow, location);
+                CovidData returnRowLocation = getDataFromLocation(dataRow, location);
 //                getDataFromLocation(dataRow, location);
                 if (returnRowLocation != null) {
-                    DataDetail returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
+                    CovidData returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
                     if (returnRow != null) {
                         bigGroup.add(returnRow);
                     }
@@ -249,10 +193,10 @@ class DataDetail {
 
     ////////////////////////////////////////////////////////////////
     //SPLITDAY, SPLITGROUP FUNCTIONS
-    public static void putDataInGroup(ArrayList<DataDetail> bigGroup, ArrayList<Integer> groupsSplittedArr,
+    public static void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
                                       String originalStartDate) throws ParseException {
-        ArrayList<DataDetail> groupsDaysArr = new ArrayList<DataDetail>();
-        ArrayList<ArrayList<DataDetail>> groupsDaysArrFinal = new ArrayList<ArrayList<DataDetail>>();
+        ArrayList<CovidData> groupsDaysArr = new ArrayList<CovidData>();
+        ArrayList<ArrayList<CovidData>> groupsDaysArrFinal = new ArrayList<ArrayList<CovidData>>();
 
 
         int count = 1;
@@ -270,16 +214,16 @@ class DataDetail {
             System.out.println(dayRangeStr);
 
             for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
-                DataDetail dateElement = bigGroup.get(k);
+                CovidData dateElement = bigGroup.get(k);
                 //Accept dataElement if it is in the Range of osd-oed
-                DataDetail dateData = getDataFromDate(osd, newEndDate, dateElement);
+                CovidData dateData = getDataFromDate(osd, newEndDate, dateElement);
                 groupsDaysArr.add(dateData);
                 k += 1;
             }
-            k=0;
+            k = 0;
             osd = newEndDate;
 
-            for (DataDetail gda: groupsDaysArr) {
+            for (CovidData gda : groupsDaysArr) {
                 //must not null to be able to convert to String
                 if (gda != null) {
                     System.out.println(gda.toPrintString());
@@ -335,7 +279,7 @@ class DataDetail {
         //n: groups
         //d: daysPerGroup
         ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
-        if (d==1) {
+        if (d == 1) {
             for (int i = 0; i <= x; i++) {
                 groupsSplittedArr.add(d);
             }
@@ -354,7 +298,7 @@ class DataDetail {
                 } else if (x % n == 0) {
                     for (int i = 0; i < n; i++) {
 //                                System.out.print((x / n) + " ");
-                        groupsSplittedArr.add(x/n);
+                        groupsSplittedArr.add(x / n);
                     }
 
                 } else {
@@ -369,7 +313,7 @@ class DataDetail {
 
     ////////////////////////////////////////////////////////////////
     //Handle TIME-related functions
-    public static String displayStartEndDate (String chosenDate,int dayAway){
+    public static String displayStartEndDate(String chosenDate, int dayAway) {
         //Specifying date format
         SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
         Calendar c = new GregorianCalendar();
@@ -392,7 +336,7 @@ class DataDetail {
         return endDate;
     }
 
-    public static ArrayList<Date> getDatesBetween (String startDate, String endDate) throws ParseException {
+    public static ArrayList<Date> getDatesBetween(String startDate, String endDate) throws ParseException {
         //convert String to Date
         SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
         Date sDate = sdf.parse(startDate);
@@ -413,7 +357,7 @@ class DataDetail {
         return datesInRange;
     }
 
-    public static ArrayList<String> convertDateToString (ArrayList < Date > ArrList) {
+    public static ArrayList<String> convertDateToString(ArrayList<Date> ArrList) {
         DateFormat df = new SimpleDateFormat("M/d/yyyy");
         ArrayList<String> dateToStrArr = new ArrayList<String>();
 
@@ -427,10 +371,10 @@ class DataDetail {
 
     ////////////////////////////////////////////////////////////////
     //FUNCTIONS: Filter Data according to Date, Location
-    public static DataDetail getDataFromDate (String chosenDate, String endDate, DataDetail dataRow) throws ParseException {
+    public static CovidData getDataFromDate(String chosenDate, String endDate, CovidData dataRow) throws ParseException {
         ArrayList<Date> datesInRange = new ArrayList<Date>();
         ArrayList<String> datesInRangeStr = new ArrayList<String>();
-        DataDetail locationData = null;
+        CovidData locationData = null;
 
         if (dataRow == null) {
             locationData = null;
@@ -457,8 +401,8 @@ class DataDetail {
     }
 
 
-    public static DataDetail getDataFromLocation (DataDetail dataRow,
-            String inputlocation){
+    public static CovidData getDataFromLocation(CovidData dataRow,
+                                                String inputlocation) {
         if (dataRow.getContinent().equalsIgnoreCase(inputlocation) == false
                 && dataRow.getLocation().equalsIgnoreCase(inputlocation) == false) {
             dataRow = null;
@@ -469,17 +413,8 @@ class DataDetail {
         return dataRow;
     }
 
-    ////////////////////////////////////////////////////////////////
-    //FUNCTIONS: miscellaneous
-    // use for print class Object (cuz else it'll print only the reference add of the object)
-    public String toPrintString () {
-        return "iso_code: " + iso_code + ", " + "continent: " + continent + ", " + "location: " + location + ", " +
-                "date: " + date + ", " + "new_cases: "+ new_cases + ", " + "new_deaths: " +new_deaths + ", " +
-                "people_vaccinated: " + people_vaccinated + ", " + "population: " + population;
-    }
-
-    public static void replaceNullCsv (String pathToCSV,
-            String pathToNewCSV){
+    public static void replaceNullCsv(String pathToCSV,
+                                      String pathToNewCSV) {
         try {
             BufferedReader csvReader =
                     new BufferedReader(new FileReader(pathToCSV));
@@ -518,9 +453,9 @@ class DataDetail {
             e.printStackTrace();
         }
     }
-
-
 }
+
+
 
 //FUNTIONS THAT MAY BE NEEDED
 //public static boolean isSpace(ArrayList<Integer> array){
@@ -549,7 +484,7 @@ class DataDetail {
 //    }
 
 
-//    public static DataDetail[] readCSVline(String pathToNewCSV) throws IOException {
+//    public static CovidData[] readCSVline(String pathToNewCSV) throws IOException {
 ////        try {
 //        BufferedReader csvReader =
 //                new BufferedReader(new FileReader(pathToNewCSV));
@@ -565,7 +500,7 @@ class DataDetail {
 //        row = csvReader.readLine() ;
 //        String[] data = row.split(",", -1);
 //
-//        DataDetail[] dataRow = new DataDetail[8];
+//        CovidData[] dataRow = new CovidData[8];
 //
 //        dataRow = data;
 //

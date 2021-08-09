@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +7,10 @@ import java.util.*;
 public class ReadInclusiveDateRange {
 
     public static void main(String[] args) throws ParseException {
+
+        String pathToCSV = "Data/covid-data.csv";
+        String pathToNewCSV = "Data/covid-data-zero.csv";
+        replaceNullCsv(pathToCSV, pathToNewCSV);
         // Ask for user inputs
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the name of either desired location (COUNTRY) or CONTINENT: ");
@@ -20,7 +21,7 @@ public class ReadInclusiveDateRange {
         System.out.println("Please enter your desired end date in format dd/MM/yyyy: ");
         String endDate = scanner.next();
         
-        List<CovidData> dataList = getDataFromCSV("Data/covid-data.csv", nameLocation, startDate, endDate);
+        List<CovidData> dataList = getDataFromCSV(pathToNewCSV, nameLocation, startDate, endDate);
 
         for (CovidData c : dataList) {
             System.out.println(c);
@@ -114,6 +115,47 @@ public static List<CovidData> getDataFromCSV(String file, String nameLocation, S
             c.add(Calendar.DATE, 1);
         }
         return datesInRange;
+    }
+
+    public static void replaceNullCsv (String pathToCSV,
+                                       String pathToNewCSV){
+        try {
+            BufferedReader csvReader =
+                    new BufferedReader(new FileReader(pathToCSV));
+            BufferedWriter csvWriter =
+                    new BufferedWriter(new FileWriter(pathToNewCSV));
+            String line = "";
+
+            while ((line = csvReader.readLine()) != null) {
+                String[] values = line.split(",", -1);
+                //make an array out of string
+                String writableString = "";
+                ArrayList<String> al = new ArrayList<>();
+
+                //use array to modify and edit
+                for (String element : values) {
+                    if (element == null || element.length() == 0) {
+                        al.add("0");
+                    } else {
+                        al.add(element);
+                    }
+                }
+                //add commas between elements
+                for (String s : al) {
+                    writableString = writableString + s + ",";
+                }
+                //remove last comma
+                writableString = writableString.substring(0,
+                        writableString.length() - 1);
+                csvWriter.write(writableString + "\n");
+//                System.out.println(writableString);
+            }
+            csvWriter.close();
+            csvReader.close();
+        } catch (Exception e) {
+            //pinpoint the error in the code
+            e.printStackTrace();
+        }
     }
 
 }
