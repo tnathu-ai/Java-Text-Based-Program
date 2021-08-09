@@ -82,7 +82,7 @@ public class CovidData {
     }
 
     public String toPrintString() {
-        return "Covid Data [iso_code=" + this.iso_code + ", date=" + this.date + ", new_cases=" + this.new_cases +
+        return "Covid Data [iso_code=" + this.iso_code + ", continent=" + this.continent + ", location=" + this.location + ", date=" + this.date + ", new_cases=" + this.new_cases +
                 ", new_deaths=" + this.new_deaths + ", people_vaccinated=" + this.people_vaccinated + ", " +
                 "population=" + this.population + "]";
     }
