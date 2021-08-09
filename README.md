@@ -53,7 +53,7 @@ After specifying a grouping method, a metric is chosen. There are 3 possible met
 
 ##### A result is calculated (b.3)
 Finally, users of your program can choose one of the following result types (explanation of 2.3)
-New Total: total new cases/new deaths/new vaccinated people in a group.
++ **New Total:** total new cases/new deaths/new vaccinated people in a group.
 
 **Note:** the vaccinated column contains the accumulated values up to a date, not new data for each date as new cases and new deaths columns. So, you can calculate vaccinated2 – vaccinated1 to get the new vaccinated after day 1 up to day 2
 + **Up To:** total cases/deaths/vaccinated from the beginning up to the last date of a group
