@@ -8,7 +8,7 @@ public class UserInterface {
             int FinalChoice;
 
             //input name
-            System.out.println("Please input name here");
+            System.out.println("Please enter the name of either a desired location (country) or continent: ");
             String AreaName = scanner.nextLine();
             System.out.println("The area is " + AreaName);
 

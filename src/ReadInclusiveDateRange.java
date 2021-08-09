@@ -21,12 +21,7 @@ public class ReadInclusiveDateRange {
         System.out.println("Please enter your desired end date in format MM/dd/yyyy: ");
         String endDate = scanner.next();
         
-        List<CovidData> dataList = getDataFromCSV(pathToNewCSV, nameLocation, startDate, endDate);
-
-        for (CovidData c : dataList) {
-            System.out.println(c);
-        }
-
+        getDataFromCSV(pathToNewCSV, nameLocation, startDate, endDate);
     }
 
 
