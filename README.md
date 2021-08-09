@@ -56,7 +56,7 @@ Finally, users of your program can choose one of the following result types (exp
 New Total: total new cases/new deaths/new vaccinated people in a group.
 
 **Note:** the vaccinated column contains the accumulated values up to a date, not new data for each date as new cases and new deaths columns. So, you can calculate vaccinated2 – vaccinated1 to get the new vaccinated after day 1 up to day 2
-**Up To:** total cases/deaths/vaccinated from the beginning up to the last date of a group
++ **Up To:** total cases/deaths/vaccinated from the beginning up to the last date of a group
 
 #### c. Display: summary data is displayed to viewers. There are 2 ways to display data
 ##### Tabular display: 
