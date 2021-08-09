@@ -13,12 +13,12 @@ public class ReadInclusiveDateRange {
         replaceNullCsv(pathToCSV, pathToNewCSV);
         // Ask for user inputs
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter the name of either desired location (COUNTRY) or CONTINENT: ");
+        System.out.println("Please enter the name of either a desired location (country) or continent: ");
         String nameLocation = scanner.nextLine();
         // set date format that match CSV file
-        System.out.println("Please enter your desired start date in format dd/MM/yyyy: ");
+        System.out.println("Please enter your desired start date in format MM/dd/yyyy: ");
         String startDate = scanner.next();
-        System.out.println("Please enter your desired end date in format dd/MM/yyyy: ");
+        System.out.println("Please enter your desired end date in format MM/dd/yyyy: ");
         String endDate = scanner.next();
         
         List<CovidData> dataList = getDataFromCSV(pathToNewCSV, nameLocation, startDate, endDate);
