@@ -290,8 +290,8 @@ class DaysFromAParticularDate {
                 // numbers are x / n
                 if (x % d == 0) {
                     System.out.println("You can divide into " + (x / d) + " groups");
-                    for (int i = 0; i <= n; i++) {
-                        groupsSplittedArr.add(x / d);
+                    for (int i = 0; i < x/d; i++) {
+                        groupsSplittedArr.add(x / (x/d));
                     }
                     break;
 
