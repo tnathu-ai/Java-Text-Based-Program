@@ -52,7 +52,7 @@ public static List<CovidData> getDataFromCSV(String file, String nameLocation, S
             //Deal with 1 row of data
 //                getDataFromLocation(dataRage, location);
                 CovidData returnRow = getInclusiveRageDateFromLocation(nameLocation, startDate, endDate, dataRage);
-                    System.out.println(returnRow.toString());
+                    System.out.println(returnRow.toPrintString());
 
             // return an array which will be column data
 //            System.out.println("Continent: " + data[1] + " Location: " + data[2] + " Rage of Dates: " + data[3]);
