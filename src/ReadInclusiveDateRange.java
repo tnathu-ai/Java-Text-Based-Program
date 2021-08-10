@@ -6,62 +6,183 @@ import java.util.*;
 
 public class ReadInclusiveDateRange {
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, IOException {
 
         String pathToCSV = "Data/covid-data.csv";
         String pathToNewCSV = "Data/covid-data-zero.csv";
         replaceNullCsv(pathToCSV, pathToNewCSV);
         // Ask for user inputs
-        Scanner scanner = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         System.out.println("Please enter the name of either a desired location (country) or continent: ");
-        String nameLocation = scanner.nextLine();
+        String location = input.nextLine();
         // set date format that match CSV file
         System.out.println("Please enter your desired start date in format MM/dd/yyyy: ");
-        String startDate = scanner.next();
+        String chosenDate = input.next();
         System.out.println("Please enter your desired end date in format MM/dd/yyyy: ");
-        String endDate = scanner.next();
-        
-        getDataFromCSV(pathToNewCSV, nameLocation, startDate, endDate);
+        String endDate = input.next();
+
+        System.out.println("\nThere are 3 ways you can choose to group your" +
+                " days: ");
+        System.out.println("1. No grouping: each day is a separate group.");
+        System.out.println("2. Choose the number of groups that the number of days will be divided equally into " +
+                "each " +
+                "group");
+        System.out.println("3. Choose the number of days in each divided group (Note: The program will choose the" +
+                " " +
+                "most optimal number for grouping equally");
+        System.out.println();
+        int option;
+        do {
+            System.out.print("Please enter the number in those 3 options to choose: ");
+            option = input.nextInt();
+        } while (option != 1 && option != 2 && option != 3);
+
+        getDataFromCSV(pathToNewCSV, location, chosenDate, endDate, option);
     }
 
 
-public static List<CovidData> getDataFromCSV(String file, String nameLocation, String startDate, String endDate) throws ParseException {
-    List<CovidData> dataList = new ArrayList<>();
+    public static List<CovidData> getDataFromCSV(String pathToNewCSV, String location,
+                                                 String chosenDate, String endDate, int option)
+            throws ParseException, IOException {
+        List<CovidData> dataList = new ArrayList<>();
+        int dayAway = calculateDayAway(chosenDate, endDate);
+        if (option == 1) {
 
-    // Declaring a variable to lookup for
-    // number of lines in the CSV file
-    String headers;
-    String line;
+            // Declaring a variable to lookup for
+            // number of lines in the CSV file
+            String headers;
+            String line;
 //        ArrayList<String> covidData = null;
 
-    try (BufferedReader br =  new BufferedReader(new FileReader(file))) {
-        headers = br.readLine();
-        while ((line = br.readLine()) != null) {
-            // use split(“,”) method to split row and separate each field.
-            String[] data = line.split(",");
+            try (BufferedReader br = new BufferedReader(new FileReader(pathToNewCSV))) {
+                headers = br.readLine();
+                while ((line = br.readLine()) != null) {
+                    // use split(“,”) method to split row and separate each field.
+                    String[] data = line.split(",");
 
-            CovidData dataRage = new CovidData(data[0], data[1], data[2],
-                    data[3], Long.parseLong(data[4]), Long.parseLong(data[5]), Long.parseLong(data[6]),
-                    Long.parseLong(data[7]));
+                    CovidData dataRage = new CovidData(data[0], data[1], data[2],
+                            data[3], Long.parseLong(data[4]), Long.parseLong(data[5]), Long.parseLong(data[6]),
+                            Long.parseLong(data[7]));
 
-            //Deal with 1 row of data
+                    //Deal with 1 row of data
 //                getDataFromLocation(dataRage, location);
-                CovidData returnRow = getInclusiveRageDateFromLocation(nameLocation, startDate, endDate, dataRage);
+                    CovidData returnRow = getInclusiveRageDateFromLocation(location, chosenDate, endDate, dataRage);
                     System.out.println(returnRow.toPrintString());
 
-            // return an array which will be column data
+                    // return an array which will be column data
 //            System.out.println("Continent: " + data[1] + " Location: " + data[2] + " Rage of Dates: " + data[3]);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return dataList;
+
+        } else if (option == 2) {
+
+            int groups;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Enter the number of groups (smaller than the number of days): ");
+                groups = input.nextInt();
+            } while (groups > dayAway);
+
+            //Get and Print the Date Range
+//                System.out.println(getDatesBetween(chosenDate, endDate));
+            ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
+            System.out.println(DaysFromAParticularDate.convertDateToString(getDatesBetweenArr));
+
+            //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
+            ArrayList<Integer> groupsSplittedArr = DaysFromAParticularDate.splitGroupsEqually(dayAway, groups);
+            ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
+
+            //Start reading 1 row of data & Process immediately
+            BufferedReader csvReader =
+                    new BufferedReader(new FileReader(pathToNewCSV));
+            String row = "";
+            csvReader.readLine();
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(",", -1);
+                int i = 0;
+
+                CovidData dataRow = new CovidData(data[i],
+                        data[i + 1],
+                        data[i + 2],
+                        data[i + 3],
+                        Long.parseLong(data[i + 4]),
+                        Long.parseLong(data[i + 5]),
+                        Long.parseLong(data[i + 6]),
+                        Long.parseLong(data[i + 7]));
+
+                //Deal with 1 row of data
+                CovidData returnRowLocation = DaysFromAParticularDate.getDataFromLocation(dataRow, location);
+//                getDataFromLocation(dataRow, location);
+                if (returnRowLocation != null) {
+                    CovidData returnRow = DaysFromAParticularDate.getDataFromDate(chosenDate, endDate, returnRowLocation);
+                    if (returnRow != null) {
+                        bigGroup.add(returnRow);
+                    }
+                }
+            }
+            DaysFromAParticularDate.putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
+
+        } else if (option == 3) {
+            int daysPerGroup;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Enter the number of days in each group (larger than 1): ");
+                daysPerGroup = input.nextInt();
+
+            } while (daysPerGroup > dayAway && daysPerGroup > 1);
+
+            //Get and Print the Date Range
+//                System.out.println(getDatesBetween(chosenDate, endDate));
+            ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
+            System.out.println(DaysFromAParticularDate.convertDateToString(getDatesBetweenArr));
+
+            //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
+            ArrayList<Integer> groupsSplittedArr = DaysFromAParticularDate.splitEqualDays(dayAway, daysPerGroup);
+            ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
+
+            //Start reading 1 row of data & Process immediately
+            BufferedReader csvReader =
+                    new BufferedReader(new FileReader(pathToNewCSV));
+            String row = "";
+            csvReader.readLine();
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(",", -1);
+                int i = 0;
+
+                CovidData dataRow = new CovidData(data[i],
+                        data[i + 1],
+                        data[i + 2],
+                        data[i + 3],
+                        Long.parseLong(data[i + 4]),
+                        Long.parseLong(data[i + 5]),
+                        Long.parseLong(data[i + 6]),
+                        Long.parseLong(data[i + 7]));
+
+                //Deal with 1 row of data
+                CovidData returnRowLocation = DaysFromAParticularDate.getDataFromLocation(dataRow, location);
+//                getDataFromLocation(dataRow, location);
+                if (returnRowLocation != null) {
+                    CovidData returnRow = DaysFromAParticularDate.getDataFromDate(chosenDate, endDate, returnRowLocation);
+                    if (returnRow != null) {
+                        bigGroup.add(returnRow);
+                    }
+                }
+            }
+            DaysFromAParticularDate.putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
+
+        } else {
+            //Just in case sth else happens
+            getDataFromCSV(pathToNewCSV, location, chosenDate, endDate, option);
         }
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
+        return dataList;
     }
-    return dataList;
 
-}
-
-    public static CovidData getInclusiveRageDateFromLocation (String nameLocation, String startDate, String endDate, CovidData dataRage) throws ParseException {
+    public static CovidData getInclusiveRageDateFromLocation(String location, String chosenDate, String endDate, CovidData dataRage) throws ParseException {
         ArrayList<Date> datesInRange = new ArrayList<Date>();
         ArrayList<String> datesInRangeStr = new ArrayList<String>();
         CovidData locationData = null;
@@ -69,18 +190,18 @@ public static List<CovidData> getDataFromCSV(String file, String nameLocation, S
             dataRage = null;
 
         } else if (dataRage != null &&
-                (dataRage.getContinent().equalsIgnoreCase(nameLocation) ||
-                        dataRage.getLocation().equalsIgnoreCase(nameLocation))) {
-            datesInRange = getDatesBetween(startDate, endDate);
+                (dataRage.getContinent().equalsIgnoreCase(location) ||
+                        dataRage.getLocation().equalsIgnoreCase(location))) {
+            datesInRange = getDatesBetween(chosenDate, endDate);
             datesInRangeStr = CovidData.convertDateToString(datesInRange);
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-            Date sd = df.parse(startDate);
+            Date sd = df.parse(chosenDate);
             Date ed = df.parse(endDate);
 
             for (Date d : datesInRange) {
                 Date inputDate = d;
 
-                if(!sd.after(d) && !ed.before(d)) {
+                if (!sd.after(d) && !ed.before(d)) {
                     locationData = dataRage;
                     break;
                 } else {
@@ -91,10 +212,10 @@ public static List<CovidData> getDataFromCSV(String file, String nameLocation, S
         return dataRage;
     }
 
-    public static ArrayList<Date> getDatesBetween (String startDate, String endDate) throws ParseException {
+    public static ArrayList<Date> getDatesBetween(String chosenDate, String endDate) throws ParseException {
         //convert String to Date
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        Date sDate = sdf.parse(startDate);
+        Date sDate = sdf.parse(chosenDate);
         Date eDate = sdf.parse(endDate);
 
         ArrayList<Date> datesInRange = new ArrayList<>();
@@ -112,8 +233,8 @@ public static List<CovidData> getDataFromCSV(String file, String nameLocation, S
         return datesInRange;
     }
 
-    public static void replaceNullCsv (String pathToCSV,
-                                       String pathToNewCSV){
+    public static void replaceNullCsv(String pathToCSV,
+                                      String pathToNewCSV) {
         try {
             BufferedReader csvReader =
                     new BufferedReader(new FileReader(pathToCSV));
@@ -153,5 +274,42 @@ public static List<CovidData> getDataFromCSV(String file, String nameLocation, S
         }
     }
 
-}
+    // Function to print difference in
+    // time chosenDate and endDate
+    static int calculateDayAway(String chosenDate, String endDate) {
+        // SimpleDateFormat converts the
+        // string format to date object
+        SimpleDateFormat sdf
+                = new SimpleDateFormat("MM-dd-yyyy");
+        // Try Block
+        long dayAway = 0;
+        try {
+            // parse method is used to parse
+            // the text from a string to
+            // produce the date
+            Date d1 = sdf.parse(chosenDate);
+            Date d2 = sdf.parse(endDate);
 
+            // Calucalte time difference
+            // in time and days
+            long timeDifference
+                    = d2.getTime() - d1.getTime();
+
+            dayAway = (timeDifference
+                    / (1000 * 60 * 60 * 24))
+                    % 365;
+
+            // Print the date difference in days
+            System.out.print("Difference " + "between two dates is: ");
+            System.out.println(dayAway + " days, ");
+
+        }
+
+        // Catch the Exception
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return (int) dayAway;
+    }
+
+}

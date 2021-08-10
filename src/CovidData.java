@@ -27,12 +27,6 @@ public class CovidData {
         this.population = population;
     }
 
-    // Parameterized Constructor 2
-//    public CovidData(String continent, String location, String date) {
-//        this.continent = continent;
-//        this.location = location;
-//        this.date = date;
-//    }
 
     public static ArrayList<String> convertDateToString(ArrayList<Date> ArrList) {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -82,8 +76,8 @@ public class CovidData {
     }
 
     public String toPrintString() {
-        return "Covid Data [iso_code=" + this.iso_code + ", continent=" + this.continent + ", location=" + this.location + ", date=" + this.date + ", new_cases=" + this.new_cases +
-                ", new_deaths=" + this.new_deaths + ", people_vaccinated=" + this.people_vaccinated + ", " +
-                "population=" + this.population + "]";
+        return "Covid Data [iso_code=" + this.iso_code + ", continent=" + this.continent + ", location=" + this.location +
+                ", date=" + this.date + ", new_cases=" + this.new_cases + ", new_deaths=" + this.new_deaths +
+                ", people_vaccinated=" + this.people_vaccinated + ", " + "population=" + this.population + "]";
     }
 }
