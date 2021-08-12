@@ -61,13 +61,13 @@ public class ReadInclusiveDateRange {
                     // use split(“,”) method to split row and separate each field.
                     String[] data = line.split(",");
 
-                    CovidData dataRage = new CovidData(data[0], data[1], data[2],
+                    CovidData dataRow = new CovidData(data[0], data[1], data[2],
                             data[3], Long.parseLong(data[4]), Long.parseLong(data[5]), Long.parseLong(data[6]),
                             Long.parseLong(data[7]));
 
                     //Deal with 1 row of data
-//                getDataFromLocation(dataRage, location);
-                    CovidData returnRow = getInclusiveRageDateFromLocation(location, chosenDate, endDate, dataRage);
+//                getDataFromLocation(dataRow, location);
+                    CovidData returnRow = getInclusiveRageDateFromLocation(location, chosenDate, endDate, dataRow);
                     System.out.println(returnRow.toPrintString());
 
                     // return an array which will be column data
@@ -183,16 +183,16 @@ public class ReadInclusiveDateRange {
         return dataList;
     }
 
-    public static CovidData getInclusiveRageDateFromLocation(String location, String chosenDate, String endDate, CovidData dataRage) throws ParseException {
+    public static CovidData getInclusiveRageDateFromLocation(String location, String chosenDate, String endDate, CovidData dataRow) throws ParseException {
         ArrayList<Date> datesInRange = new ArrayList<Date>();
         ArrayList<String> datesInRangeStr = new ArrayList<String>();
         CovidData locationData = null;
-        if (dataRage == null) {
-            dataRage = null;
+        if (dataRow == null) {
+            dataRow = null;
 
-        } else if (dataRage != null &&
-                (dataRage.getContinent().equalsIgnoreCase(location) ||
-                        dataRage.getLocation().equalsIgnoreCase(location))) {
+        } else if (dataRow != null &&
+                (dataRow.getContinent().equalsIgnoreCase(location) ||
+                        dataRow.getLocation().equalsIgnoreCase(location))) {
             datesInRange = getDatesBetween(chosenDate, endDate);
             datesInRangeStr = CovidData.convertDateToString(datesInRange);
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -203,14 +203,14 @@ public class ReadInclusiveDateRange {
                 Date inputDate = d;
 
                 if (!sd.after(d) && !ed.before(d)) {
-                    locationData = dataRage;
+                    locationData = dataRow;
                     break;
                 } else {
                     locationData = null;
                 }
             }
         }
-        return dataRage;
+        return dataRow;
     }
 
     public static ArrayList<Date> getDatesBetween(String chosenDate, String endDate) throws ParseException {
