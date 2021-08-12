@@ -1,55 +1,54 @@
 package Covid19;
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.text.DateFormat;
 import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class DaysFromAParticularDate {
+class DaysFromAParticularDate {
 
     //MAIN METHOD: user input
-    public static void main() throws ParseException, IOException {
+    public static void main() throws IOException, ParseException {
+        String pathToCSV = "Data/covid-data.csv";
+        String pathToNewCSV = "Data/covid-data-zero.csv";
+        replaceNullCsv(pathToCSV, pathToNewCSV);
 
-            String pathToCSV = "Data/covid-data.csv";
-            String pathToNewCSV = "Data/covid-data-zero.csv";
-            replaceNullCsv(pathToCSV, pathToNewCSV);
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the Continent or Country: ");
+        String location = input.nextLine();
 
-            Scanner input = new Scanner(System.in);
-            System.out.print("Enter the Continent or Country: ");
-            String location = input.nextLine();
+        System.out.print("Choose a date you want in this format 'MM/dd/yyyy': ");
+        String chosenDate = input.nextLine();
 
-            System.out.print("Choose a date you want in this format 'MM/dd/yyyy': ");
-            String chosenDate = input.nextLine();
+        System.out.print("Enter the number of days that are away to the date you chose: ");
+        int dayAway = input.nextInt();
 
-            System.out.print("Enter the number of days that are away from the date you chose: ");
-            int dayAway = input.nextInt();
+        System.out.println("\nThere are 3 ways you can choose to group your" +
+                " days: ");
+        System.out.println("1. No grouping: each day is a separate group.");
+        System.out.println("2. Choose the number of groups that the number of days will be divided equally into " +
+                "each " +
+                "group");
+        System.out.println("3. Choose the number of days in each divided group (Note: The program will choose the" +
+                " " +
+                "most optimal number for grouping equally");
+        System.out.println();
+        int option;
+        do {
+            System.out.print("Please enter the number in those 3 options to choose: ");
+            option = input.nextInt();
+        } while (option != 1 && option != 2 && option != 3);
 
-            System.out.println("\nThere are 3 ways you can choose to group your" +
-                    " days: ");
-            System.out.println("1. No grouping: each day is a separate group.");
-            System.out.println("2. Choose the number of groups that the number of days will be divided equally into " +
-                    "each " +
-                    "group");
-            System.out.println("3. Choose the number of days in each divided group (Note: The program will choose the" +
-                    " " +
-                    "most optimal number for grouping equally");
-            System.out.println();
-            int option;
-            do {
-                System.out.print("Please enter the number in those 3 options to choose: ");
-                option = input.nextInt();
-            } while (option != 1 && option != 2 && option != 3);
-            ProcessData(pathToNewCSV, location, chosenDate, dayAway, option) ;
-
+        ProcessData(pathToNewCSV, location, chosenDate, dayAway, option);
     }
 
     //ALL METHODS (sorted by Group Types):
-    //1. ProcessData : the order sequence of processing/handling Data (row by row)
-    //2. SplitDay, SplitGroup , PutDataIntoGroup
-    //3. Handle TIME-related functions
-    //4. Filter Data according to Date, Location
-    //5. Miscellaneous
+    //I.1. ProcessData : the order sequence of processing/handling Data (row by row)
+    //I.2. SplitDay, SplitGroup , PutDataIntoGroup
+    //I.3. Handle TIME-related functions
+    //I.4. Filter Data according to Date, Location
+    //I.5. Miscellaneous
+    //II.1 Calculate new metrics: TOTAL new cases/new deaths/new vaccinated people in a group.
     public static void ProcessData(String pathToNewCSV, String location,
                                    String chosenDate, int dayAway, int option) throws ParseException, IOException {
         if (option == 1) {
@@ -129,6 +128,7 @@ public class DaysFromAParticularDate {
                 //Deal with 1 row of data
                 CovidData returnRowLocation = getDataFromLocation(dataRow, location);
 //                getDataFromLocation(dataRow, location);
+                //bigGroup array: all the rows that satisfies user input
                 if (returnRowLocation != null) {
                     CovidData returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
                     if (returnRow != null) {
@@ -200,7 +200,6 @@ public class DaysFromAParticularDate {
         ArrayList<CovidData> groupsDaysArr = new ArrayList<CovidData>();
         ArrayList<ArrayList<CovidData>> groupsDaysArrFinal = new ArrayList<ArrayList<CovidData>>();
 
-
         int count = 1;
         int k = 0;
         String osd = originalStartDate;
@@ -215,11 +214,16 @@ public class DaysFromAParticularDate {
             ArrayList<String> dayRangeStr = convertDateToString(getDatesBetween(osd, newEndDate));
             System.out.println(dayRangeStr);
 
+            //doesn't allow duplicate value
+            HashSet<Long> metricsArr = new HashSet<Long>();
+
             for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
                 CovidData dateElement = bigGroup.get(k);
                 //Accept dataElement if it is in the Range of osd-oed
                 CovidData dateData = getDataFromDate(osd, newEndDate, dateElement);
-                groupsDaysArr.add(dateData);
+                if (dateData != null) {
+                    groupsDaysArr.add(dateData);
+                }
                 k += 1;
             }
             k = 0;
@@ -232,6 +236,16 @@ public class DaysFromAParticularDate {
                 } else {
                     ;
                 }
+            }
+            long totalNewCases = totalNewCases(groupsDaysArr);
+//            long totalNewDeaths = totalNewDeaths(groupsDaysArr);
+//            long totalNewVaccinated = totalNewVaccinated(groupsDaysArr);
+            metricsArr.add(totalNewCases);
+//            metricsArr.add(totalNewDeaths);
+//            metricsArr.add(totalNewVaccinated);
+
+            for (long l : metricsArr) {
+                System.out.println("totalNewCases:" + totalNewCases );
             }
             Collections.addAll(groupsDaysArrFinal, groupsDaysArr);
             groupsDaysArr.clear();
@@ -281,7 +295,7 @@ public class DaysFromAParticularDate {
         //n: groups
         //d: daysPerGroup
         ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
-        if (d == 1) {
+        if (d==1) {
             for (int i = 0; i <= x; i++) {
                 groupsSplittedArr.add(d);
             }
@@ -300,7 +314,7 @@ public class DaysFromAParticularDate {
                 } else if (x % n == 0) {
                     for (int i = 0; i < n; i++) {
 //                                System.out.print((x / n) + " ");
-                        groupsSplittedArr.add(x / n);
+                        groupsSplittedArr.add(x/n);
                     }
 
                 } else {
@@ -415,6 +429,41 @@ public class DaysFromAParticularDate {
         return dataRow;
     }
 
+
+    //II.1 Calculate new metrics: TOTAL new cases/new deaths/new vaccinated people in a group.
+    //for both 3 grouping options
+    public static long totalNewCases(ArrayList<CovidData> groupDataArr) {
+        long sum = 0;
+        for (int i = 0; i < groupDataArr.size(); i++) {
+            sum += groupDataArr.get(i).getNew_cases();
+        }
+        return sum;
+    }
+
+    public static long totalNewDeaths(ArrayList<CovidData> groupDataArr) {
+        long sum = 0;
+        for (int i = 0; i < groupDataArr.size(); i++) {
+            sum += groupDataArr.get(i).getNew_deaths();
+        }
+        return sum;
+    }
+
+    public static long totalNewVaccinated(ArrayList<CovidData> groupDataArr) {
+        long temp_sum = 0;
+        long sum = 0;
+        for (int i = 1; i < groupDataArr.size()-1; i++) {
+            long vaccinated1 = Math.abs(groupDataArr.get(i-1).getPeople_vaccinated());
+            long vaccinated2 = Math.abs(groupDataArr.get(i).getPeople_vaccinated());
+            temp_sum = vaccinated2 - vaccinated1;
+            sum += temp_sum;
+        }
+        return sum;
+    }
+
+
+
+
+    // Miscellanious
     public static void replaceNullCsv(String pathToCSV,
                                       String pathToNewCSV) {
         try {
@@ -456,70 +505,4 @@ public class DaysFromAParticularDate {
         }
     }
 }
-
-
-
-//FUNTIONS THAT MAY BE NEEDED
-//public static boolean isSpace(ArrayList<Integer> array){
-//    boolean empty = false;
-//    for (int i = 0; i < array.size(); i++) {
-//        if (array.get(i) == null) {
-//            empty = true;
-//        }
-//    }
-//    return empty;
-//    //if there is space, return false
-//}
-
-//    public static boolean isNumeric(String str) {
-//        if (str == null) {
-//            return false;
-//        }
-//        try {
-//            int i = Integer.parseInt(str);
-//            //If they can't convert it, a NumberFormatException is thrown,
-//            // indicating that the String wasn't numeric.
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-//        return true;
-//    }
-
-
-//    public static CovidData[] readCSVline(String pathToNewCSV) throws IOException {
-////        try {
-//        BufferedReader csvReader =
-//                new BufferedReader(new FileReader(pathToNewCSV));
-//
-//        String row;
-//        //skip header(+1)
-//        csvReader.readLine();
-//
-////            String[] headerArray = header.split(",");
-////            System.out.println(Arrays.toString(headerArray));
-//
-//        //read 1 line
-//        row = csvReader.readLine() ;
-//        String[] data = row.split(",", -1);
-//
-//        CovidData[] dataRow = new CovidData[8];
-//
-//        dataRow = data;
-//
-////            System.out.println(dataByRow);
-//        return dataRow;
-//        csvReader.close();
-//
-////        } catch (Exception e) {
-////            //pinpoint the error in the code
-////            e.printStackTrace();
-////        }
-//    }
-
-
-
-
-
-
-
 
