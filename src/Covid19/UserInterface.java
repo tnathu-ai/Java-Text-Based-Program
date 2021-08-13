@@ -18,7 +18,7 @@ public class UserInterface {
             System.out.println("3. A number of days or weeks to particular date");
 
             do {
-                System.out.println("Please input your option");
+                System.out.print("Please input your option: ");
                 DataChoice = scanner.nextInt();
                 if ((DataChoice < 1) || (DataChoice > 3)) {
                     System.out.println("You have entered the wrong option. Please choose again!");
@@ -40,7 +40,7 @@ public class UserInterface {
 
             //display summary data
 
-            System.out.println("Please choose one way to display");
+            System.out.println("\nPlease choose one way to display");
             System.out.println("1. Tabular Display");
             System.out.println("2. Chart Display");
 

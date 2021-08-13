@@ -29,15 +29,14 @@ class DaysFromAParticularDate {
         System.out.println("2. Choose the number of groups that the number of days will be divided equally into " +
                 "each " +
                 "group");
-        System.out.println("3. Choose the number of days in each divided group (Note: The program will choose the" +
-                " " +
-                "most optimal number for grouping equally");
+        System.out.println("3. Choose the number of days in each divided group.");
         System.out.println();
         int option;
         do {
             System.out.print("Please enter the number in those 3 options to choose: ");
             option = input.nextInt();
         } while (option != 1 && option != 2 && option != 3);
+
 
         ProcessData(pathToNewCSV, location, chosenDate, dayAway, option);
     }
@@ -53,6 +52,8 @@ class DaysFromAParticularDate {
                                    String chosenDate, int dayAway, int option) throws ParseException, IOException {
         if (option == 1) {
             String endDate = displayStartEndDate(chosenDate, dayAway);
+            ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
+            HashSet<Long> metricsArr = new HashSet<Long>();
 //                System.out.println(getDatesBetween(chosenDate, endDate));
 
             //Get and Print the Date Range
@@ -78,16 +79,36 @@ class DaysFromAParticularDate {
                         Long.parseLong(data[i + 6]),
                         Long.parseLong(data[i + 7]));
 
+
                 //Deal with 1 row of data
                 CovidData returnRowLocation = getDataFromLocation(dataRow, location);
 //                getDataFromLocation(dataRow, location);
                 if (returnRowLocation != null) {
                     CovidData returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
                     if (returnRow != null) {
-                        System.out.println(returnRow.toPrintString());
+                        bigGroup.add(returnRow);
                     }
                 }
             }
+
+            //Choose a new metric
+            System.out.println("\nEnter one of the number below to calculate an additional metric:");
+            System.out.println("1. Total positive cases. ");
+            System.out.println("2. Total deaths. ");
+            System.out.println("3. Total people vaccinated. ");
+            int metricOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the number in those 3 options to choose: ");
+                metricOption = input.nextInt();
+            } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+
+            //Print Data
+            System.out.println("\n--- Data List ---");
+            for (CovidData data : bigGroup) {
+                System.out.println(data.toPrintString());
+            }
+            metricDisplay(metricOption, bigGroup, metricsArr);
 
         } else if (option == 2) {
             int groups;
@@ -136,7 +157,20 @@ class DaysFromAParticularDate {
                     }
                 }
             }
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
+
+            //Choose a new metric
+            System.out.println("\nEnter one of the number below to calculate an additional metric:");
+            System.out.println("1. Total positive cases. ");
+            System.out.println("2. Total deaths. ");
+            System.out.println("3. Total people vaccinated. ");
+            int metricOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the number in those 3 options to choose: ");
+                metricOption = input.nextInt();
+            } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
 
         } else if (option == 3) {
             int daysPerGroup;
@@ -185,7 +219,19 @@ class DaysFromAParticularDate {
                     }
                 }
             }
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
+            //Choose a new metric
+            System.out.println("\nEnter one of the number below to calculate an additional metric:");
+            System.out.println("1. Total positive cases. ");
+            System.out.println("2. Total deaths. ");
+            System.out.println("3. Total people vaccinated. ");
+            int metricOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the number in those 3 options to choose: ");
+                metricOption = input.nextInt();
+            } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
 
         } else {
             //Just in case sth else happens
@@ -196,7 +242,7 @@ class DaysFromAParticularDate {
     ////////////////////////////////////////////////////////////////
     //SPLITDAY, SPLITGROUP FUNCTIONS
     public static void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
-                                      String originalStartDate) throws ParseException {
+                                      String originalStartDate, int metricOption) throws ParseException {
         ArrayList<CovidData> groupsDaysArr = new ArrayList<CovidData>();
         ArrayList<ArrayList<CovidData>> groupsDaysArrFinal = new ArrayList<ArrayList<CovidData>>();
 
@@ -205,7 +251,7 @@ class DaysFromAParticularDate {
         String osd = originalStartDate;
 
         for (int outerInd = 0; outerInd < groupsSplittedArr.size(); outerInd++) {
-            System.out.println("\nGROUP " + count);
+            System.out.println("\n--- GROUP " + count + " ---");
             //plusDay : the number of DAYS that need to be added to the StartDay
             int plusDay = groupsSplittedArr.get(outerInd);
             //Get the new endDay (from the plusDay)
@@ -237,23 +283,16 @@ class DaysFromAParticularDate {
                     ;
                 }
             }
-            long totalNewCases = totalNewCases(groupsDaysArr);
-//            long totalNewDeaths = totalNewDeaths(groupsDaysArr);
-//            long totalNewVaccinated = totalNewVaccinated(groupsDaysArr);
-            metricsArr.add(totalNewCases);
-//            metricsArr.add(totalNewDeaths);
-//            metricsArr.add(totalNewVaccinated);
+            //Display Chosen Metric Result
+            metricDisplay(metricOption, groupsDaysArr, metricsArr);
 
-            for (long l : metricsArr) {
-                System.out.println("totalNewCases:" + totalNewCases );
-            }
             Collections.addAll(groupsDaysArrFinal, groupsDaysArr);
             groupsDaysArr.clear();
             count += 1;
         }
-
 //            System.out.println(groupsDaysArrFinal);
     }
+
 
     public static ArrayList<Integer> splitGroupsEqually(int x, int n) {
         //x: dayAway
@@ -432,6 +471,39 @@ class DaysFromAParticularDate {
 
     //II.1 Calculate new metrics: TOTAL new cases/new deaths/new vaccinated people in a group.
     //for both 3 grouping options
+    public static void metricDisplay(int metricOption, ArrayList<CovidData> groupsDaysArr,
+                                     HashSet<Long> metricsArr) {
+        switch (metricOption) {
+            //option 1: totalNewCases
+            case 1:
+                long totalNewCases = totalNewCases(groupsDaysArr);
+                metricsArr.add(totalNewCases);
+                for (long l : metricsArr) {
+                    System.out.println("__TOTAL NEW CASES__: " + totalNewCases );
+                }
+                break;
+
+            //option 2: totalNewDeaths
+            case 2:
+                long totalNewDeaths = totalNewDeaths(groupsDaysArr);
+                metricsArr.add(totalNewDeaths);
+                for (long l : metricsArr) {
+                    System.out.println("__TOTAL NEW DEATHS__: " + totalNewDeaths );
+                }
+                break;
+
+            //option 3: totalNewVaccinated
+            case 3:
+                long totalNewVaccinated = totalNewVaccinated(groupsDaysArr);
+                metricsArr.add(totalNewVaccinated);
+                for (long l : metricsArr) {
+                    System.out.println("__TOTAL NEW VACCINATED__: " + totalNewVaccinated );
+                }
+                break;
+        }
+    }
+
+    //os new data for each date
     public static long totalNewCases(ArrayList<CovidData> groupDataArr) {
         long sum = 0;
         for (int i = 0; i < groupDataArr.size(); i++) {
@@ -440,6 +512,7 @@ class DaysFromAParticularDate {
         return sum;
     }
 
+    //is new data for each date
     public static long totalNewDeaths(ArrayList<CovidData> groupDataArr) {
         long sum = 0;
         for (int i = 0; i < groupDataArr.size(); i++) {
@@ -448,19 +521,22 @@ class DaysFromAParticularDate {
         return sum;
     }
 
+    //is an accumulated values up to a date
     public static long totalNewVaccinated(ArrayList<CovidData> groupDataArr) {
-        long temp_sum = 0;
+        long temp_sum;
         long sum = 0;
-        for (int i = 1; i < groupDataArr.size()-1; i++) {
-            long vaccinated1 = Math.abs(groupDataArr.get(i-1).getPeople_vaccinated());
-            long vaccinated2 = Math.abs(groupDataArr.get(i).getPeople_vaccinated());
-            temp_sum = vaccinated2 - vaccinated1;
-            sum += temp_sum;
+        if (groupDataArr.size() > 1) {
+            for (int i = 0; i < groupDataArr.size()-1; i++) {
+                long vaccinated1 = groupDataArr.get(i).getPeople_vaccinated();
+                long vaccinated2 = groupDataArr.get(i+1).getPeople_vaccinated();
+                temp_sum = vaccinated2 - vaccinated1;
+                sum += temp_sum;
+            }
+        } else {
+            sum += groupDataArr.get(0).getPeople_vaccinated();
         }
         return sum;
     }
-
-
 
 
     // Miscellanious

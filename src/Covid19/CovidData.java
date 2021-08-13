@@ -41,6 +41,7 @@ public class CovidData {
 
     }
 
+
     public String getIso_code() {
         return this.iso_code;
     }
@@ -76,7 +77,7 @@ public class CovidData {
     }
 
     public String toPrintString() {
-        return "Covid Data [iso_code=" + this.iso_code + ", continent=" + this.continent + ", location=" + this.location +
+        return "COVID-DATA [iso_code=" + this.iso_code + ", continent=" + this.continent + ", location=" + this.location +
                 ", date=" + this.date + ", new_cases=" + this.new_cases + ", new_deaths=" + this.new_deaths +
                 ", people_vaccinated=" + this.people_vaccinated + ", " + "population=" + this.population + "]";
     }
