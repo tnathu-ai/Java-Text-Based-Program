@@ -20,7 +20,7 @@ public class UserInterface {
             do {
                 System.out.println("Please input your option");
                 DataChoice = scanner.nextInt();
-                if ((DataChoice < 1) || (DataChoice > 2)) {
+                if ((DataChoice < 1) || (DataChoice > 3)) {
                     System.out.println("You have entered the wrong option. Please choose again!");
                 }
             } while ((DataChoice < 1) || (DataChoice > 3));
