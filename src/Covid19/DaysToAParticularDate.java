@@ -286,27 +286,32 @@ class DaysToAParticularDate {
         //n: groups
         //d: daysPerGroup
         ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
-        for (int n = 2; n < x; n++) {
-            // If x % n == 0 then the minimum
-            // difference is 0 and all
-            // numbers are x / n
-            if (x % d == 0) {
-                System.out.println("You can divide into " + (x / d) + " groups");
-                for (int i = 0; i <= n; i++) {
-                    groupsSplittedArr.add(x / d);
-                }
-                break;
+        if (d==1) {
+            for (int i = 0; i <= x; i++) {
+                groupsSplittedArr.add(d);
+            }
+        } else {
+            for (int n = 2; n < x; n++) {
+                // If x % n == 0 then the minimum
+                // difference is 0 and all
+                // numbers are x / n
+                if (x % d == 0) {
+                    System.out.println("You can divide into " + (x / d) + " groups");
+                    for (int i = 0; i < x/d; i++) {
+                        groupsSplittedArr.add(x / (x/d));
+                    }
+                    break;
 
-            } else if (x % n == 0) {
-                for (int i = 0; i < n; i++) {
+                } else if (x % n == 0) {
+                    for (int i = 0; i < n; i++) {
 //                                System.out.print((x / n) + " ");
-                    groupsSplittedArr.add(x / n);
-                }
+                        groupsSplittedArr.add(x/n);
+                    }
 
-            } else {
-                System.out.println("It is not possible to divide equally!!!");
-                System.out.println("The data should be divided equally into:" + groupsSplittedArr);
-                break;
+                } else {
+                    System.out.println("It is not possible to divide equally!!!");
+                    break;
+                }
             }
         }
 //                System.out.println(groupsSplittedArr);

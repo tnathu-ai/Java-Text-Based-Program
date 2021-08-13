@@ -20,7 +20,7 @@ class DaysFromAParticularDate {
         System.out.print("Choose a date you want in this format 'MM/dd/yyyy': ");
         String chosenDate = input.nextLine();
 
-        System.out.print("Enter the number of days that are away to the date you chose: ");
+        System.out.print("Enter the number of days that are away from the date you chose: ");
         int dayAway = input.nextInt();
 
         System.out.println("\nThere are 3 ways you can choose to group your" +
