@@ -538,6 +538,28 @@ class DaysFromAParticularDate {
         return sum;
     }
 
+    public static long upToNewCases(ArrayList<CovidData> groupDataArr) {
+        long upTo = 0;
+        // get the last element minus the first element of the array list to get the upto value
+        upTo = groupDataArr.get(groupDataArr.size() - 1).getNew_cases() - groupDataArr.get(0).getNew_cases();
+        return upTo;
+    }
+
+    public static long upToNewDeaths(ArrayList<CovidData> groupDataArr) {
+        long upTo = 0;
+        // get the last element minus the first element of the array list to get the upto value
+        upTo = groupDataArr.get(groupDataArr.size() - 1).getNew_deaths() - groupDataArr.get(0).getNew_deaths();
+        return upTo;
+    }
+
+    public static long upToNewVaccinated(ArrayList<CovidData> groupDataArr) {
+        long upTo = 0;
+        // get the last element minus the first element of the array list to get the upto value
+        upTo = groupDataArr.get(groupDataArr.size() - 1).getPeople_vaccinated() - groupDataArr.get(0).getPeople_vaccinated();
+        return upTo;
+    }
+
+
 
     // Miscellanious
     public static void replaceNullCsv(String pathToCSV,
