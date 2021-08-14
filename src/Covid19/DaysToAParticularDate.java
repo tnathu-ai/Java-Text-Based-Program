@@ -4,6 +4,9 @@ import java.text.DateFormat;
 import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 class DaysToAParticularDate {
 
@@ -519,6 +522,44 @@ class DaysToAParticularDate {
 ////        }
 //    }
 
+class TabularDisplay1 {
+    JFrame f;
+    JTable j;
+    TabularDisplay1()
+    {
+
+        f = new JFrame();
+
+        // Frame Title
+        f.setTitle("Tabular Display");
+
+
+        String[][] data = {
+                { "Kundan Kumar Jha", "4031" },
+                { "Anand Jha", "6014" }
+        };
+
+
+        String[] columnNames = { "Range", "Value" };
+
+
+        j = new JTable(data, columnNames);
+        j.setBounds(30, 40, 200, 300);
+
+
+        JScrollPane sp = new JScrollPane(j);
+        f.add(sp);
+
+        f.setSize(500, 200);
+        f.setVisible(true);
+    }
+
+    // Driver  method
+    public static void main(String[] args)
+    {
+        new TabularDisplay1();
+    }
+}
 
 
 
