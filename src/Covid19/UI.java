@@ -22,7 +22,7 @@ public class UI {
             int FinalChoice;
 
             //Data choice input
-            System.out.println("Choose the type of Range");
+            System.out.println("\nChoose the type of Range");
             System.out.println("1. A pair of start date and end date");
             System.out.println("2. A number of days or weeks from particular date");
             System.out.println("3. A number of days or weeks to particular date");
