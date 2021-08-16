@@ -59,7 +59,7 @@ class DaysFromAParticularDate {
         if (option == 1) {
             String endDate = displayStartEndDate(chosenDate, dayAway);
             ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
-            HashSet<Long> metricsArr = new HashSet<Long>();
+            ArrayList<Long> metricsArr = new ArrayList<Long>();
 //                System.out.println(getDatesBetween(chosenDate, endDate));
 
             //Get and Print the Date Range
@@ -267,7 +267,7 @@ class DaysFromAParticularDate {
             System.out.println(dayRangeStr);
 
             //doesn't allow duplicate value
-            HashSet<Long> metricsArr = new HashSet<Long>();
+            ArrayList<Long> metricsArr = new ArrayList<Long>();
 
             for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
                 CovidData dateElement = bigGroup.get(k);

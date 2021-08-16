@@ -35,8 +35,8 @@ public class resultCalculation {
 
     //II.1 Calculate new metrics: TOTAL new cases/new deaths/new vaccinated people in a group.
     //for both 3 grouping options
-    public static void metricDisplay(int metricOption, ArrayList<CovidData> groupsDaysArr,
-                                     HashSet<Long> metricsArr) {
+    public static void metricDisplay(int metricOption, ArrayList<CovidData> groupsDaysArr, ArrayList<Long> metricsArr) {
+        // Using Array List to print
         switch (metricOption) {
             //option 1: totalNewCases
             case 1:
