@@ -266,7 +266,7 @@ class DaysFromAParticularDate {
             ArrayList<String> dayRangeStr = convertDateToString(getDatesBetween(osd, newEndDate));
             System.out.println(dayRangeStr);
 
-            //doesn't allow duplicate value
+            //put metricsArr here to save the data for Displaying in Table, Chart
             ArrayList<Long> metricsArr = new ArrayList<Long>();
 
             for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
