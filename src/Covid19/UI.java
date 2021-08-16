@@ -18,9 +18,6 @@ public class UI {
             Scanner scanner = new Scanner(System.in);
 
             int DataChoice;
-            int DisplayChoice;
-            int FinalChoice;
-
             //Data choice input
             System.out.println("\nChoose the type of Range");
             System.out.println("1. A pair of start date and end date");

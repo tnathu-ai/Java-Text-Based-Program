@@ -1,4 +1,5 @@
 package Covid19;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -6,6 +7,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
+
 import static Covid19.DaysFromAParticularDate.replaceNullCsv;
 
 public class GroupByMetric {
@@ -117,6 +119,6 @@ public class GroupByMetric {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
     }
-}
 }

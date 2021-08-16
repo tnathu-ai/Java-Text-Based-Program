@@ -1,4 +1,5 @@
 package Covid19;
+
 import java.io.*;
 import java.text.DateFormat;
 import java.util.*;
@@ -289,7 +290,7 @@ class DaysToAParticularDate {
         //n: groups
         //d: daysPerGroup
         ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
-        if (d==1) {
+        if (d == 1) {
             for (int i = 0; i <= x; i++) {
                 groupsSplittedArr.add(d);
             }
@@ -300,15 +301,15 @@ class DaysToAParticularDate {
                 // numbers are x / n
                 if (x % d == 0) {
                     System.out.println("You can divide into " + (x / d) + " groups");
-                    for (int i = 0; i < x/d; i++) {
-                        groupsSplittedArr.add(x / (x/d));
+                    for (int i = 0; i < x / d; i++) {
+                        groupsSplittedArr.add(x / (x / d));
                     }
                     break;
 
                 } else if (x % n == 0) {
                     for (int i = 0; i < n; i++) {
 //                                System.out.print((x / n) + " ");
-                        groupsSplittedArr.add(x/n);
+                        groupsSplittedArr.add(x / n);
                     }
 
                 } else {
@@ -405,9 +406,6 @@ class DaysToAParticularDate {
             }
         }
         return locationData;
-        //        if (locationData != null) {
-//            System.out.println(locationData.toPrintString());
-//        }
     }
 
 
@@ -417,9 +415,6 @@ class DaysToAParticularDate {
                 && dataRow.getLocation().equalsIgnoreCase(inputlocation) == false) {
             dataRow = null;
         }
-//                if (dataRow != null) {
-//                    System.out.println(dataRow);
-//                }
         return dataRow;
     }
 
@@ -465,68 +460,11 @@ class DaysToAParticularDate {
     }
 }
 
-//FUNTIONS THAT MAY BE NEEDED
-//public static boolean isSpace(ArrayList<Integer> array){
-//    boolean empty = false;
-//    for (int i = 0; i < array.size(); i++) {
-//        if (array.get(i) == null) {
-//            empty = true;
-//        }
-//    }
-//    return empty;
-//    //if there is space, return false
-//}
-
-//    public static boolean isNumeric(String str) {
-//        if (str == null) {
-//            return false;
-//        }
-//        try {
-//            int i = Integer.parseInt(str);
-//            //If they can't convert it, a NumberFormatException is thrown,
-//            // indicating that the String wasn't numeric.
-//        } catch (NumberFormatException e) {
-//            return false;
-//        }
-//        return true;
-//    }
-
-
-//    public static CovidData[] readCSVline(String pathToNewCSV) throws IOException {
-////        try {
-//        BufferedReader csvReader =
-//                new BufferedReader(new FileReader(pathToNewCSV));
-//
-//        String row;
-//        //skip header(+1)
-//        csvReader.readLine();
-//
-////            String[] headerArray = header.split(",");
-////            System.out.println(Arrays.toString(headerArray));
-//
-//        //read 1 line
-//        row = csvReader.readLine() ;
-//        String[] data = row.split(",", -1);
-//
-//        CovidData[] dataRow = new CovidData[8];
-//
-//        dataRow = data;
-//
-////            System.out.println(dataByRow);
-//        return dataRow;
-//        csvReader.close();
-//
-////        } catch (Exception e) {
-////            //pinpoint the error in the code
-////            e.printStackTrace();
-////        }
-//    }
-
 class TabularDisplay1 {
     JFrame f;
     JTable j;
-    TabularDisplay1()
-    {
+
+    TabularDisplay1() {
 
         f = new JFrame();
 
@@ -535,12 +473,12 @@ class TabularDisplay1 {
 
 
         String[][] data = {
-                { "Kundan Kumar Jha", "4031" },
-                { "Anand Jha", "6014" }
+                {"Kundan Kumar Jha", "4031"},
+                {"Anand Jha", "6014"}
         };
 
 
-        String[] columnNames = { "Range", "Value" };
+        String[] columnNames = {"Range", "Value"};
 
 
         j = new JTable(data, columnNames);
@@ -555,8 +493,7 @@ class TabularDisplay1 {
     }
 
     // Driver  method
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new TabularDisplay1();
     }
 }

@@ -1,4 +1,5 @@
 package Covid19;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,8 +92,8 @@ public class CovidData {
 class TabularDisplay2 {
     JFrame f;
     JTable j;
-    TabularDisplay2()
-    {
+
+    TabularDisplay2() {
 
         f = new JFrame();
 
@@ -101,12 +102,12 @@ class TabularDisplay2 {
 
 
         String[][] data = {
-                { "Kundan Kumar Jha", "4031" },
-                { "Anand Jha", "6014" }
+                {"Kundan Kumar Jha", "4031"},
+                {"Anand Jha", "6014"}
         };
 
 
-        String[] columnNames = { "Range", "Value" };
+        String[] columnNames = {"Range", "Value"};
 
 
         j = new JTable(data, columnNames);
@@ -121,8 +122,7 @@ class TabularDisplay2 {
     }
 
     // Driver  method
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new TabularDisplay();
     }
 }
