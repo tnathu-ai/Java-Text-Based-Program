@@ -14,7 +14,6 @@ import static Covid19.resultCalculation.metricDisplay;
 
 class DaysToAParticularDate {
 
-
     //MAIN METHOD: user input
     public static void main() throws IOException, ParseException {
         String pathToCSV = "Data/covid-data.csv";
