@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import static Covid19.DaysFromAParticularDate.putDataInGroup;
+import static Covid19.resultCalculation.metricDisplay;
+
 class DaysToAParticularDate {
 
 
@@ -57,6 +60,8 @@ class DaysToAParticularDate {
                                    String chosenDate, int dayAway, int option) throws ParseException, IOException {
         if (option == 1) {
             String endDate = displayStartEndDate(chosenDate, dayAway);
+            ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
+            ArrayList<Long> metricsArr = new ArrayList<Long>();
 //                System.out.println(getDatesBetween(chosenDate, endDate));
 
             //Get and Print the Date Range
@@ -94,6 +99,25 @@ class DaysToAParticularDate {
                     }
                 }
             }
+
+            //Choose a new metric
+            System.out.println("\nEnter one of the number below to calculate an additional metric:");
+            System.out.println("1. Total positive cases. ");
+            System.out.println("2. Total deaths. ");
+            System.out.println("3. Total people vaccinated. ");
+            int metricOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the number in those 3 options to choose: ");
+                metricOption = input.nextInt();
+            } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+
+            //Print Data
+            System.out.println("\n--- Data List ---");
+            for (CovidData data : bigGroup) {
+                System.out.println(data.toPrintString());
+            }
+            metricDisplay(metricOption, bigGroup, metricsArr);
 
         } else if (option == 2) {
             int groups;
@@ -143,7 +167,20 @@ class DaysToAParticularDate {
                     }
                 }
             }
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
+
+            //Choose a new metric
+            System.out.println("\nEnter one of the number below to calculate an additional metric:");
+            System.out.println("1. Total positive cases. ");
+            System.out.println("2. Total deaths. ");
+            System.out.println("3. Total people vaccinated. ");
+            int metricOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the number in those 3 options to choose: ");
+                metricOption = input.nextInt();
+            } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
 
         } else if (option == 3) {
             int daysPerGroup;
@@ -194,7 +231,19 @@ class DaysToAParticularDate {
                     }
                 }
             }
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate);
+            //Choose a new metric
+            System.out.println("\nEnter one of the number below to calculate an additional metric:");
+            System.out.println("1. Total positive cases. ");
+            System.out.println("2. Total deaths. ");
+            System.out.println("3. Total people vaccinated. ");
+            int metricOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the number in those 3 options to choose: ");
+                metricOption = input.nextInt();
+            } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
 
         } else {
             //Just in case sth else happens
@@ -202,53 +251,6 @@ class DaysToAParticularDate {
         }
     }
 
-    ////////////////////////////////////////////////////////////////
-    //SPLITDAY, SPLITGROUP FUNCTIONS
-    public static void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
-                                      String originalStartDate) throws ParseException {
-        ArrayList<CovidData> groupsDaysArr = new ArrayList<CovidData>();
-        ArrayList<ArrayList<CovidData>> groupsDaysArrFinal = new ArrayList<ArrayList<CovidData>>();
-
-
-        int count = 1;
-        int k = 0;
-        String osd = originalStartDate;
-
-        for (int outerInd = 0; outerInd < groupsSplittedArr.size(); outerInd++) {
-            System.out.println("\nGROUP " + count);
-            //plusDay : the number of DAYS that need to be added to the StartDay
-            int plusDay = groupsSplittedArr.get(outerInd);
-            //Get the new endDay (from the plusDay)
-            String newEndDate = displayStartEndDate(osd, plusDay);
-            //Get the new temp dayRangeStr
-            ArrayList<String> dayRangeStr = convertDateToString(getDatesBetween(osd, newEndDate));
-            System.out.println(dayRangeStr);
-
-            for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
-                CovidData dateElement = bigGroup.get(k);
-                //Accept dataElement if it is in the Range of osd-oed
-                CovidData dateData = getDataFromDate(osd, newEndDate, dateElement);
-                groupsDaysArr.add(dateData);
-                k += 1;
-            }
-            k = 0;
-            osd = newEndDate;
-
-            for (CovidData gda : groupsDaysArr) {
-                //must not null to be able to convert to String
-                if (gda != null) {
-                    System.out.println(gda.toPrintString());
-                } else {
-                    ;
-                }
-            }
-            Collections.addAll(groupsDaysArrFinal, groupsDaysArr);
-            groupsDaysArr.clear();
-            count += 1;
-        }
-
-//            System.out.println(groupsDaysArrFinal);
-    }
 
     public static ArrayList<Integer> splitGroupsEqually(int x, int n) {
         //x: dayAway
