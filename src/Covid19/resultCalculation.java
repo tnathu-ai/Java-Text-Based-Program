@@ -1,7 +1,6 @@
 package Covid19;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class resultCalculation {
     //os new data for each date
