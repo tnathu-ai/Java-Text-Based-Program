@@ -102,6 +102,17 @@ public class ReadInclusiveDateRange {
                 System.out.println(data.toPrintString());
             }
             metricDisplay(metricOption, bigGroup, metricsArr);
+            System.out.println("\nChoose one way to display");
+            System.out.println("1. Tabular display ");
+            System.out.println("2. Chart display ");
+            int DisplayOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the way you want: ");
+                DisplayOption = input.nextInt();
+            } while (DisplayOption != 1 && DisplayOption != 2 );
+            if (DisplayOption == 1)
+                new TabularDisplay(chosenDate,endDate,metricsArr);
             return dataList;
 
         } else if (option == 2) {
@@ -162,7 +173,13 @@ public class ReadInclusiveDateRange {
                 metricOption = input.nextInt();
             } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
 
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
+            int DisplayOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the way you want: ");
+                DisplayOption = input.nextInt();
+            } while (DisplayOption != 1 && DisplayOption != 2 );
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption, DisplayOption);
 
         } else if (option == 3) {
             int daysPerGroup;
@@ -222,7 +239,13 @@ public class ReadInclusiveDateRange {
                 metricOption = input.nextInt();
             } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
 
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
+            int DisplayOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the way you want: ");
+                DisplayOption = input.nextInt();
+            } while (DisplayOption != 1 && DisplayOption != 2 );
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption, DisplayOption);
 
         } else {
             //Just in case sth else happens

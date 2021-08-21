@@ -89,41 +89,5 @@ public class CovidData {
     }
 }
 
-class TabularDisplay2 {
-    JFrame f;
-    JTable j;
 
-    TabularDisplay2() {
-
-        f = new JFrame();
-
-        // Frame Title
-        f.setTitle("Tabular Display");
-
-
-        String[][] data = {
-                {"Kundan Kumar Jha", "4031"},
-                {"Anand Jha", "6014"}
-        };
-
-
-        String[] columnNames = {"Range", "Value"};
-
-
-        j = new JTable(data, columnNames);
-        j.setBounds(30, 40, 200, 300);
-
-
-        JScrollPane sp = new JScrollPane(j);
-        f.add(sp);
-
-        f.setSize(500, 200);
-        f.setVisible(true);
-    }
-
-    // Driver  method
-    public static void main(String[] args) {
-        new TabularDisplay();
-    }
-}
 

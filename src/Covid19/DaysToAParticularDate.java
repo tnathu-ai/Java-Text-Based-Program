@@ -117,6 +117,20 @@ class DaysToAParticularDate {
                 System.out.println(data.toPrintString());
             }
             metricDisplay(metricOption, bigGroup, metricsArr);
+            //Choose a display
+            System.out.println("\nChoose one way to display");
+            System.out.println("1. Tabular display ");
+            System.out.println("2. Chart display ");
+            int DisplayOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the way you want: ");
+                DisplayOption = input.nextInt();
+            } while (DisplayOption != 1 && DisplayOption != 2 );
+            if (DisplayOption == 1)
+                new TabularDisplay(endDate,chosenDate,metricsArr);
+
+
 
         } else if (option == 2) {
             int groups;
@@ -179,7 +193,13 @@ class DaysToAParticularDate {
                 metricOption = input.nextInt();
             } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
 
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
+            int DisplayOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the way you want: ");
+                DisplayOption = input.nextInt();
+            } while (DisplayOption != 1 && DisplayOption != 2 );
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption, DisplayOption);
 
         } else if (option == 3) {
             int daysPerGroup;
@@ -242,7 +262,17 @@ class DaysToAParticularDate {
                 metricOption = input.nextInt();
             } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
 
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
+            //Choose a display
+            System.out.println("\nChoose one way to display");
+            System.out.println("1. Tabular display ");
+            System.out.println("2. Chart display ");
+            int DisplayOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the way you want: ");
+                DisplayOption = input.nextInt();
+            } while (DisplayOption != 1 && DisplayOption != 2 );
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption, DisplayOption);
 
         } else {
             //Just in case sth else happens
@@ -458,44 +488,6 @@ class DaysToAParticularDate {
             //pinpoint the error in the code
             e.printStackTrace();
         }
-    }
-}
-
-class TabularDisplay1 {
-    JFrame f;
-    JTable j;
-
-    TabularDisplay1() {
-
-        f = new JFrame();
-
-        // Frame Title
-        f.setTitle("Tabular Display");
-
-
-        String[][] data = {
-                {"Kundan Kumar Jha", "4031"},
-                {"Anand Jha", "6014"}
-        };
-
-
-        String[] columnNames = {"Range", "Value"};
-
-
-        j = new JTable(data, columnNames);
-        j.setBounds(30, 40, 200, 300);
-
-
-        JScrollPane sp = new JScrollPane(j);
-        f.add(sp);
-
-        f.setSize(500, 200);
-        f.setVisible(true);
-    }
-
-    // Driver  method
-    public static void main(String[] args) {
-        new TabularDisplay1();
     }
 }
 

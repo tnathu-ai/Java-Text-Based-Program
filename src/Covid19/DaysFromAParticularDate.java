@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.util.Arrays;
 
 import static Covid19.resultCalculation.metricDisplay;
 
@@ -58,6 +59,10 @@ class DaysFromAParticularDate {
                                    String chosenDate, int dayAway, int option) throws ParseException, IOException {
         if (option == 1) {
             String endDate = displayStartEndDate(chosenDate, dayAway);
+
+
+
+
             ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
             ArrayList<Long> metricsArr = new ArrayList<Long>();
 //                System.out.println(getDatesBetween(chosenDate, endDate));
@@ -115,6 +120,22 @@ class DaysFromAParticularDate {
                 System.out.println(data.toPrintString());
             }
             metricDisplay(metricOption, bigGroup, metricsArr);
+
+            //Choose a display
+            System.out.println("\nChoose one way to display");
+            System.out.println("1. Tabular display ");
+            System.out.println("2. Chart display ");
+            int DisplayOption;
+
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the way you want: ");
+                DisplayOption = input.nextInt();
+            } while (DisplayOption != 1 && DisplayOption != 2 );
+            if (DisplayOption == 1)
+                new TabularDisplay(chosenDate,endDate,metricsArr);
+
+
 
         } else if (option == 2) {
             int groups;
@@ -176,7 +197,21 @@ class DaysFromAParticularDate {
                 metricOption = input.nextInt();
             } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
 
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
+
+            //Choose a display
+            System.out.println("\nChoose one way to display");
+            System.out.println("1. Tabular display ");
+            System.out.println("2. Chart display ");
+            int DisplayOption;
+
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the way you want: ");
+                DisplayOption = input.nextInt();
+            } while (DisplayOption != 1 && DisplayOption != 2 );
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption, DisplayOption);
+
+
 
         } else if (option == 3) {
             int daysPerGroup;
@@ -236,9 +271,16 @@ class DaysFromAParticularDate {
                 System.out.print("Please enter the number in those 3 options to choose: ");
                 metricOption = input.nextInt();
             } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
-
-            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption);
-
+            System.out.println("\nChoose one way to display");
+            System.out.println("1. Tabular display ");
+            System.out.println("2. Chart display ");
+            int DisplayOption;
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Please enter the way you want: ");
+                DisplayOption = input.nextInt();
+            } while (DisplayOption != 1 && DisplayOption != 2 );
+            putDataInGroup(bigGroup, groupsSplittedArr, chosenDate, metricOption, DisplayOption);
         } else {
             //Just in case sth else happens
             ProcessData(pathToNewCSV, location, chosenDate, dayAway, option);
@@ -247,27 +289,29 @@ class DaysFromAParticularDate {
 
     ////////////////////////////////////////////////////////////////
     //SPLITDAY, SPLITGROUP FUNCTIONS
+
     public static void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
-                                      String originalStartDate, int metricOption) throws ParseException {
+                                      String originalStartDate, int metricOption, int DisplayOption) throws ParseException {
         ArrayList<CovidData> groupsDaysArr = new ArrayList<CovidData>();
         ArrayList<ArrayList<CovidData>> groupsDaysArrFinal = new ArrayList<ArrayList<CovidData>>();
-
         int count = 1;
         int k = 0;
         String osd = originalStartDate;
-
+        ArrayList<String> Days = new ArrayList<String>();
+        ArrayList<Long> AllMetric = new ArrayList<Long>();
         for (int outerInd = 0; outerInd < groupsSplittedArr.size(); outerInd++) {
             System.out.println("\n--- GROUP " + count + " ---");
             //plusDay : the number of DAYS that need to be added to the StartDay
             int plusDay = groupsSplittedArr.get(outerInd);
             //Get the new endDay (from the plusDay)
             String newEndDate = displayStartEndDate(osd, plusDay);
+            Days.add(osd);
             //Get the new temp dayRangeStr
             ArrayList<String> dayRangeStr = convertDateToString(getDatesBetween(osd, newEndDate));
             System.out.println(dayRangeStr);
-
             //put metricsArr here to save the data for Displaying in Table, Chart
             ArrayList<Long> metricsArr = new ArrayList<Long>();
+
 
             for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
                 CovidData dateElement = bigGroup.get(k);
@@ -280,7 +324,6 @@ class DaysFromAParticularDate {
             }
             k = 0;
             osd = newEndDate;
-
             for (CovidData gda : groupsDaysArr) {
                 //must not null to be able to convert to String
                 if (gda != null) {
@@ -291,12 +334,14 @@ class DaysFromAParticularDate {
             }
             //Display Chosen Metric Result
             metricDisplay(metricOption, groupsDaysArr, metricsArr);
-
             Collections.addAll(groupsDaysArrFinal, groupsDaysArr);
             groupsDaysArr.clear();
             count += 1;
+            Days.add(newEndDate);
+            AllMetric.addAll(metricsArr);
+
         }
-//            System.out.println(groupsDaysArrFinal);
+        TabularDisplay2.PutDataIntoTable(AllMetric,Days, DisplayOption);
     }
 
 
@@ -515,41 +560,4 @@ class DaysFromAParticularDate {
     }
 }
 
-class TabularDisplay {
-    JFrame f;
-    JTable j;
-
-    TabularDisplay() {
-
-        f = new JFrame();
-
-        // Frame Title
-        f.setTitle("Tabular Display");
-
-
-        String[][] data = {
-                {"Kundan Kumar Jha", "4031"},
-                {"Anand Jha", "6014"}
-        };
-
-
-        String[] columnNames = {"Range", "Value"};
-
-
-        j = new JTable(data, columnNames);
-        j.setBounds(30, 40, 200, 300);
-
-
-        JScrollPane sp = new JScrollPane(j);
-        f.add(sp);
-
-        f.setSize(500, 200);
-        f.setVisible(true);
-    }
-
-    // Driver  method
-    public static void main(String[] args) {
-        new TabularDisplay();
-    }
-}
 

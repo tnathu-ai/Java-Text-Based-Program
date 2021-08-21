@@ -15,7 +15,6 @@ public class UI {
         List<CovidData> extractedData = new ArrayList<>();
         while (true) {
             Scanner scanner = new Scanner(System.in);
-
             int DataChoice;
             //Data choice input
             System.out.println("\nChoose the type of Range");
