@@ -173,6 +173,9 @@ public class ReadInclusiveDateRange {
                 metricOption = input.nextInt();
             } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
 
+            System.out.println("\nChoose one way to display");
+            System.out.println("1. Tabular display ");
+            System.out.println("2. Chart display ");
             int DisplayOption;
             do {
                 Scanner input = new Scanner(System.in);
