@@ -305,10 +305,14 @@ class DaysFromAParticularDate {
             int plusDay = groupsSplittedArr.get(outerInd);
             //Get the new endDay (from the plusDay)
             String newEndDate = displayStartEndDate(osd, plusDay);
-            Days.add(osd);
+//            Days.add(osd);
             //Get the new temp dayRangeStr
             ArrayList<String> dayRangeStr = convertDateToString(getDatesBetween(osd, newEndDate));
             System.out.println(dayRangeStr);
+            String firstDay = dayRangeStr.get(0);
+            String lastday = dayRangeStr.get(dayRangeStr.size() - 1);
+            Days.add(firstDay);
+            Days.add(lastday);
             //put metricsArr here to save the data for Displaying in Table, Chart
             ArrayList<Long> metricsArr = new ArrayList<Long>();
 
@@ -337,7 +341,6 @@ class DaysFromAParticularDate {
             Collections.addAll(groupsDaysArrFinal, groupsDaysArr);
             groupsDaysArr.clear();
             count += 1;
-            Days.add(newEndDate);
             AllMetric.addAll(metricsArr);
 
         }
