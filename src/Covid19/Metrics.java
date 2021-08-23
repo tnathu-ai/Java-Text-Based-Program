@@ -50,7 +50,8 @@ public class Metrics {
     }
 
     //DISPLAY METRICS
-    public static void metricDisplay(int metricOption, ArrayList<CovidData> groupsDaysArr, ArrayList<Long> metricsArr) {
+    public static void metricDisplay(int metricOption, ArrayList<CovidData> groupsDaysArr,
+                                     ArrayList<Long> metricsArr) {
         // Using Array List to print
         switch (metricOption) {
             //option 1: totalNewCases

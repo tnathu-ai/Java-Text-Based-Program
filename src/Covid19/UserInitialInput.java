@@ -1,19 +1,17 @@
 package Covid19;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static Covid19.ReadWriteCsvData.replaceNullCsv;
 
-public class UserInput {
+public class UserInitialInput {
     String pathToNewCsv;
     String location;
     String chosenDate;
     int dayAway;
     int option;
 
-    public UserInput (String pathToNewCsv, String location, String chosenDate, int dayAway, int option) {
+    public UserInitialInput(String pathToNewCsv, String location, String chosenDate, int dayAway, int option) {
         this.pathToNewCsv = pathToNewCsv;
         this.location = location;
         this.chosenDate = chosenDate;
@@ -21,7 +19,7 @@ public class UserInput {
         this.option = option;
     }
 
-    public static UserInput userInputRequest() {
+    public static UserInitialInput userInputRequest() {
         String pathToCSV = "Data/covid-data.csv";
         String pathToNewCSV = "Data/covid-data-zero.csv";
         replaceNullCsv(pathToCSV, pathToNewCSV);
@@ -49,7 +47,7 @@ public class UserInput {
             System.out.print("Please enter the number in those 3 options to choose: ");
             option = input.nextInt();
         } while (option != 1 && option != 2 && option != 3);
-        UserInput userDataInput = new UserInput(pathToNewCSV, location, chosenDate, dayAway, option);
+        UserInitialInput userDataInput = new UserInitialInput(pathToNewCSV, location, chosenDate, dayAway, option);
 
         return userDataInput;
     }

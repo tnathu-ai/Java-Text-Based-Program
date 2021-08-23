@@ -2,6 +2,22 @@ package Covid19;
 
 import javax.swing.*;
 import java.util.*;
+class UserDisplayInput {
+    public static int optionDisplayInput() {
+        //Choose way of displaying
+        System.out.println("\nChoose one way to display");
+        System.out.println("1. Tabular display ");
+        System.out.println("2. Chart display ");
+        int DisplayOption;
+        do {
+            Scanner input = new Scanner(System.in);
+            System.out.print("Please enter the way you want: ");
+            DisplayOption = input.nextInt();
+        } while (DisplayOption != 1 && DisplayOption != 2 );
+        return DisplayOption;
+    }
+}
+
 class TabularDisplay {
     JFrame f;
     JTable j;
