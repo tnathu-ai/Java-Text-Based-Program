@@ -354,8 +354,7 @@ public class ReadInclusiveDateRange {
     static int calculateDayAway(String chosenDate, String endDate) {
         // SimpleDateFormat converts the
         // string format to date object
-        SimpleDateFormat sdf
-                = new SimpleDateFormat("MM-dd-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         // Try Block
         long dayAway = 0;
         try {
