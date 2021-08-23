@@ -1,8 +1,24 @@
 package Covid19;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class resultCalculation {
+public class Metrics {
+    public static int metricUserInput() {
+        System.out.println("\nEnter one of the number below to calculate an additional metric:");
+        System.out.println("1. Total positive cases. ");
+        System.out.println("2. Total deaths. ");
+        System.out.println("3. Total people vaccinated. ");
+        int metricOption;
+        do {
+            Scanner input = new Scanner(System.in);
+            System.out.print("Please enter the number in those 3 options to choose: ");
+            metricOption = input.nextInt();
+        } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+        return metricOption;
+    }
+
+
     //os new data for each date
     public static long totalNewCases(ArrayList<CovidData> groupDataArr) {
         long sum = 0;

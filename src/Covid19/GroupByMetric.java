@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 
-import static Covid19.DaysFromAParticularDate.replaceNullCsv;
+import static Covid19.ReadWriteCsvData.replaceNullCsv;
 
 public class GroupByMetric {
 

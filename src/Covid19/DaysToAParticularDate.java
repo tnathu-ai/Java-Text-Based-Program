@@ -5,12 +5,9 @@ import java.text.DateFormat;
 import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
-import static Covid19.DaysFromAParticularDate.putDataInGroup;
-import static Covid19.resultCalculation.metricDisplay;
+import static Covid19.DayGroupSplitting.putDataInGroup;
+import static Covid19.Metrics.metricDisplay;
 
 class DaysToAParticularDate {
 

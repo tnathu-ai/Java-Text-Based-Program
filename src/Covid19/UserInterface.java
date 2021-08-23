@@ -28,7 +28,7 @@ public class UserInterface {
 
             switch (DataChoice) {
                 case 1 -> ReadInclusiveDateRange.main();
-                case 2 -> DaysFromAParticularDate.main();
+                case 2 -> DaysFromAParticularDate.Process();
                 case 3 -> DaysToAParticularDate.main();
             }
 
