@@ -36,7 +36,7 @@ class DaysFromAParticularDate {
         System.out.println("2. Choose the number of groups that the number of days will be divided equally into " +
                 "each " +
                 "group");
-        System.out.println("3. Choose the number of days in each divided group.");
+        System.out.println("3. Choose the number of days in each divided group");
         System.out.println();
         int option;
         do {
