@@ -48,7 +48,7 @@ public class UserInitialInput {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         //Date date1 = sdf.parse("2009-12-31");
         Date smallestDate = sdf.parse("1/1/2020");
-        Date largestDate = sdf.parse("9/9/2020");
+        Date largestDate = sdf.parse("7/8/2021");
         Date chosenDateDateFormat = sdf.parse(chosenDate);
 
         do {
@@ -57,8 +57,8 @@ public class UserInitialInput {
             while (!input.hasNextLine()) {
                 System.out.println("That's not a valid chosenDate." +
                         "\n Please enter another one in the correct Date format 'MM/dd/yyyy'" +
-                        "that in the range from 1/1/2020 to 9/9/2020: ");
-                input.next(); // this is important!
+                        "that in the range from 1/1/2020 to 7/8/2021: ");
+                input.next();
             }
             chosenDate = input.nextLine();
         } while (!(dataRow.getDate().equals(chosenDate) || !largestDate.after(chosenDateDateFormat) || !smallestDate.before(chosenDateDateFormat)));
