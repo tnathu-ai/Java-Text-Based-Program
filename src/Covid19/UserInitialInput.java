@@ -31,7 +31,7 @@ public class UserInitialInput {
         String location;
         do {
             System.out.println("Enter the Continent or Country: ");
-            while (!input.hasNextInt()) {
+            while (!input.hasNextLine()) {
                 System.out.println("That's not a valid location. Please enter another one! ");
                 input.next(); // this is important!
             }
@@ -43,7 +43,7 @@ public class UserInitialInput {
         do {
             System.out.println("Choose a date you want in this format 'MM/dd/yyyy'" +
                     "\n The date should be in the range from 1/1/2020 to 9/9/2020: ");
-            while (!input.hasNextInt()) {
+            while (!input.hasNextLine()) {
                 System.out.println("That's not a valid chosenDate." +
                         "\n Please enter another one in the correct Date format 'MM/dd/yyyy'" +
                         "that in the range from 1/1/2020 to 9/9/2020: ");
