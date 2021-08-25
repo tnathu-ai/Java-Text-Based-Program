@@ -1,5 +1,10 @@
 package Covid19;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -21,7 +26,7 @@ public class UserInitialInput {
         this.option = option;
     }
 
-    public static UserInitialInput userInputRequest() {
+    public static UserInitialInput userInputRequest() throws ParseException {
         String pathToCSV = "Data/covid-data.csv";
         String pathToNewCSV = "Data/covid-data-zero.csv";
         replaceNullCsv(pathToCSV, pathToNewCSV);
@@ -39,7 +44,13 @@ public class UserInitialInput {
         } while (dataRow.getContinent().equalsIgnoreCase(location) || dataRow.getLocation().equalsIgnoreCase(location));
         System.out.println("Thank you! Got " + location);
 
-        String chosenDate;
+        String chosenDate = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        //Date date1 = sdf.parse("2009-12-31");
+        Date smallestDate = sdf.parse("1/1/2020");
+        Date largestDate = sdf.parse("9/9/2020");
+        Date chosenDateDateFormat = sdf.parse(chosenDate);
+
         do {
             System.out.println("Choose a date you want in this format 'MM/dd/yyyy'" +
                     "\n The date should be in the range from 1/1/2020 to 9/9/2020: ");
@@ -50,7 +61,7 @@ public class UserInitialInput {
                 input.next(); // this is important!
             }
             chosenDate = input.nextLine();
-        } while (dataRow.getDate().equalsIgnoreCase(chosenDate));
+        } while (!(dataRow.getDate().equals(chosenDate) || !largestDate.after(chosenDateDateFormat) || !smallestDate.before(chosenDateDateFormat)));
         System.out.println("Thank you! Got " + chosenDate);
 
         System.out.print("Enter the number of days that are away from the date you chose: ");
@@ -60,8 +71,7 @@ public class UserInitialInput {
                 " days: ");
         System.out.println("1. No grouping: each day is a separate group.");
         System.out.println("2. Choose the number of groups that the number of days will be divided equally into " +
-                "each " +
-                "group");
+                "each " + "group");
         System.out.println("3. Choose the number of days in each divided group");
         System.out.println();
         int option;
