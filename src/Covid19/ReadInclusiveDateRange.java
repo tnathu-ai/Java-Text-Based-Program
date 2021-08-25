@@ -1,18 +1,21 @@
-package Covid19;
-
-import java.io.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static Covid19.DayGroupSplitting.putDataInGroup;
-import static Covid19.Metrics.metricDisplay;
-
-public class ReadInclusiveDateRange {
-
-    public static void main() throws ParseException, IOException {
-
+//package Covid19;
+//
+//import java.io.*;
+//import java.text.DateFormat;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
+//import java.util.*;
+//
+//import static Covid19.DayGroupSplitting.putDataInGroup;
+//import static Covid19.Metrics.metricDisplay;
+//import static Covid19.UserInitialInput.userInputRequest;
+//import static Covid19.ReadWriteCsvData.readCsvRow;
+//import static Covid19.Metrics.*;
+//
+//public class ReadInclusiveDateRange {
+//
+//    public static void main() throws ParseException, IOException {
+//
 //        String pathToCSV = "Data/covid-data.csv";
 //        String pathToNewCSV = "Data/covid-data-zero.csv";
 //        replaceNullCsv(pathToCSV, pathToNewCSV);
@@ -378,12 +381,11 @@ public class ReadInclusiveDateRange {
 //            System.out.println(dayAway + " days, ");
 //
 //        }
-//
 //        // Catch the Exception
 //        catch (ParseException e) {
 //            e.printStackTrace();
 //        }
 //        return (int) dayAway;
-    }
-
-}
+//    }
+//
+//}
