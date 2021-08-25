@@ -2,9 +2,11 @@ package Covid19;
 
 import java.util.Scanner;
 
+
 import static Covid19.ReadWriteCsvData.replaceNullCsv;
 
 public class UserInitialInput {
+    private static CovidData dataRow;
     String pathToNewCsv;
     String location;
     String chosenDate;
@@ -25,11 +27,31 @@ public class UserInitialInput {
         replaceNullCsv(pathToCSV, pathToNewCSV);
 
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter the Continent or Country: ");
-        String location = input.nextLine();
 
-        System.out.print("Choose a date you want in this format 'MM/dd/yyyy': ");
-        String chosenDate = input.nextLine();
+        String location;
+        do {
+            System.out.println("Enter the Continent or Country: ");
+            while (!input.hasNextInt()) {
+                System.out.println("That's not a valid location. Please enter another one! ");
+                input.next(); // this is important!
+            }
+            location = input.nextLine();
+        } while (dataRow.getContinent().equalsIgnoreCase(location) || dataRow.getLocation().equalsIgnoreCase(location));
+        System.out.println("Thank you! Got " + location);
+
+        String chosenDate;
+        do {
+            System.out.println("Choose a date you want in this format 'MM/dd/yyyy'" +
+                    "\n The date should be in the range from 1/1/2020 to 9/9/2020: ");
+            while (!input.hasNextInt()) {
+                System.out.println("That's not a valid chosenDate." +
+                        "\n Please enter another one in the correct Date format 'MM/dd/yyyy'" +
+                        "that in the range from 1/1/2020 to 9/9/2020: ");
+                input.next(); // this is important!
+            }
+            chosenDate = input.nextLine();
+        } while (dataRow.getDate().equalsIgnoreCase(chosenDate));
+        System.out.println("Thank you! Got " + chosenDate);
 
         System.out.print("Enter the number of days that are away from the date you chose: ");
         int dayAway = input.nextInt();
