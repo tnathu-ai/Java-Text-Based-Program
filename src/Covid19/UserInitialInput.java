@@ -2,11 +2,8 @@ package Covid19;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
-
 
 import static Covid19.ReadWriteCsvData.replaceNullCsv;
 
@@ -46,11 +43,9 @@ public class UserInitialInput {
 
         String chosenDate = null;
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        //Date date1 = sdf.parse("2009-12-31");
         Date smallestDate = sdf.parse("1/1/2020");
         Date largestDate = sdf.parse("7/8/2021");
         Date chosenDateDateFormat = sdf.parse(chosenDate);
-
         do {
             System.out.println("Choose a date you want in this format 'MM/dd/yyyy'" +
                     "\n The date should be in the range from 1/1/2020 to 9/9/2020: ");
@@ -67,20 +62,20 @@ public class UserInitialInput {
         System.out.print("Enter the number of days that are away from the date you chose: ");
         int dayAway = input.nextInt();
 
-        System.out.println("\nThere are 3 ways you can choose to group your" +
-                " days: ");
+        // choose type of grouping methods:
+        System.out.println("\nThere are 3 ways you can choose to group your days: ");
         System.out.println("1. No grouping: each day is a separate group.");
-        System.out.println("2. Choose the number of groups that the number of days will be divided equally into " +
-                "each " + "group");
-        System.out.println("3. Choose the number of days in each divided group");
+        System.out.println("2. Number of groups: the number of days will be divided equally into each group." +
+                "\n Your data will be divided as equally as possible. ");
+        System.out.println("3. Number of days: The number of days in each divided group" +
+                "\n (If it is not possible to divide groups equally, the program will raise an error). ");
         System.out.println();
         int option;
         do {
-            System.out.print("Please enter the number in those 3 options to choose: ");
+            System.out.print("Please enter only the number in those 3 options to choose: ");
             option = input.nextInt();
         } while (option != 1 && option != 2 && option != 3);
         UserInitialInput userDataInput = new UserInitialInput(pathToNewCSV, location, chosenDate, dayAway, option);
-
         return userDataInput;
     }
 }
