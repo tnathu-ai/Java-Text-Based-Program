@@ -7,12 +7,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UI {
+    static DaysFromAParticularDate daysFromAParticularDate;
+
     public static void main(String[] args) throws ParseException, IOException {
-        List<CovidData> extractedData = extractedData();
+//        List<CovidData> extractedData = extractedData();
+//        runTypeOfRange();
+        int DataChoice = getDataChoice();
+        UserInitialInput.userInputRequest(DataChoice);
+        switch (DataChoice) {
+//            case 1 -> ReadInclusiveDateRange;
+            case 2 -> daysFromAParticularDate.runTypeofRange();
+            case 3 -> DaysToAParticularDate.main();
+        }
     }
 
-    public static List<CovidData> extractedData() throws IOException, ParseException {
-        List<CovidData> extractedData = new ArrayList<>();
+    public static void runTypeOfRange() {
+        System.out.println("You haven't chosen the Range type!");
+    }
+
+    public static int getDataChoice() {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             int DataChoice;
@@ -23,26 +36,51 @@ public class UI {
             System.out.println("3. A number of days or weeks to particular date");
 
             do {
-                System.out.println("Please input your option");
+                System.out.print("Please input your option:");
                 DataChoice = scanner.nextInt();
                 if ((DataChoice < 1) || (DataChoice > 3)) {
                     System.out.println("You have entered the wrong option. Please choose again!");
                 }
             } while ((DataChoice < 1) || (DataChoice > 3));
-
-            switch (DataChoice) {
-                case 1 -> ReadInclusiveDateRange.main();
-                case 2 -> DaysFromAParticularDate.Process();
-                case 3 -> DaysToAParticularDate.main();
-            }
+            return DataChoice;
         }
-
-        //Metric ( 3 possible metric: positive cases, deaths, people vaccinated )
-
-        //Way of calculation
-
-
-        //display summary data
-
     }
+
+//    public static List<CovidData> extractedData() throws IOException, ParseException {
+//        List<CovidData> extractedData = new ArrayList<>();
+//        while (true) {
+//            Scanner scanner = new Scanner(System.in);
+//            int DataChoice;
+//            //Data choice input
+//            System.out.println("\nChoose the type of Range");
+//            System.out.println("1. A pair of start date and end date");
+//            System.out.println("2. A number of days or weeks from particular date");
+//            System.out.println("3. A number of days or weeks to particular date");
+//
+//            do {
+//                System.out.print("Please input your option:");
+//                DataChoice = scanner.nextInt();
+//                if ((DataChoice < 1) || (DataChoice > 3)) {
+//                    System.out.println("You have entered the wrong option. Please choose again!");
+//                }
+//            } while ((DataChoice < 1) || (DataChoice > 3));
+//
+//            switch (DataChoice) {
+//                case 1 -> ReadInclusiveDateRange.main();
+//                case 2 -> DaysFromAParticularDate.runTypeofRange();
+//                case 3 -> DaysToAParticularDate.main();
+//            }
+//        }
+//
+//
+//
+//        //Metric ( 3 possible metric: positive cases, deaths, people vaccinated )
+//
+//        //Way of calculation
+//
+//
+//        //display summary data
+//    }
+
 }
+

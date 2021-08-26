@@ -44,65 +44,6 @@ class DateLocationFiltering {
 }
 
 class DayGroupSplitting {
-    public static void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
-                                      String originalStartDate, int metricOption, int DisplayOption) throws ParseException {
-        ArrayList<CovidData> groupsDaysArr = new ArrayList<CovidData>();
-
-        int count = 1;
-        int k = 0;
-        String osd = originalStartDate;
-        ArrayList<String> Days = new ArrayList<String>();
-        ArrayList<Long> AllMetric = new ArrayList<Long>();
-
-        for (int outerInd = 0; outerInd < groupsSplittedArr.size(); outerInd++) {
-            System.out.println("\n--- GROUP " + count + " ---");
-            //plusDay : the number of DAYS that need to be added to the StartDay
-            int plusDay = groupsSplittedArr.get(outerInd);
-            //Get the new endDay (from the plusDay)
-            String newEndDate = TimeRelatedFunctions.displayStartEndDate(osd, plusDay);
-//            Days.add(osd);
-            //Get the new temporary dayRangeStr
-            ArrayList<String> dayRangeStr = TimeRelatedFunctions.convertDateToString(
-                    TimeRelatedFunctions.getDatesBetween(osd, newEndDate));
-            System.out.println(dayRangeStr);
-            //put into Days array for Display Table, Chart
-            String firstDay = dayRangeStr.get(0);
-            String lastday = dayRangeStr.get(dayRangeStr.size() - 1);
-            Days.add(firstDay);
-            Days.add(lastday);
-            //put metricsArr here to save the data for Displaying in Table, Chart
-            ArrayList<Long> metricsArr = new ArrayList<Long>();
-
-            for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
-                CovidData dateElement = bigGroup.get(k);
-                //Accept dataElement if it is in the Range of osd-oed
-                CovidData dateData = DateLocationFiltering.getDataFromDate(osd, newEndDate, dateElement);
-                if (dateData != null) {
-                    groupsDaysArr.add(dateData);
-                }
-                k += 1;
-            }
-            k = 0;
-            osd = newEndDate;
-            for (CovidData gda : groupsDaysArr) {
-                //must not null to be able to convert to String
-                if (gda != null) {
-                    System.out.println(gda.toPrintString());
-                } else {
-                    ;
-                }
-            }
-            //Display Chosen Metric Result
-            metricDisplay(metricOption, groupsDaysArr, metricsArr);
-            groupsDaysArr.clear();
-            count += 1;
-            AllMetric.addAll(metricsArr);
-
-        }
-        TabularDisplay2.PutDataIntoTable(AllMetric,Days, DisplayOption);
-    }
-
-
     public static ArrayList<Integer> splitGroupsEqually(int x, int n) {
         //x: dayAway
         //n: groups

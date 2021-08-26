@@ -6,13 +6,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static Covid19.DayGroupSplitting.putDataInGroup;
 import static Covid19.Metrics.metricDisplay;
 
 public class ReadInclusiveDateRange {
+    GroupingDisplayDataPrint groupDisplayPrint;
 
-    public static void main() throws ParseException, IOException {
-
+//    public static void main() throws ParseException, IOException {
+//
 //        String pathToCSV = "Data/covid-data.csv";
 //        String pathToNewCSV = "Data/covid-data-zero.csv";
 //        replaceNullCsv(pathToCSV, pathToNewCSV);
@@ -384,6 +384,6 @@ public class ReadInclusiveDateRange {
 //            e.printStackTrace();
 //        }
 //        return (int) dayAway;
-    }
+//    }
 
 }

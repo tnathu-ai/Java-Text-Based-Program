@@ -26,7 +26,6 @@ public class ReadWriteCsvData {
 
         while ((row = csvReader.readLine()) != null) {
             String[] data = row.split(",", -1);
-
             int i = 0;
 
             CovidData dataRow = new CovidData(data[i],
