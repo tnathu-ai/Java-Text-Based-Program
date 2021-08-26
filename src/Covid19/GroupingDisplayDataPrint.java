@@ -34,7 +34,7 @@ public class GroupingDisplayDataPrint {
         int DisplayOption = UserDisplayInput.optionDisplayInput();
         String endDate = TimeRelatedFunctions.displayStartEndDate(initialInput.chosenDate, initialInput.dayAway);
         if (DisplayOption == 1)
-            new TabularDisplay(initialInput.chosenDate,endDate,metricsArr);
+            new TabularDisplay(initialInput.chosenDate, endDate, metricsArr);
     }
 
     public void PrintOption2() throws IOException, ParseException {
@@ -138,6 +138,6 @@ public class GroupingDisplayDataPrint {
             AllMetric.addAll(metricsArr);
 
         }
-        TabularDisplay2.PutDataIntoTable(AllMetric,Days, DisplayOption);
+        TabularDisplay2.PutDataIntoTable(AllMetric, Days, DisplayOption);
     }
 }

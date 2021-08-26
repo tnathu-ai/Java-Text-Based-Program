@@ -2,6 +2,7 @@ package Covid19;
 
 import javax.swing.*;
 import java.util.*;
+
 class UserDisplayInput {
     public static int optionDisplayInput() {
         //Choose way of displaying
@@ -13,7 +14,7 @@ class UserDisplayInput {
             Scanner input = new Scanner(System.in);
             System.out.print("Please enter the way you want: ");
             DisplayOption = input.nextInt();
-        } while (DisplayOption != 1 && DisplayOption != 2 );
+        } while (DisplayOption != 1 && DisplayOption != 2);
         return DisplayOption;
     }
 }
@@ -21,20 +22,21 @@ class UserDisplayInput {
 class TabularDisplay {
     JFrame f;
     JTable j;
+
     TabularDisplay(String chosenDate, String endDate, ArrayList<Long> metricsArr) {
         f = new JFrame();
         // Frame Title
         f.setTitle("Tabular Display");
         String[] columnNames = {"Range", "Value"};
-            String listString = "";
-            for (Long s : metricsArr) {
-                listString += s + "\t";
-            }
-            String[] ob1 = {chosenDate + "-" + endDate, listString};
-            String[][] data1 = {
-                    ob1
-            };
-            j = new JTable(data1, columnNames);
+        String listString = "";
+        for (Long s : metricsArr) {
+            listString += s + "\t";
+        }
+        String[] ob1 = {chosenDate + "-" + endDate, listString};
+        String[][] data1 = {
+                ob1
+        };
+        j = new JTable(data1, columnNames);
 
         j.setBounds(30, 40, 200, 300);
 
@@ -46,10 +48,12 @@ class TabularDisplay {
         f.setVisible(true);
     }
 }
-class TabularDisplay2{
+
+class TabularDisplay2 {
     JFrame f;
     JTable j;
-    public static void PutDataIntoTable(ArrayList<Long> metricsArr,ArrayList<String> Days, int DisplayOption) {
+
+    public static void PutDataIntoTable(ArrayList<Long> metricsArr, ArrayList<String> Days, int DisplayOption) {
         String listString = "";
         for (Long s : metricsArr) {
             listString += s + " " + "-" + " ";
@@ -77,7 +81,7 @@ class TabularDisplay2{
             }
 
         }
-        if(DisplayOption==1 )
+        if (DisplayOption == 1)
             new TabularDisplay2(arrays);
     }
 
