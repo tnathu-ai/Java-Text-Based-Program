@@ -8,17 +8,12 @@ import static Covid19.ReadWriteCsvData.readCsvRow;
 import static Covid19.Metrics.*;
 
 class DaysFromAParticularDate {
-    UserInitialInput initialInput;
-    GroupingDisplayDataPrint groupDisplayPrint;
-
-    public DaysFromAParticularDate(UserInitialInput initialInput, GroupingDisplayDataPrint groupDisplayPrint) {
-        this.initialInput = initialInput;
-        this.groupDisplayPrint = groupDisplayPrint;
-    }
-
-    public void runIndividualProgram(int DataChoice) throws ParseException, IOException {
-        UserInitialInput userInitialInput = UserInitialInput.userInputRequest(DataChoice);
+    public static void runIndividualProgram(int DataChoice) throws ParseException, IOException {
+        UserInitialInput initialInput = UserInitialInput.userInputRequest(DataChoice);
         int option = initialInput.option;
+
+        GroupingDisplayDataPrint groupDisplayPrint = new GroupingDisplayDataPrint();
+        groupDisplayPrint.setInitialInput(initialInput);
 
         if (option == 1) {
             groupDisplayPrint.PrintOption1();

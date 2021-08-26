@@ -12,6 +12,10 @@ import static Covid19.ReadWriteCsvData.readCsvRow;
 public class GroupingDisplayDataPrint {
     UserInitialInput initialInput;
 
+    public void setInitialInput(UserInitialInput initialInput) {
+        this.initialInput = initialInput;
+    }
+
     public void PrintOption1() throws IOException, ParseException {
         //filter and get the required Data
         ArrayList<CovidData> bigGroup = readCsvRow(

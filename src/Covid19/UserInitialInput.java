@@ -73,9 +73,10 @@ public class UserInitialInput {
                     System.out.println("That's not a valid location. Please enter another one! ");
                     input.next();
                 }
-                location = input.nextLine();
+
 
             } while (!(data[2].equalsIgnoreCase(location)) && !(data[1].equalsIgnoreCase(location)));
+            location = input.nextLine();
             System.out.println("We've got " + location);
 
             String chosenDate = null;
@@ -96,6 +97,7 @@ public class UserInitialInput {
                 chosenDate = input.nextLine();
             } while (!(data[3].equals(chosenDate) || !largestDate.after(chosenDateDateFormat) || !smallestDate.before(chosenDateDateFormat)));
             System.out.println("We've got " + chosenDate);
+        }
 
             String endInputDate = null;
             int dayAway = 0;
@@ -126,7 +128,7 @@ public class UserInitialInput {
                 UserInitialInput userDataInput = new UserInitialInput(pathToNewCSV, location, chosenDate, dayAway, option);
             }
             UserInitialInput userDataInput = new UserInitialInput(pathToNewCSV, location, chosenDate, dayAway, option);
-        }
+
         return userDataInput;
     }
 }
