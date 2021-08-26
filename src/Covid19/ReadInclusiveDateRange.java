@@ -11,7 +11,7 @@ import static Covid19.Metrics.metricDisplay;
 public class ReadInclusiveDateRange {
     GroupingDisplayDataPrint groupDisplayPrint;
 
-//    public static void main() throws ParseException, IOException {
+    public static void main() throws ParseException, IOException {
 //
 //        String pathToCSV = "Data/covid-data.csv";
 //        String pathToNewCSV = "Data/covid-data-zero.csv";
@@ -384,6 +384,6 @@ public class ReadInclusiveDateRange {
 //            e.printStackTrace();
 //        }
 //        return (int) dayAway;
-//    }
+    }
 
 }

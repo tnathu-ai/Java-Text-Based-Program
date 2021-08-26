@@ -7,16 +7,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UI {
-    static DaysFromAParticularDate daysFromAParticularDate;
-
+    DaysFromAParticularDate daysFromAParticularDate;
     public static void main(String[] args) throws ParseException, IOException {
 //        List<CovidData> extractedData = extractedData();
 //        runTypeOfRange();
         int DataChoice = getDataChoice();
-        UserInitialInput.userInputRequest(DataChoice);
         switch (DataChoice) {
-//            case 1 -> ReadInclusiveDateRange;
-            case 2 -> daysFromAParticularDate.runTypeofRange();
+            case 1 -> ReadInclusiveDateRange.main();
+            case 2 -> DaysFromAParticularDate.runIndividualProgram(DataChoice);
             case 3 -> DaysToAParticularDate.main();
         }
     }

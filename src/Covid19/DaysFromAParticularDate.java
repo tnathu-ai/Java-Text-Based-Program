@@ -11,7 +11,13 @@ class DaysFromAParticularDate {
     UserInitialInput initialInput;
     GroupingDisplayDataPrint groupDisplayPrint;
 
-    public void runTypeofRange() throws ParseException, IOException {
+    public DaysFromAParticularDate(UserInitialInput initialInput, GroupingDisplayDataPrint groupDisplayPrint) {
+        this.initialInput = initialInput;
+        this.groupDisplayPrint = groupDisplayPrint;
+    }
+
+    public void runIndividualProgram(int DataChoice) throws ParseException, IOException {
+        UserInitialInput userInitialInput = UserInitialInput.userInputRequest(DataChoice);
         int option = initialInput.option;
 
         if (option == 1) {
@@ -25,11 +31,9 @@ class DaysFromAParticularDate {
 
         } else {
             //Just in case sth else happens
-            runTypeofRange();
+            runIndividualProgram(DataChoice);
         }
     }
-
-
 }
 
 

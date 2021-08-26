@@ -42,6 +42,26 @@ public class UserInitialInput {
         return dayAway;
     }
 
+    public static int getOption() {
+        Scanner input = new Scanner(System.in);
+        // choose type of grouping methods:
+        System.out.println("\nThere are 3 ways you can choose to group your days: ");
+        System.out.println("1. No grouping: each day is a separate group.");
+        System.out.println("2. Number of groups: the number of days will be divided equally into each group." +
+                "\n Your data will be divided as equally as possible. ");
+        System.out.println("3. Number of days: The number of days in each divided group" +
+                "\n (If it is not possible to divide groups equally, the program will raise an error). ");
+        System.out.println();
+
+        int option;
+        do {
+            System.out.print("Please enter only the number in those 3 options to choose: ");
+            option = input.nextInt();
+        } while (option != 1 && option != 2 && option != 3);
+
+        return option;
+    }
+
 
     public static UserInitialInput userInputRequest(int DataChoice) throws ParseException {
         String pathToCSV = "Data/covid-data.csv";
@@ -61,8 +81,11 @@ public class UserInitialInput {
 //
 //        } while (dataRow.getContinent().equalsIgnoreCase(location) || dataRow.getLocation().equalsIgnoreCase(location));
 //        System.out.println("Thank you! Got " + location);
+        System.out.println("Enter the Continent or Country: ");
+        location = input.nextLine();
 
-        String chosenDate = null;
+
+        String chosenDate;
 //        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 //        Date smallestDate = sdf.parse("1/1/2020");
 //        Date largestDate = sdf.parse("7/8/2021");
@@ -79,6 +102,8 @@ public class UserInitialInput {
 //            chosenDate = input.nextLine();
 //        } while (!(dataRow.getDate().equals(chosenDate) || !largestDate.after(chosenDateDateFormat) || !smallestDate.before(chosenDateDateFormat)));
 //        System.out.println("Thank you! Got " + chosenDate);
+        System.out.print("Enter the day you want (M/D/Y): ");
+        chosenDate = input.nextLine();
 
         String endInputDate = null;
         int dayAway = 0;
@@ -88,25 +113,9 @@ public class UserInitialInput {
             dayAway = getDayAway();
         }
 
-        int option;
-        do {
-            System.out.print("Please enter only the number in those 3 options to choose: ");
-            option = input.nextInt();
-        } while (option != 1 && option != 2 && option != 3);
-
-        // choose type of grouping methods:
-        System.out.println("\nThere are 3 ways you can choose to group your days: ");
-        System.out.println("1. No grouping: each day is a separate group.");
-        System.out.println("2. Number of groups: the number of days will be divided equally into each group." +
-                "\n Your data will be divided as equally as possible. ");
-        System.out.println("3. Number of days: The number of days in each divided group" +
-                "\n (If it is not possible to divide groups equally, the program will raise an error). ");
-        System.out.println();
-
+        int option = getOption();
         if (DataChoice == 1) {
             UserInitialInput userDataInput = new UserInitialInput(endInputDate);
-        } else {
-            UserInitialInput userDataInput = new UserInitialInput(pathToNewCSV, location, chosenDate, dayAway, option);
         }
         UserInitialInput userDataInput = new UserInitialInput(pathToNewCSV, location, chosenDate, dayAway, option);
 
