@@ -10,7 +10,7 @@ import static Covid19.DateLocationFiltering.*;
 
 public class ReadWriteCsvData {
     public static ArrayList<CovidData> readCsvRow(String pathToNewCSV, String location,
-                                  String chosenDate, int dayAway) throws IOException, ParseException {
+                                                  String chosenDate, int dayAway) throws IOException, ParseException {
         ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
 
         //Get and Print the Date Range

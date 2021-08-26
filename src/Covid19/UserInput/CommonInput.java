@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 import static Covid19.ReadWriteCsvData.replaceNullCsv;
 
-
 public class CommonInput {
     private static CovidData dataRow;
     String pathToNewCsv;
@@ -41,7 +40,6 @@ public class CommonInput {
         CommonInput getLocationAndChosenDate = inputRequest(location, chosenDate);
         CommonInput userDataInput = new CommonInput(pathToNewCSV, location, chosenDate, option);
         return userDataInput;
-
     }
 
     public CommonInput inputRequest(String location, String chosenDate) throws ParseException {
@@ -72,7 +70,7 @@ public class CommonInput {
             }
             chosenDate = input.nextLine();
         } while (!(dataRow.getDate().equals(chosenDate) || !largestDate.after(chosenDateDateFormat) || !smallestDate.before(chosenDateDateFormat)));
-        System.out.println("Thank you! Got " + chosenDate);
+        System.out.println("We've Got " + chosenDate);
         CommonInput userDataInput = new CommonInput(location, chosenDate);
         return userDataInput;
     }
@@ -94,6 +92,5 @@ public class CommonInput {
         } while (option != 1 && option != 2 && option != 3);
         CommonInput userDataInput = new CommonInput(option);
         return userDataInput;
-
     }
 }
