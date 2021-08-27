@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import static Covid19.DayGroupSplitting.calculateDayAway;
 import static Covid19.ReadWriteCsvData.replaceNullCsv;
 
 public class UserInitialInput {
@@ -19,16 +20,13 @@ public class UserInitialInput {
     String endInputDate;
     int groupingOption;
 
-    public UserInitialInput(String pathToNewCsv, String location, String chosenDate, int dayAway, int groupingOption) {
+    public UserInitialInput(String pathToNewCsv, String location, String chosenDate, String endInputDate, int dayAway, int groupingOption) {
         this.pathToNewCsv = pathToNewCsv;
         this.location = location;
         this.chosenDate = chosenDate;
+        this.endInputDate = endInputDate;
         this.dayAway = dayAway;
         this.groupingOption = groupingOption;
-    }
-
-    public UserInitialInput(String endInputDate) {
-        this.endInputDate = endInputDate;
     }
 
     public static UserInitialInput userInputRequest(int DataChoice) throws IOException, ParseException {
@@ -50,12 +48,17 @@ public class UserInitialInput {
         // choose type of grouping methods:
         int groupingOption = groupOptionValidate();
 
+        UserInitialInput userDataInput;
         if (DataChoice == 1) {
-            UserInitialInput userDataInput = new UserInitialInput(endInputDate);
+            dayAway = calculateDayAway(chosenDate, endInputDate);
+            userDataInput = new UserInitialInput(pathToNewCSV, location, chosenDate, endInputDate, dayAway,
+                    groupingOption);
+            return userDataInput;
+        } else {
+            userDataInput = new UserInitialInput(pathToNewCSV, location, chosenDate, endInputDate, dayAway,
+                    groupingOption);
+            return userDataInput;
         }
-        UserInitialInput userDataInput = new UserInitialInput(pathToNewCSV, location, chosenDate, dayAway,
-                groupingOption);
-        return userDataInput;
     }
 
 

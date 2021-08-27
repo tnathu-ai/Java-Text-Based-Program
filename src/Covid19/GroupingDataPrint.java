@@ -8,6 +8,7 @@ import java.util.Scanner;
 import static Covid19.Metrics.metricDisplay;
 import static Covid19.Metrics.metricUserInput;
 import static Covid19.ReadWriteCsvData.readCsvRow;
+import static Covid19.TimeRelatedFunctions.calculateDayAway;
 
 public class GroupingDataPrint {
     UserInitialInput initialInput;
@@ -22,6 +23,7 @@ public class GroupingDataPrint {
                 initialInput.pathToNewCsv,
                 initialInput.location,
                 initialInput.chosenDate,
+                initialInput.endInputDate,
                 initialInput.dayAway,
                 DataChoice);
 
@@ -54,6 +56,7 @@ public class GroupingDataPrint {
                 initialInput.pathToNewCsv,
                 initialInput.location,
                 initialInput.chosenDate,
+                initialInput.endInputDate,
                 initialInput.dayAway,
                 DataChoice);
         do {
@@ -61,14 +64,20 @@ public class GroupingDataPrint {
             System.out.print("Enter the number of groups (smaller than the number of days): ");
             groups = input.nextInt();
         } while (groups > initialInput.dayAway);
+        ArrayList<Integer> groupsSplittedArr = new ArrayList<>();
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
-        ArrayList<Integer> groupsSplittedArr = DayGroupSplitting.splitGroupsEqually(initialInput.dayAway, groups);
+        if (DataChoice == 1) {
+            int dayAway = calculateDayAway(initialInput.chosenDate, initialInput.endInputDate);
+            groupsSplittedArr = DayGroupSplitting.splitGroupsEqually(dayAway, groups);
+        } else {
+            groupsSplittedArr = DayGroupSplitting.splitGroupsEqually(initialInput.dayAway, groups);
+        }
         //get Metric option
         int metricOption = metricUserInput();
         //Display Option and Table
         int DisplayOption = UserDisplayInput.optionDisplayInput();
         //Put data into groups and print out
-        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice,groups);
+        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice, groups);
     }
 
     public void PrintOption3(int DataChoice) throws IOException, ParseException {
@@ -78,6 +87,7 @@ public class GroupingDataPrint {
                 initialInput.pathToNewCsv,
                 initialInput.location,
                 initialInput.chosenDate,
+                initialInput.endInputDate,
                 initialInput.dayAway, DataChoice);
         do {
             Scanner input = new Scanner(System.in);
@@ -139,7 +149,7 @@ public class GroupingDataPrint {
                 if (gda != null) {
                     System.out.println(gda.toPrintString());
                 } else {
-
+                    ;
                 }
             }
             //Display Chosen Metric Result

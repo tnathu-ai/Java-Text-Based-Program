@@ -23,11 +23,12 @@ class TimeRelatedFunctions {
             System.out.println("invalid input");
             e.printStackTrace();
         }
-
-        //Number of Days to add
         if (DataChoice == 1) {
-            System.out.println("You don't need to calculate end date in this option");
-        } else if (DataChoice == 2) {
+            String endDate = sdf.format(c.getTime());
+            dayAway = calculateDayAway(chosenDate, endDate);
+        }
+        //Number of Days to add
+        if (DataChoice == 1 || DataChoice == 2) {
             c.add(Calendar.DAY_OF_MONTH, dayAway);
         } else {
             c.add(Calendar.DAY_OF_MONTH, -dayAway);
@@ -79,5 +80,42 @@ class TimeRelatedFunctions {
             dateToStrArr.add(dateToString);
         }
         return dateToStrArr;
+    }
+
+        // Function to print difference in
+    // time chosenDate and endDate
+    static int calculateDayAway(String chosenDate, String endDate) {
+        // SimpleDateFormat converts the
+        // string format to date object
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        // Try Block
+        long dayAway = 0;
+        try {
+            // parse method is used to parse
+            // the text from a string to
+            // produce the date
+            Date d1 = sdf.parse(chosenDate);
+            Date d2 = sdf.parse(endDate);
+
+            // Calucalte time difference
+            // in time and days
+            long timeDifference
+                    = d2.getTime() - d1.getTime();
+
+            dayAway = (timeDifference
+                    / (1000 * 60 * 60 * 24))
+                    % 365;
+
+            // Print the date difference in days
+            System.out.print("Difference " + "between two dates is: ");
+            System.out.println(dayAway + " days, ");
+
+        }
+
+        // Catch the Exception
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return (int) dayAway;
     }
 }
