@@ -10,12 +10,13 @@ import static Covid19.DateLocationFiltering.*;
 
 public class ReadWriteCsvData {
     public static ArrayList<CovidData> readCsvRow(String pathToNewCSV, String location,
-                                                  String chosenDate, int dayAway) throws IOException, ParseException {
+                                                  String chosenDate, int dayAway, int DataChoice) throws IOException,
+            ParseException {
         ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
 
         //Get and Print the Date Range
-        String endDate = displayStartEndDate(chosenDate, dayAway);
-        ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate);
+        String endDate = displayStartEndDate(chosenDate, dayAway, DataChoice);
+        ArrayList<Date> getDatesBetweenArr = getDatesBetween(chosenDate, endDate, DataChoice);
         System.out.println(convertDateToString(getDatesBetweenArr));
 
         //Start reading 1 row of data & Process immediately
@@ -42,7 +43,7 @@ public class ReadWriteCsvData {
             CovidData returnRowLocation = getDataFromLocation(dataRow, location);
 //                getDataFromLocation(dataRow, location);
             if (returnRowLocation != null) {
-                CovidData returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation);
+                CovidData returnRow = getDataFromDate(chosenDate, endDate, returnRowLocation, DataChoice);
                 if (returnRow != null) {
                     bigGroup.add(returnRow);
                 }

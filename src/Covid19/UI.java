@@ -2,25 +2,18 @@ package Covid19;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class UI {
-    DaysFromAParticularDate daysFromAParticularDate;
     public static void main(String[] args) throws ParseException, IOException {
 //        List<CovidData> extractedData = extractedData();
-//        runTypeOfRange();
         int DataChoice = getDataChoice();
-        switch (DataChoice) {
-            case 1 -> ReadInclusiveDateRange.main();
-            case 2 -> DaysFromAParticularDate.runIndividualProgram(DataChoice);
-            case 3 -> DaysToAParticularDate.main();
-        }
-    }
-
-    public static void runTypeOfRange() {
-        System.out.println("You haven't chosen the Range type!");
+//        switch (DataChoice) {
+//            case 1 -> ReadInclusiveDateRange.main();
+//            case 2 -> DaysFromAParticularDate.runIndividualProgram(DataChoice);
+//            case 3 -> DaysToAParticularDate.runIndividualProgram(DataChoice);
+//        }
+        runIndividualProgram(DataChoice);
     }
 
     public static int getDataChoice() {
@@ -41,6 +34,28 @@ public class UI {
                 }
             } while ((DataChoice < 1) || (DataChoice > 3));
             return DataChoice;
+        }
+    }
+
+    public static void runIndividualProgram(int DataChoice) throws ParseException, IOException {
+        UserInitialInput initialInput = UserInitialInput.userInputRequest(DataChoice);
+        int option = initialInput.groupingOption;
+
+        GroupingDataPrint groupDisplayPrint = new GroupingDataPrint();
+        groupDisplayPrint.setInitialInput(initialInput);
+
+        if (option == 1) {
+            groupDisplayPrint.PrintOption1(DataChoice);
+
+        } else if (option == 2) {
+            groupDisplayPrint.PrintOption2(DataChoice);
+
+        } else if (option == 3) {
+            groupDisplayPrint.PrintOption3(DataChoice);
+
+        } else {
+            //Just in case sth else happens
+            runIndividualProgram(DataChoice);
         }
     }
 

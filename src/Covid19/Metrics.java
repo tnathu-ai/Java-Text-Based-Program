@@ -41,7 +41,7 @@ public class Metrics {
     //is an accumulated values up to a date
     public static long totalNewVaccinated(ArrayList<CovidData> groupDataArr) {
         long upTo = 0;
-        upTo = groupDataArr.get(-1).getPeople_vaccinated();
+        upTo = groupDataArr.get(groupDataArr.size()-1).getPeople_vaccinated();
         return upTo;
     }
 

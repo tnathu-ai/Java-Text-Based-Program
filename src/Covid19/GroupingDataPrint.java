@@ -9,20 +9,21 @@ import static Covid19.Metrics.metricDisplay;
 import static Covid19.Metrics.metricUserInput;
 import static Covid19.ReadWriteCsvData.readCsvRow;
 
-public class GroupingDisplayDataPrint {
+public class GroupingDataPrint {
     UserInitialInput initialInput;
 
     public void setInitialInput(UserInitialInput initialInput) {
         this.initialInput = initialInput;
     }
 
-    public void PrintOption1() throws IOException, ParseException {
+    public void PrintOption1(int DataChoice) throws IOException, ParseException {
         //filter and get the required Data
         ArrayList<CovidData> bigGroup = readCsvRow(
                 initialInput.pathToNewCsv,
                 initialInput.location,
                 initialInput.chosenDate,
-                initialInput.dayAway);
+                initialInput.dayAway,
+                DataChoice);
 
         //get metric option
         int metricOption = metricUserInput();
@@ -36,19 +37,21 @@ public class GroupingDisplayDataPrint {
         metricDisplay(metricOption, bigGroup, metricsArr);
         //Display Option and Table
         int DisplayOption = UserDisplayInput.optionDisplayInput();
-        String endDate = TimeRelatedFunctions.displayStartEndDate(initialInput.chosenDate, initialInput.dayAway);
+        String endDate = TimeRelatedFunctions.displayStartEndDate(initialInput.chosenDate, initialInput.dayAway,
+                DataChoice);
         if (DisplayOption == 1)
             new TabularDisplay(initialInput.chosenDate, endDate, metricsArr);
     }
 
-    public void PrintOption2() throws IOException, ParseException {
+    public void PrintOption2(int DataChoice) throws IOException, ParseException {
         int groups;
         //filter and get the required Data
         ArrayList<CovidData> bigGroup = readCsvRow(
                 initialInput.pathToNewCsv,
                 initialInput.location,
                 initialInput.chosenDate,
-                initialInput.dayAway);
+                initialInput.dayAway,
+                DataChoice);
         do {
             Scanner input = new Scanner(System.in);
             System.out.print("Enter the number of groups (smaller than the number of days): ");
@@ -61,17 +64,17 @@ public class GroupingDisplayDataPrint {
         //Display Option and Table
         int DisplayOption = UserDisplayInput.optionDisplayInput();
         //Put data into groups and print out
-        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption);
+        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice);
     }
 
-    public void PrintOption3() throws IOException, ParseException {
+    public void PrintOption3(int DataChoice) throws IOException, ParseException {
         int daysPerGroup;
         //filter and get the required Data
         ArrayList<CovidData> bigGroup = readCsvRow(
                 initialInput.pathToNewCsv,
                 initialInput.location,
                 initialInput.chosenDate,
-                initialInput.dayAway);
+                initialInput.dayAway, DataChoice);
         do {
             Scanner input = new Scanner(System.in);
             System.out.print("Enter the number of days in each group (larger than 1): ");
@@ -84,11 +87,11 @@ public class GroupingDisplayDataPrint {
         //Display Option and Table
         int DisplayOption = UserDisplayInput.optionDisplayInput();
         //Put data into groups and print out
-        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption);
+        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice);
     }
 
     public void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
-                               String originalStartDate, int metricOption, int DisplayOption) throws ParseException {
+                               String originalStartDate, int metricOption, int DisplayOption, int DataChoice) throws ParseException {
         ArrayList<CovidData> groupsDaysArr = new ArrayList<CovidData>();
 
         int count = 1;
@@ -101,25 +104,25 @@ public class GroupingDisplayDataPrint {
             System.out.println("\n--- GROUP " + count + " ---");
             //plusDay : the number of DAYS that need to be added to the StartDay
             int plusDay = groupsSplittedArr.get(outerInd);
-            //Get the new endDay (from the plusDay)
-            String newEndDate = TimeRelatedFunctions.displayStartEndDate(osd, plusDay);
+            //Get the "new endDay" (from the plusDay)
+            String newEndDate = TimeRelatedFunctions.displayStartEndDate(osd, plusDay, DataChoice);
 //            Days.add(osd);
-            //Get the new temporary dayRangeStr
+            //Get the new "temporary dayRangeStr"
             ArrayList<String> dayRangeStr = TimeRelatedFunctions.convertDateToString(
-                    TimeRelatedFunctions.getDatesBetween(osd, newEndDate));
+                    TimeRelatedFunctions.getDatesBetween(osd, newEndDate, DataChoice));
             System.out.println(dayRangeStr);
             //put into Days array for Display Table, Chart
             String firstDay = dayRangeStr.get(0);
             String lastday = dayRangeStr.get(dayRangeStr.size() - 1);
             Days.add(firstDay);
             Days.add(lastday);
-            //put metricsArr here to save the data for Displaying in Table, Chart
+            //put "metricsArr" here to save the data for Displaying in Table, Chart
             ArrayList<Long> metricsArr = new ArrayList<Long>();
 
             for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
                 CovidData dateElement = bigGroup.get(k);
                 //Accept dataElement if it is in the Range of osd-oed
-                CovidData dateData = DateLocationFiltering.getDataFromDate(osd, newEndDate, dateElement);
+                CovidData dateData = DateLocationFiltering.getDataFromDate(osd, newEndDate, dateElement, DataChoice);
                 if (dateData != null) {
                     groupsDaysArr.add(dateData);
                 }
