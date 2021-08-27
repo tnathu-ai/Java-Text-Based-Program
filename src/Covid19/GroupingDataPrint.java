@@ -33,14 +33,18 @@ public class GroupingDataPrint {
             System.out.println(data.toPrintString());
         }
         //metricsArr for saving the metric result
-        ArrayList<Long> metricsArr = new ArrayList<Long>();
+        ArrayList<Long> metricsArr = new ArrayList<>();
         metricDisplay(metricOption, bigGroup, metricsArr);
         //Display Option and Table
         int DisplayOption = UserDisplayInput.optionDisplayInput();
         String endDate = TimeRelatedFunctions.displayStartEndDate(initialInput.chosenDate, initialInput.dayAway,
                 DataChoice);
         if (DisplayOption == 1)
-            new TabularDisplay(initialInput.chosenDate, endDate, metricsArr);
+            new TabularDisplay(initialInput.chosenDate,endDate,metricsArr,DisplayOption);
+        else {
+            System.out.println("*");
+            System.out.println("There is no ratio for no grouping option so there is no chart");
+        }
     }
 
     public void PrintOption2(int DataChoice) throws IOException, ParseException {
@@ -64,7 +68,7 @@ public class GroupingDataPrint {
         //Display Option and Table
         int DisplayOption = UserDisplayInput.optionDisplayInput();
         //Put data into groups and print out
-        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice);
+        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice,groups);
     }
 
     public void PrintOption3(int DataChoice) throws IOException, ParseException {
@@ -87,18 +91,18 @@ public class GroupingDataPrint {
         //Display Option and Table
         int DisplayOption = UserDisplayInput.optionDisplayInput();
         //Put data into groups and print out
-        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice);
+        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice, groupsSplittedArr.size());
     }
 
     public void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
-                               String originalStartDate, int metricOption, int DisplayOption, int DataChoice) throws ParseException {
-        ArrayList<CovidData> groupsDaysArr = new ArrayList<CovidData>();
+                               String originalStartDate, int metricOption, int DisplayOption, int DataChoice, int groups) throws ParseException {
+        ArrayList<CovidData> groupsDaysArr = new ArrayList<>();
 
         int count = 1;
         int k = 0;
         String osd = originalStartDate;
-        ArrayList<String> Days = new ArrayList<String>();
-        ArrayList<Long> AllMetric = new ArrayList<Long>();
+        ArrayList<String> Days = new ArrayList<>();
+        ArrayList<Long> AllMetric = new ArrayList<>();
 
         for (int outerInd = 0; outerInd < groupsSplittedArr.size(); outerInd++) {
             System.out.println("\n--- GROUP " + count + " ---");
@@ -117,7 +121,7 @@ public class GroupingDataPrint {
             Days.add(firstDay);
             Days.add(lastday);
             //put "metricsArr" here to save the data for Displaying in Table, Chart
-            ArrayList<Long> metricsArr = new ArrayList<Long>();
+            ArrayList<Long> metricsArr = new ArrayList<>();
 
             for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
                 CovidData dateElement = bigGroup.get(k);
@@ -135,7 +139,7 @@ public class GroupingDataPrint {
                 if (gda != null) {
                     System.out.println(gda.toPrintString());
                 } else {
-                    ;
+
                 }
             }
             //Display Chosen Metric Result
@@ -145,6 +149,6 @@ public class GroupingDataPrint {
             AllMetric.addAll(metricsArr);
 
         }
-        TabularDisplay2.PutDataIntoTable(AllMetric, Days, DisplayOption);
+        TabularDisplay2.PutDataIntoTable(AllMetric,Days, DisplayOption,groups);
     }
 }

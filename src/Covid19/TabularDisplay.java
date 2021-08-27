@@ -1,8 +1,9 @@
 package Covid19;
 
-import javax.swing.*;
 import java.util.*;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 class UserDisplayInput {
     public static int optionDisplayInput() {
         //Choose way of displaying
@@ -20,47 +21,93 @@ class UserDisplayInput {
 }
 
 class TabularDisplay {
-    JFrame f;
-    JTable j;
-
-    TabularDisplay(String chosenDate, String endDate, ArrayList<Long> metricsArr) {
-        f = new JFrame();
-        // Frame Title
-        f.setTitle("Tabular Display");
-        String[] columnNames = {"Range", "Value"};
+    TabularDisplay(String chosenDate, String endDate, ArrayList<Long> metricsArr, int DisplayOption) {
+        boolean leftJustifiedRows = false;
         String listString = "";
+        String MetricForChart = "";
         for (Long s : metricsArr) {
-            listString += s + "\t";
+            listString += s + " ";
         }
-        String[] ob1 = {chosenDate + "-" + endDate, listString};
-        String[][] data1 = {
-                ob1
-        };
-        j = new JTable(data1, columnNames);
+        String[] Metric = listString.split(" ");
+        for (Long s : metricsArr) {
+            MetricForChart += s + "";
+        }
+        String[] StringArrayMetricForChart = MetricForChart.split("");
+        int size = StringArrayMetricForChart.length;
+        int[] IntArrayMetricForChart = new int [size];
+        for(int i=0; i<size; i++) {
+            IntArrayMetricForChart[i] = Integer.parseInt(StringArrayMetricForChart[i]);
+        }
 
-        j.setBounds(30, 40, 200, 300);
+        String StringDay[] = {chosenDate, endDate};
 
+        String[] DataStringDay = new String[StringDay.length];
+        for (int DataCount = 0; DataCount < StringDay.length; DataCount = DataCount + 2) {
+            DataStringDay[DataCount] = StringDay[DataCount] + "-" + StringDay[DataCount + 1];
+        }
+        for (int DataCount = 0; DataCount < Metric.length; DataCount = DataCount + 2) {
+            DataStringDay[DataCount + 1] = Metric[DataCount];
+        }
+        String[][] arrays = new String[((DataStringDay.length) / 2 + 1)][2];
 
-        JScrollPane sp = new JScrollPane(j);
-        f.add(sp);
+        int count = 0;
+        for (int i = 1; i < DataStringDay.length; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (count == DataStringDay.length) break;
 
-        f.setSize(500, 200);
-        f.setVisible(true);
+                arrays[i][j] = DataStringDay[count];
+                count++;
+
+            }
+            arrays[0][0] = "Days";
+            arrays[0][1] = "Value";
+
+        }
+        Map<Integer, Integer> columnLengths = new HashMap<>();
+        Arrays.stream(arrays).forEach(a -> Stream.iterate(0, (i -> i < arrays.length), (i -> ++i)).forEach(i -> {
+            if (columnLengths.get(i) == null) {
+                columnLengths.put(i, 0);
+            }
+            if (columnLengths.get(i) < a[i].length()) {
+                columnLengths.put(i, a[i].length());
+            }
+        }));
+
+        final StringBuilder formatString = new StringBuilder("");
+        String flag = leftJustifiedRows ? "-" : "";
+        columnLengths.entrySet().stream().forEach(e -> formatString.append("| %" + flag + e.getValue() + "s "));
+        formatString.append("|\n");
+
+        if(DisplayOption == 1) {
+            Stream.iterate(0, (i -> i < arrays.length), (i -> ++i))
+                    .forEach(a -> System.out.printf(formatString.toString(), arrays[a]));
+        }
     }
 }
 
 class TabularDisplay2 {
-    JFrame f;
-    JTable j;
-
-    public static void PutDataIntoTable(ArrayList<Long> metricsArr, ArrayList<String> Days, int DisplayOption) {
+    public static void PutDataIntoTable(ArrayList<Long> metricsArr,ArrayList<String> Days, int DisplayOption, int groups) {
+        boolean leftJustifiedRows = false;
+        //convert Array list Metric into String
         String listString = "";
+        String MetricForChart = "";
         for (Long s : metricsArr) {
             listString += s + " " + "-" + " ";
         }
+        //put Metric into String
         String[] Metric = listString.split(" ");
-
+        for (Long s : metricsArr) {
+            MetricForChart += s + " ";
+        }
+        String[] StringArrayMetricForChart = MetricForChart.split(" ");
+        int size = StringArrayMetricForChart.length;
+        int[] IntArrayMetricForChart = new int [size];
+        for(int i=0; i<size; i++) {
+            IntArrayMetricForChart[i] = Integer.parseInt(StringArrayMetricForChart[i]);
+        }
         String[] StringDay = new String[Days.size()];
+
+        //Convert Days from Arraylist into array StringDay
         StringDay = Days.toArray(StringDay);
         String[] DataStringDay = new String[StringDay.length];
         for (int DataCount = 0; DataCount < StringDay.length; DataCount = DataCount + 2) {
@@ -69,42 +116,41 @@ class TabularDisplay2 {
         for (int DataCount = 0; DataCount < Metric.length; DataCount = DataCount + 2) {
             DataStringDay[DataCount + 1] = Metric[DataCount];
         }
-        String[][] arrays = new String[(DataStringDay.length) / 2][2];
+        String[][] arrays = new String[((DataStringDay.length) / 2) +1][2];
+        arrays[0][0] = "Days";
+        arrays[0][1] = "Value";
         int count = 0;
-        for (int i = 0; i < DataStringDay.length; i++) {
+        for (int i = 1; i < DataStringDay.length; i++) {
             for (int j = 0; j < 2; j++) {
                 if (count == DataStringDay.length) break;
 
                 arrays[i][j] = DataStringDay[count];
                 count++;
-
             }
 
         }
-        if (DisplayOption == 1)
-            new TabularDisplay2(arrays);
+        Map<Integer, Integer> columnLengths = new HashMap<>();
+        Arrays.stream(arrays).forEach(a -> Stream.iterate(0, (i -> i < a.length), (i -> ++i)).forEach(i -> {
+            if (columnLengths.get(i) == null) {
+                columnLengths.put(i, 0);
+            }
+            if (columnLengths.get(i) < a[i].length()) {
+                columnLengths.put(i, a[i].length());
+            }
+        }));
+
+        final StringBuilder formatString = new StringBuilder("");
+        String flag = leftJustifiedRows ? "-" : "";
+        columnLengths.entrySet().stream().forEach(e -> formatString.append("| %" + flag + e.getValue() + "s "));
+        formatString.append("|\n");
+
+        if(DisplayOption == 1){
+            Stream.iterate(0, (i -> i < arrays.length), (i -> ++i))
+                    .forEach(a -> System.out.printf(formatString.toString(), arrays[a]));}
+        else {
+            ChartDisplay.FindPosition(IntArrayMetricForChart,groups);}
     }
 
-    TabularDisplay2(String[][] arrays) {
-        f = new JFrame();
-        f.setTitle("Tabular Display");
-        String[] columnNames = {"Range", "Value"};
-
-        j = new JTable(arrays, columnNames);
-
-        j.setBounds(30, 40, 200, 300);
-
-
-        JScrollPane sp = new JScrollPane(j);
-        f.add(sp);
-
-        f.setSize(500, 200);
-        f.setVisible(true);
-
-    }
 
 }
 
-//class TabularDisplay3(){
-//
-//}
