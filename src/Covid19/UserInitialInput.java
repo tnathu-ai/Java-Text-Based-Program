@@ -35,7 +35,6 @@ public class UserInitialInput {
         String pathToCSV = "Data/covid-data.csv";
         String pathToNewCSV = "Data/covid-data-zero.csv";
         replaceNullCsv(pathToCSV, pathToNewCSV);
-        Scanner input = new Scanner(System.in);
 
         // Validate user input LOCATION, CHOSENDATE
         String location = locationValidate(pathToNewCSV);
@@ -44,24 +43,12 @@ public class UserInitialInput {
         String endInputDate = null;
         int dayAway = 0;
         if (DataChoice == 1) {
-            endInputDate = getEndInputDate();
+            endInputDate = EndInputDateValidate();
         } else {
-            dayAway = getDayAway();
+            dayAway = dayAwayValidate();
         }
         // choose type of grouping methods:
-        System.out.println("\nThere are 3 ways you can choose to group your days: ");
-        System.out.println("1. No grouping: each day is a separate group.");
-        System.out.println("2. Number of groups: the number of days will be divided equally into each group." +
-                "\n Your data will be divided as equally as possible. ");
-        System.out.println("3. Number of days: The number of days in each divided group" +
-                "\n (If it is not possible to divide groups equally, the program will raise an error). ");
-        System.out.println();
-        int groupingOption;
-        do {
-            System.out.print("Please enter only the number in those 3 options to choose: ");
-            groupingOption = input.nextInt();
-            System.out.println();
-        } while (groupingOption != 1 && groupingOption != 2 && groupingOption != 3);
+        int groupingOption = groupOptionValidate();
 
         if (DataChoice == 1) {
             UserInitialInput userDataInput = new UserInitialInput(endInputDate);
@@ -72,18 +59,54 @@ public class UserInitialInput {
     }
 
 
-    public static String getEndInputDate() {
+    public static String EndInputDateValidate() {
         Scanner input = new Scanner(System.in);
         System.out.println("\nPlease enter your desired end date in format MM/dd/yyyy: ");
-        String endInputDate = input.nextLine();
-        return endInputDate;
+        while (true) {
+            try {
+                return input.nextLine();
+            } catch (Exception e) {
+                input.next();
+                System.out.println("Invalid Input! Please enter again: ");
+            }
+        }
     }
 
-    public static int getDayAway() {
+    public static int dayAwayValidate() {
         Scanner input = new Scanner(System.in);
         System.out.print("\nEnter the number of days that are away from the date you chose: ");
-        int dayAway = input.nextInt();
-        return dayAway;
+        while (true) {
+            try {
+                return input.nextInt();
+            } catch (Exception e) {
+                input.next();
+                System.out.print("Invalid Input! Please enter again: ");
+            }
+        }
+    }
+
+    public static int groupOptionValidate() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("\nThere are 3 ways you can choose to group your days: ");
+        System.out.println("1. No grouping: each day is a separate group.");
+        System.out.println("2. Number of groups: the number of days will be divided equally into each group." +
+                "\n Your data will be divided as equally as possible. ");
+        System.out.println("3. Number of days: The number of days in each divided group" +
+                "\n (If it is not possible to divide groups equally, the program will raise an error). ");
+        System.out.println();
+        int groupingOption;
+        do {
+            System.out.print("Please enter only the number in those 3 options to choose: ");
+            while (true) {
+                try {
+                    groupingOption = input.nextInt();
+                    return groupingOption;
+                } catch (Exception e) {
+                    input.next();
+                    System.out.print("Invalid Input! Please enter again: ");
+                }
+            }
+        } while (groupingOption != 1 && groupingOption != 2 && groupingOption != 3);
     }
 
     public static String locationValidate(String pathToNewCSV) throws IOException {
@@ -148,7 +171,7 @@ public class UserInitialInput {
             if (chosenDate == null) {
                 while ((row = csvReader.readLine()) != null) {
                     String[] data = row.split(",", -1);
-                    if (largestDate.after(chosenDateDateFormat) && smallestDate.before(chosenDateDateFormat)) {
+                    if (!smallestDate.after(chosenDateDateFormat) && !largestDate.before(chosenDateDateFormat)) {
                         chosenDate = inputChosenDate;
                         break;
                     }

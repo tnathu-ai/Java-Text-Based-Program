@@ -8,11 +8,6 @@ public class UI {
     public static void main(String[] args) throws ParseException, IOException {
 //        List<CovidData> extractedData = extractedData();
         int DataChoice = getDataChoice();
-//        switch (DataChoice) {
-//            case 1 -> ReadInclusiveDateRange.main();
-//            case 2 -> DaysFromAParticularDate.runIndividualProgram(DataChoice);
-//            case 3 -> DaysToAParticularDate.runIndividualProgram(DataChoice);
-//        }
         runIndividualProgram(DataChoice);
     }
 
@@ -38,12 +33,15 @@ public class UI {
     }
 
     public static void runIndividualProgram(int DataChoice) throws ParseException, IOException {
+        //get User Input
         UserInitialInput initialInput = UserInitialInput.userInputRequest(DataChoice);
+        //get Grouping Option
         int option = initialInput.groupingOption;
 
         GroupingDataPrint groupDisplayPrint = new GroupingDataPrint();
         groupDisplayPrint.setInitialInput(initialInput);
 
+        //print Grouping option
         if (option == 1) {
             groupDisplayPrint.PrintOption1(DataChoice);
 
