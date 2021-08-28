@@ -101,14 +101,21 @@ public class GroupingDataPrint {
             daysPerGroup = input.nextInt();
         } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
-        ArrayList<Integer> groupsSplittedArr = DayGroupSplitting.splitEqualDays(initialInput.dayAway, daysPerGroup);
+        ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
+        if (DataChoice == 1) {
+            int dayAway = calculateDayAway(initialInput.chosenDate, initialInput.endInputDate);
+            groupsSplittedArr = DayGroupSplitting.splitEqualDays(dayAway, daysPerGroup);
+        } else {
+            groupsSplittedArr = DayGroupSplitting.splitEqualDays(initialInput.dayAway, daysPerGroup);
+        }
 
         //get Metric option
         int metricOption = metricUserInput();
         //Display Option and Table
         int DisplayOption = ChartDisplayOption.chartDisplayOption();
         //Put data into groups and print out
-        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice, groupsSplittedArr.size());
+        putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice,
+                groupsSplittedArr.size());
     }
 
     public void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
