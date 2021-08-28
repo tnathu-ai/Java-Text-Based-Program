@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static Covid19.DayGroupSplitting.splitEqualDays;
 import static Covid19.Metrics.metricDisplay;
 import static Covid19.Metrics.metricUserInput;
 import static Covid19.ReadWriteCsvData.readCsvRow;
@@ -86,6 +87,7 @@ public class GroupingDataPrint {
     }
 
     public void PrintOption3(int DataChoice) throws IOException, ParseException {
+        Scanner sc = new Scanner(System.in);
         int daysPerGroup;
         //filter and get the required Data
         ArrayList<CovidData> bigGroup = readCsvRow(
@@ -94,20 +96,41 @@ public class GroupingDataPrint {
                 initialInput.chosenDate,
                 initialInput.endInputDate,
                 initialInput.dayAway, DataChoice);
-
         do {
             Scanner input = new Scanner(System.in);
             System.out.print("\nEnter the number of Days per Group (LARGER than 1): ");
             daysPerGroup = input.nextInt();
         } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
-        ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
+        ArrayList<Integer> groupsSplittedArr;
         if (DataChoice == 1) {
             int dayAway = calculateDayAway(initialInput.chosenDate, initialInput.endInputDate);
-            groupsSplittedArr = DayGroupSplitting.splitEqualDays(dayAway, daysPerGroup);
+            groupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
+            ArrayList<Integer> TempGroupsSplittedArr;
+            do {
+                System.out.print("Please choose another End Date to divide equally: ");
+                dayAway = sc.nextInt();
+                do {
+                    System.out.print("Enter the number of Days per Group (LARGER than 1): ");
+                    daysPerGroup = sc.nextInt();
+                } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
+                TempGroupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
+            } while (TempGroupsSplittedArr == null);
         } else {
-            groupsSplittedArr = DayGroupSplitting.splitEqualDays(initialInput.dayAway, daysPerGroup);
+            groupsSplittedArr = splitEqualDays(initialInput.dayAway, daysPerGroup);
+            ArrayList<Integer> TempGroupsSplittedArr;
+            do {
+                System.out.println("\nPlease choose Another number of Days away to divide equally! ");
+                System.out.print("1.Enter the number of Days that are Away from the date you chose (max:585 days): ");
+                initialInput.dayAway = sc.nextInt();
+                do {
+                    System.out.print("2.Enter the number of Days per Group (LARGER than 1): ");
+                    daysPerGroup = sc.nextInt();
+                } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
+                TempGroupsSplittedArr = splitEqualDays(initialInput.dayAway, daysPerGroup);
+            } while (TempGroupsSplittedArr == null);
         }
+
 
         //get Metric option
         int metricOption = metricUserInput();

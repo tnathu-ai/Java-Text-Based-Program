@@ -5,10 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-import static Covid19.DayGroupSplitting.calculateDayAway;
+import static Covid19.DayGroupSplitting.*;
 import static Covid19.ReadWriteCsvData.replaceNullCsv;
 
 public class UserInitialInput {
@@ -93,7 +94,7 @@ public class UserInitialInput {
         while (true) {
             try {
                 do {
-                    System.out.print("\nEnter one of the options above: ");
+                    System.out.print("Enter one of the options above: ");
                     groupingOption = input.nextInt();
                 } while (groupingOption != 1 && groupingOption != 2 && groupingOption != 3);
                 return groupingOption;
