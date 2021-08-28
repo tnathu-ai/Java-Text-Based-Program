@@ -63,7 +63,6 @@ public class UserInitialInput {
 
     public static int dayAwayValidate() {
         Scanner input = new Scanner(System.in);
-
         int dayAway;
         while (true) {
             try {
