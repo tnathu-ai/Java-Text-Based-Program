@@ -104,9 +104,8 @@ public class GroupingDataPrint {
                 initialInput.dayAway, DataChoice);
 
         do {
-            Scanner input = new Scanner(System.in);
             System.out.print("\nEnter the number of Days per Group (LARGER than 1): ");
-            daysPerGroup = input.nextInt();
+            daysPerGroup = sc.nextInt();
         } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
         ArrayList<Integer> groupsSplittedArr;
@@ -115,10 +114,13 @@ public class GroupingDataPrint {
             groupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
             if (groupsSplittedArr == null) {
                 do {
-                    System.out.print("Please choose another End Date to divide EQUALLY!");
+                    System.out.println("Please choose another Start Date / End Date to divide equally!!!");
+                    //new Start Date
+                    initialInput.chosenDate = UserInitialInput.chosenDateValidate(initialInput.pathToNewCsv);
+                    System.out.println();
+                    //new End Date
                     initialInput.endInputDate = UserInitialInput.EndInputDateValidate(initialInput.pathToNewCsv);
                     dayAway = calculateDayAway(initialInput.chosenDate, initialInput.endInputDate);
-                    ;
                     do {
                         System.out.print("Enter the number of Days per Group (LARGER than 1 & SMALLER or EQUAL to the DAY AWAY): ");
                         daysPerGroup = sc.nextInt();
