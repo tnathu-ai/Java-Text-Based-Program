@@ -13,6 +13,7 @@ import static Covid19.TimeRelatedFunctions.calculateDayAway;
 
 public class GroupingDataPrint {
     UserInitialInput initialInput;
+
     // setter for initial inputs
     public void setInitialInput(UserInitialInput initialInput) {
         this.initialInput = initialInput;
@@ -143,7 +144,6 @@ public class GroupingDataPrint {
                 } while (groupsSplittedArr == null);
             }
         }
-
 
         //get Metric option
         int metricOption = metricUserInput();

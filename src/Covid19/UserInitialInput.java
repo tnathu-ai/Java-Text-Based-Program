@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -68,7 +67,7 @@ public class UserInitialInput {
         while (true) {
             try {
                 do {
-                    System.out.print("\nEnter the number of Days that are Away from the date you chose: ");
+                    System.out.print("\nEnter the number of DAYS AWAY from the date you chose: ");
                     dayAway = input.nextInt();
                 } while (dayAway >= 586);
                 return dayAway;
@@ -154,13 +153,13 @@ public class UserInitialInput {
             //Parse Error: occurs when user input data that cannot be converted into date (ex: dsfnui, 234)
             boolean error = true;
             do {
-                System.out.print("The date should be in the range from 1/1/2020 to 7/8/2021: ");
+                System.out.print("The date should be in the RANGE from 1/1/2020 to 7/8/2021: ");
                 inputEndDate = input.nextLine();
                 try {
                     chosenDateDateFormat = sdf.parse(inputEndDate);
                     error = false;
                 } catch (Exception e) {
-                    System.out.println("\nPlease enter the date in this format 'M/d/yyyy' !!!");
+                    System.out.println("\nPlease enter the date in this FORMAT 'M/d/yyyy' !!!");
                 }
             } while (error);
 
@@ -203,13 +202,13 @@ public class UserInitialInput {
             //Parse Error: occurs when user input data that cannot be converted into date (ex: dsfnui, 234)
             boolean error = true;
             do {
-                System.out.print("The date should be in the range from 1/1/2020 to 7/8/2021: ");
+                System.out.print("The date should be in the RANGE from 1/1/2020 to 7/8/2021: ");
                 inputChosenDate = input.nextLine();
                 try {
                     chosenDateDateFormat = sdf.parse(inputChosenDate);
                     error = false;
                 } catch (Exception e) {
-                    System.out.println("\nPlease enter the date in this format 'M/d/yyyy' !!!");
+                    System.out.println("\nPlease enter the date in this FORMAT 'M/d/yyyy' !!!");
                 }
             } while (error);
 
