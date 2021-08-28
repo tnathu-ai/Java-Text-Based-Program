@@ -100,6 +100,7 @@ class DayGroupSplitting {
                     }
                 } else {
                     System.out.println("It is not possible to divide EQUALLY!!!");
+                    groupsSplittedArr = null;
                     break;
                 }
             }

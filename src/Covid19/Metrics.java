@@ -14,18 +14,18 @@ public class Metrics {
 
         Scanner input = new Scanner(System.in);
         int metricOption;
-        do {
-            System.out.print("Please enter the number in those 3 options to choose: ");
-            while (true) {
-                try {
+        System.out.print("Please enter the number in those 3 options to choose: ");
+        while (true) {
+            try {
+                do {
                     metricOption = input.nextInt();
                     return metricOption;
-                } catch (NumberFormatException e) {
-                    input.next();
-                    System.out.print("\nInvalid Input! Please enter again: ");
-                }
+                } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+            } catch (NumberFormatException e) {
+                input.next();
+                System.out.print("\nInvalid Input! Please enter again: ");
             }
-        } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+        }
     }
 
     //METRICS TOTAL-CALCULATING METHODS
