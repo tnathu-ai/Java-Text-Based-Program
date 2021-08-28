@@ -22,7 +22,7 @@ public class Metrics {
                     return metricOption;
                 } catch (NumberFormatException e) {
                     input.next();
-                    System.out.print("Invalid Input! Please enter again: ");
+                    System.out.print("\nInvalid Input! Please enter again: ");
                 }
             }
         } while (metricOption != 1 && metricOption != 2 && metricOption != 3);

@@ -96,7 +96,7 @@ class DayGroupSplitting {
                         groupsSplittedArr.add(x / n);
                     }
                 } else {
-                    System.out.println("It is not possible to divide equally!!!");
+                    System.out.println("It is not possible to divide EQUALLY!!!");
                     break;
                 }
             }

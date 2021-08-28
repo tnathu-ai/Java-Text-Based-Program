@@ -74,7 +74,7 @@ public class UserInitialInput {
                 return dayAway;
             } catch (Exception e) {
                 input.next();
-                System.out.print("Invalid Input! Please enter again!\n ");
+                System.out.print("\nInvalid Input! Please enter again!\n ");
             }
         }
     }

@@ -8,14 +8,14 @@ import java.util.stream.Stream;
 class ChartDisplayOption {
     public static int chartDisplayOption() {
         //Choose way of displaying
-        System.out.println("\n Choose one way to display");
+        System.out.println("\nChoose one way to display");
         System.out.println("1. Tabular display. ");
         System.out.println("2. Chart display. ");
 
         Scanner input = new Scanner(System.in);
         int DisplayOption;
         do {
-            System.out.print("\n Please enter only the number in those 3 options to choose: ");
+            System.out.print("\nPlease enter only the number in those 3 options to choose: ");
             while (true) {
                 try {
                     DisplayOption = input.nextInt();
