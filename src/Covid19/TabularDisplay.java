@@ -9,8 +9,8 @@ class UserDisplayInput {
     public static int optionDisplayInput() {
         //Choose way of displaying
         System.out.println("\n Choose one way to display");
-        System.out.println("1. Tabular display ");
-        System.out.println("2. Chart display ");
+        System.out.println("1. Tabular display. ");
+        System.out.println("2. Chart display. ");
 
         Scanner input = new Scanner(System.in);
         int DisplayOption;
