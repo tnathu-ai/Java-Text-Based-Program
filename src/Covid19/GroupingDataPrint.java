@@ -121,6 +121,7 @@ public class GroupingDataPrint {
         ArrayList<String> Days = new ArrayList<>();
         ArrayList<Long> AllMetric = new ArrayList<>();
 
+        //outerInd: group{3,5,7} -> group.size = 3
         for (int outerInd = 0; outerInd < groupsSplittedArr.size(); outerInd++) {
             System.out.println("\n--- GROUP " + count + " ---");
             //plusDay : the number of DAYS that need to be added to the StartDay
@@ -140,6 +141,7 @@ public class GroupingDataPrint {
             //put "metricsArr" here to save the data for Displaying in Table, Chart
             ArrayList<Long> metricsArr = new ArrayList<>();
 
+            //innerInd: group{3,5,7} -> bigGroup.size = 3; bigGroup.size = 5, bigGroup.size = 7
             for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
                 CovidData dateElement = bigGroup.get(k);
                 //Accept dataElement if it is in the Range of osd-oed
