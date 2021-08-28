@@ -66,10 +66,8 @@ public class UserInitialInput {
         int dayAway;
         while (true) {
             try {
-                do {
                 System.out.print("\n Enter the number of Days that are Away from the date you chose: ");
                 dayAway = input.nextInt();
-            } while (!input.hasNextInt());
                 return dayAway;
             } catch (Exception e) {
                 input.next();
