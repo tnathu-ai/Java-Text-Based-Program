@@ -64,11 +64,15 @@ public class UserInitialInput {
 
     public static int dayAwayValidate() {
         Scanner input = new Scanner(System.in);
-        System.out.print("\n Enter the number of Days that are Away from the date you chose: ");
+
+        int dayAway;
         while (true) {
             try {
-                return input.nextInt();
+                System.out.print("\n Enter the number of Days that are Away from the date you chose: ");
+                dayAway = input.nextInt();
+                return dayAway;
             } catch (Exception e) {
+                input.next();
                 System.out.print("Invalid Input! Please enter again: ");
             }
         }
@@ -93,6 +97,7 @@ public class UserInitialInput {
                 } while (groupingOption != 1 && groupingOption != 2 && groupingOption != 3);
                 return groupingOption;
             } catch (Exception e) {
+                input.next();
                 System.out.print("Invalid Input! Please enter again! ");
             }
         }
