@@ -104,9 +104,8 @@ public class GroupingDataPrint {
                 initialInput.dayAway, DataChoice);
 
         do {
-            Scanner input = new Scanner(System.in);
             System.out.print("\nEnter the number of Days per Group (LARGER than 1): ");
-            daysPerGroup = input.nextInt();
+            daysPerGroup = sc.nextInt();
         } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
         ArrayList<Integer> groupsSplittedArr;
