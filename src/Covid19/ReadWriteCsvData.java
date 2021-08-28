@@ -11,32 +11,30 @@ import static Covid19.DateLocationFiltering.*;
 public class ReadWriteCsvData {
 
     public static ArrayList<CovidData> readCsvRow(String pathToNewCSV, String location,
-                                                  String chosenDate, String endInputDate, int dayAway, int DataChoice) throws IOException,
-            ParseException {
+                                                  String chosenDate, String endInputDate, int dayAway, int DataChoice)
+            throws IOException, ParseException {
+
         String endDate = null;
         ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
         ArrayList<Date> getDatesBetweenArr = new ArrayList<Date>();
-        //Get and Print the Date Range
+
+        //Get and Print the Date Range according to the chosen chosen choice
         if (DataChoice == 1) {
             getDatesBetweenArr = getDatesBetween(chosenDate, endInputDate, DataChoice);
         } else {
             endDate = displayStartEndDate(chosenDate, dayAway, DataChoice);
             getDatesBetweenArr = getDatesBetween(chosenDate, endDate, DataChoice);
         }
-
-
         System.out.println(convertDateToString(getDatesBetweenArr));
 
         //Start reading 1 row of data & Process immediately
-        BufferedReader csvReader =
-                new BufferedReader(new FileReader(pathToNewCSV));
+        BufferedReader csvReader = new BufferedReader(new FileReader(pathToNewCSV));
         String row = "";
         csvReader.readLine();
 
         while ((row = csvReader.readLine()) != null) {
             String[] data = row.split(",", -1);
             int i = 0;
-
             CovidData dataRow = new CovidData(data[i],
                     data[i + 1],
                     data[i + 2],
@@ -45,12 +43,11 @@ public class ReadWriteCsvData {
                     Long.parseLong(data[i + 5]),
                     Long.parseLong(data[i + 6]),
                     Long.parseLong(data[i + 7]));
-
-
             //Deal with 1 row of data
             CovidData returnRowLocation = getDataFromLocation(dataRow, location);
 //                getDataFromLocation(dataRow, location);
             CovidData returnRow;
+
             if (returnRowLocation != null) {
                 if (DataChoice == 1) {
                     returnRow = getDataFromDate(chosenDate, endInputDate, returnRowLocation, DataChoice);
@@ -88,6 +85,7 @@ public class ReadWriteCsvData {
                         al.add(element);
                     }
                 }
+
                 //add commas between elements
                 for (String s : al) {
                     writableString = writableString + s + ",";

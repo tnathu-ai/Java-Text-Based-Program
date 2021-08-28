@@ -30,7 +30,7 @@ public class GroupingDataPrint {
         //get metric option
         int metricOption = metricUserInput();
         //Print Data for users
-        System.out.println("\n--- Data List ---");
+        System.out.println("\n --- Data List ---");
         for (CovidData data : bigGroup) {
             System.out.println(data.toPrintString());
         }
@@ -41,12 +41,14 @@ public class GroupingDataPrint {
         int DisplayOption = UserDisplayInput.optionDisplayInput();
         String endDate = TimeRelatedFunctions.displayStartEndDate(initialInput.chosenDate, initialInput.dayAway,
                 DataChoice);
+
         if (DisplayOption == 1)
-            new TabularDisplay(initialInput.chosenDate,endDate,metricsArr,DisplayOption);
+            new UserDisplayInput.TabularDisplay(initialInput.chosenDate, endDate, metricsArr, DisplayOption);
         else {
             System.out.println("*");
             System.out.println("There is no ratio for no grouping option so there is no chart");
         }
+
     }
 
     public void PrintOption2(int DataChoice) throws IOException, ParseException {
@@ -59,12 +61,14 @@ public class GroupingDataPrint {
                 initialInput.endInputDate,
                 initialInput.dayAway,
                 DataChoice);
+
         do {
             Scanner input = new Scanner(System.in);
             System.out.print("Enter the number of groups (smaller than the number of days): ");
             groups = input.nextInt();
         } while (groups > initialInput.dayAway);
         ArrayList<Integer> groupsSplittedArr = new ArrayList<>();
+
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
         if (DataChoice == 1) {
             int dayAway = calculateDayAway(initialInput.chosenDate, initialInput.endInputDate);
@@ -72,6 +76,7 @@ public class GroupingDataPrint {
         } else {
             groupsSplittedArr = DayGroupSplitting.splitGroupsEqually(initialInput.dayAway, groups);
         }
+
         //get Metric option
         int metricOption = metricUserInput();
         //Display Option and Table
@@ -89,6 +94,7 @@ public class GroupingDataPrint {
                 initialInput.chosenDate,
                 initialInput.endInputDate,
                 initialInput.dayAway, DataChoice);
+
         do {
             Scanner input = new Scanner(System.in);
             System.out.print("Enter the number of days in each group (larger than 1): ");
@@ -96,6 +102,7 @@ public class GroupingDataPrint {
         } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
         ArrayList<Integer> groupsSplittedArr = DayGroupSplitting.splitEqualDays(initialInput.dayAway, daysPerGroup);
+
         //get Metric option
         int metricOption = metricUserInput();
         //Display Option and Table
@@ -157,8 +164,7 @@ public class GroupingDataPrint {
             groupsDaysArr.clear();
             count += 1;
             AllMetric.addAll(metricsArr);
-
         }
-        TabularDisplay2.PutDataIntoTable(AllMetric,Days, DisplayOption,groups);
+        UserDisplayInput.TabularDisplay2.PutDataIntoTable(AllMetric, Days, DisplayOption, groups);
     }
 }

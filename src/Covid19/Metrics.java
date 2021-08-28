@@ -6,17 +6,26 @@ import java.util.Scanner;
 public class Metrics {
     //GET METRIC INPUT
     public static int metricUserInput() {
-        System.out.println("\nEnter one of the number below to calculate an additional metric:");
+
+        System.out.println("\n Enter one of the number below to calculate an additional metric:");
         System.out.println("1. Total positive cases. ");
         System.out.println("2. Total deaths. ");
         System.out.println("3. Total people vaccinated. ");
+
+        Scanner input = new Scanner(System.in);
         int metricOption;
         do {
-            Scanner input = new Scanner(System.in);
             System.out.print("Please enter the number in those 3 options to choose: ");
-            metricOption = input.nextInt();
+            while (true) {
+                try {
+                    metricOption = input.nextInt();
+                    return metricOption;
+                } catch (NumberFormatException e) {
+                    input.next();
+                    System.out.print("Invalid Input! Please enter again: ");
+                }
+            }
         } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
-        return metricOption;
     }
 
     //METRICS TOTAL-CALCULATING METHODS
@@ -41,7 +50,7 @@ public class Metrics {
     //is an accumulated values up to a date
     public static long totalNewVaccinated(ArrayList<CovidData> groupDataArr) {
         long upTo = 0;
-        upTo = groupDataArr.get(groupDataArr.size()-1).getPeople_vaccinated();
+        upTo = groupDataArr.get(groupDataArr.size() - 1).getPeople_vaccinated();
         return upTo;
     }
 

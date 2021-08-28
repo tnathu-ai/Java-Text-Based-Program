@@ -16,8 +16,7 @@ public class CovidData {
     private long people_vaccinated;
     private long population;
 
-    // Setting up 2 constructors
-    // Parameterized Constructor 1
+    // Parameterized Constructor
     public CovidData(String iso_code, String continent, String location, String date, long new_cases, long new_deaths, long people_vaccinated, long population) {
         this.iso_code = iso_code;
         this.continent = continent;
@@ -29,7 +28,6 @@ public class CovidData {
         this.population = population;
     }
 
-
     public static ArrayList<String> convertDateToString(ArrayList<Date> ArrList) {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         ArrayList<String> dateToStrArr = new ArrayList<String>();
@@ -40,10 +38,9 @@ public class CovidData {
             dateToStrArr.add(dateToString);
         }
         return dateToStrArr;
-
     }
 
-
+    // getter methods for the CSV columns
     public String getIso_code() {
         return this.iso_code;
     }
@@ -56,11 +53,9 @@ public class CovidData {
         return this.location;
     }
 
-
     public String getDate() {
         return this.date;
     }
-
 
     public long getNew_cases() {
         return this.new_cases;

@@ -1,7 +1,6 @@
 package Covid19;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -45,9 +44,9 @@ public class UserInitialInput {
         } else {
             dayAway = dayAwayValidate();
         }
+
         // choose type of grouping methods:
         int groupingOption = groupOptionValidate();
-
         UserInitialInput userDataInput;
         if (DataChoice == 1) {
             dayAway = calculateDayAway(chosenDate, endInputDate);
@@ -61,10 +60,9 @@ public class UserInitialInput {
         }
     }
 
-
     public static String EndInputDateValidate() {
         Scanner input = new Scanner(System.in);
-        System.out.println("\nPlease enter your desired end date in format MM/dd/yyyy: ");
+        System.out.println("\n Please enter your desired end date in format MM/dd/yyyy: ");
         while (true) {
             try {
                 return input.nextLine();
@@ -77,7 +75,7 @@ public class UserInitialInput {
 
     public static int dayAwayValidate() {
         Scanner input = new Scanner(System.in);
-        System.out.print("\nEnter the number of days that are away from the date you chose: ");
+        System.out.print("\n Enter the number of days that are away from the date you chose: ");
         while (true) {
             try {
                 return input.nextInt();
@@ -99,7 +97,7 @@ public class UserInitialInput {
         System.out.println();
         int groupingOption;
         do {
-            System.out.print("Please enter only the number in those 3 options to choose: ");
+            System.out.print("\n Please enter only the number in those 3 options to choose: ");
             while (true) {
                 try {
                     groupingOption = input.nextInt();
@@ -154,9 +152,10 @@ public class UserInitialInput {
             String row = "";
             csvReader.readLine();
             if (count >= 1) {
-                System.out.println("The date is out of our database time-range. Please type again!");
+                System.out.println("\n The date is out of our database time-range or not valid in your chosen location. " +
+                        "Please type again!");
             }
-            System.out.println("\nChoose a date you want in this format 'M/d/yyyy'");
+            System.out.println("\n Choose a date you want in this format 'M/d/yyyy'");
             Date chosenDateDateFormat = null;
             //Parse Error: occurs when user input data that cannot be converted into date (ex: dsfnui, 234)
             boolean error = true;
@@ -167,7 +166,7 @@ public class UserInitialInput {
                     chosenDateDateFormat = sdf.parse(inputChosenDate);
                     error = false;
                 } catch (Exception e) {
-                    System.out.println("\nPlease enter the date in this format 'M/d/yyyy' !!!");
+                    System.out.println("\n Please enter the date in this format 'M/d/yyyy' !!!");
                 }
             } while (error);
 

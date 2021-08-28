@@ -14,14 +14,12 @@ class DateLocationFiltering {
 
         if (dataRow == null) {
             locationData = null;
-
         } else if (dataRow != null) {
             datesInRange = TimeRelatedFunctions.getDatesBetween(chosenDate, endDate, DataChoice);
             datesInRangeStr = TimeRelatedFunctions.convertDateToString(datesInRange);
 
             for (String d : datesInRangeStr) {
                 String inputDate = d;
-
                 if ((dataRow.getDate().equals(inputDate))) {
                     locationData = dataRow;
                     break;
@@ -129,11 +127,9 @@ class DayGroupSplitting {
             dayAway = (timeDifference
                     / (1000 * 60 * 60 * 24))
                     % 365;
-
             // Print the date difference in days
             System.out.print("Difference " + "between two dates is: ");
             System.out.println(dayAway + " days, ");
-
         }
 
         // Catch the Exception

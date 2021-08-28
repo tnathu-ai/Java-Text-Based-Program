@@ -82,7 +82,7 @@ class TimeRelatedFunctions {
         return dateToStrArr;
     }
 
-        // Function to print difference in
+    // Function to print difference in
     // time chosenDate and endDate
     static int calculateDayAway(String chosenDate, String endDate) {
         // SimpleDateFormat converts the
@@ -109,7 +109,6 @@ class TimeRelatedFunctions {
             // Print the date difference in days
             System.out.print("Difference " + "between two dates is: ");
             System.out.println(dayAway + " days, ");
-
         }
 
         // Catch the Exception
