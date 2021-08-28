@@ -115,13 +115,12 @@ public class GroupingDataPrint {
             groupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
             if (groupsSplittedArr == null) {
                 do {
-                    System.out.println("Please c");
-                    System.out.print("Please choose another End Date to divide equally!");
+                    System.out.print("Please choose another End Date to divide EQUALLY!");
                     initialInput.endInputDate = UserInitialInput.EndInputDateValidate(initialInput.pathToNewCsv);
                     dayAway = calculateDayAway(initialInput.chosenDate, initialInput.endInputDate);
                     ;
                     do {
-                        System.out.print("Enter the number of Days per Group (LARGER than 1): ");
+                        System.out.print("Enter the number of Days per Group (LARGER than 1 & SMALLER or EQUAL to the DAY AWAY): ");
                         daysPerGroup = sc.nextInt();
                     } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
                     groupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
@@ -131,12 +130,11 @@ public class GroupingDataPrint {
             groupsSplittedArr = splitEqualDays(initialInput.dayAway, daysPerGroup);
             if (groupsSplittedArr == null) {
                 do {
-                    System.out.println("\nPlease choose Another number of Days away to divide equally! ");
-                    System.out.print("1.Enter the number of Days that are Away from the date you chose (max:585 days)" +
-                            ": ");
+                    System.out.println("\nPlease choose another number of DAYS AWAY to divide EQUALLY! ");
+                    System.out.print("1.Enter the number of Days that are Away from the date you chose: ");
                     initialInput.dayAway = sc.nextInt();
                     do {
-                        System.out.print("2.Enter the number of Days per Group (LARGER than 1): ");
+                        System.out.print("2.Enter the number of DAYS per GROUP (LARGER than 1 & SMALLER or EQUAL to the DAY AWAY): ");
                         daysPerGroup = sc.nextInt();
                     } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
                     groupsSplittedArr = splitEqualDays(initialInput.dayAway, daysPerGroup);
