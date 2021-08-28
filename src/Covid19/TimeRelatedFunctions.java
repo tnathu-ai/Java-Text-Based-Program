@@ -78,8 +78,7 @@ class TimeRelatedFunctions {
         return dateToStrArr;
     }
 
-    // Function to print difference in
-    // time chosenDate and endDate
+    // Function to print difference in time chosenDate and endDate
     static int calculateDayAway(String chosenDate, String endDate) {
         // SimpleDateFormat converts the
         // string format to date object
