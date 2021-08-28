@@ -28,18 +28,6 @@ public class CovidData {
         this.population = population;
     }
 
-    public static ArrayList<String> convertDateToString(ArrayList<Date> ArrList) {
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        ArrayList<String> dateToStrArr = new ArrayList<String>();
-
-        for (int i = 0; i < ArrList.size(); i++) {
-            Date DateInArr = ArrList.get(i);
-            String dateToString = df.format(DateInArr);
-            dateToStrArr.add(dateToString);
-        }
-        return dateToStrArr;
-    }
-
     // getter methods for the CSV columns
     public String getIso_code() {
         return this.iso_code;

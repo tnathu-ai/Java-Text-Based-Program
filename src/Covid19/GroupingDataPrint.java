@@ -38,12 +38,12 @@ public class GroupingDataPrint {
         ArrayList<Long> metricsArr = new ArrayList<>();
         metricDisplay(metricOption, bigGroup, metricsArr);
         //Display Option and Table
-        int DisplayOption = UserDisplayInput.optionDisplayInput();
+        int DisplayOption = ChartDisplayOption.chartDisplayOption();
         String endDate = TimeRelatedFunctions.displayStartEndDate(initialInput.chosenDate, initialInput.dayAway,
                 DataChoice);
 
         if (DisplayOption == 1)
-            new UserDisplayInput.TabularDisplay(initialInput.chosenDate, endDate, metricsArr, DisplayOption);
+            new TabularDisplay().TabularPrint(initialInput.chosenDate, endDate, metricsArr, DisplayOption);
         else {
             System.out.println("*");
             System.out.println("There is no ratio for no grouping option so there is no chart");
@@ -64,7 +64,7 @@ public class GroupingDataPrint {
 
         do {
             Scanner input = new Scanner(System.in);
-            System.out.print("Enter the number of groups (smaller than the number of days): ");
+            System.out.print("Enter the number of Groups (smaller than the number of days): ");
             groups = input.nextInt();
         } while (groups > initialInput.dayAway);
         ArrayList<Integer> groupsSplittedArr = new ArrayList<>();
@@ -80,7 +80,7 @@ public class GroupingDataPrint {
         //get Metric option
         int metricOption = metricUserInput();
         //Display Option and Table
-        int DisplayOption = UserDisplayInput.optionDisplayInput();
+        int DisplayOption = ChartDisplayOption.chartDisplayOption();
         //Put data into groups and print out
         putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice, groups);
     }
@@ -97,7 +97,7 @@ public class GroupingDataPrint {
 
         do {
             Scanner input = new Scanner(System.in);
-            System.out.print("Enter the number of days in each group (larger than 1): ");
+            System.out.print("Enter the number of Days per Group (larger than 1): ");
             daysPerGroup = input.nextInt();
         } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
@@ -106,7 +106,7 @@ public class GroupingDataPrint {
         //get Metric option
         int metricOption = metricUserInput();
         //Display Option and Table
-        int DisplayOption = UserDisplayInput.optionDisplayInput();
+        int DisplayOption = ChartDisplayOption.chartDisplayOption();
         //Put data into groups and print out
         putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice, groupsSplittedArr.size());
     }
@@ -125,7 +125,7 @@ public class GroupingDataPrint {
             System.out.println("\n--- GROUP " + count + " ---");
             //plusDay : the number of DAYS that need to be added to the StartDay
             int plusDay = groupsSplittedArr.get(outerInd);
-            //Get the "new endDay" (from the plusDay)
+            //Get the "new endDay" from the plusDay (th end date of the divided group)
             String newEndDate = TimeRelatedFunctions.displayStartEndDate(osd, plusDay, DataChoice);
 //            Days.add(osd);
             //Get the new "temporary dayRangeStr"
@@ -165,6 +165,6 @@ public class GroupingDataPrint {
             count += 1;
             AllMetric.addAll(metricsArr);
         }
-        UserDisplayInput.TabularDisplay2.PutDataIntoTable(AllMetric, Days, DisplayOption, groups);
+        TabularDisplay.PutDataIntoTable(AllMetric, Days, DisplayOption, groups);
     }
 }
