@@ -171,6 +171,7 @@ class ChartDisplay {
         // Find max min and ratio of each pipe
         int[] IntArrayMetricForChartToSort = IntArrayMetricForChart.clone();
         Arrays.sort(IntArrayMetricForChartToSort);
+        //Find min and max metric to get value of 1 pipe
         int MinMetric = IntArrayMetricForChartToSort[0];
         int MaxMetric = IntArrayMetricForChartToSort[IntArrayMetricForChartToSort.length - 1];
         int ValueOfPipeFinal = 1;
@@ -194,13 +195,14 @@ class ChartDisplay {
             count += TheSpace;
         }
 
+        //Find position of data point
         int[] Position = new int[PositionX.length + PositionY.length];
         int n = 0, z = 0, e = 0;
         while (n < PositionX.length && z < PositionY.length) {
             Position[e++] = PositionX[n++];
             Position[e++] = PositionY[z++];
         }
-
+        //put all data point into array
         int[][] ChartArrays = new int[Position.length / 2][2];
         int count1 = 0;
         for (int i = 0; i < Position.length; i++) {
