@@ -8,8 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static Covid19.Metrics.metricDisplay;
-
 class TimeRelatedFunctions {
     public static String displayStartEndDate(String chosenDate, int dayAway, int DataChoice) {
         //Specifying date format

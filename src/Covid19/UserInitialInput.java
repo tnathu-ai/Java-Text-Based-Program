@@ -66,12 +66,15 @@ public class UserInitialInput {
         int dayAway;
         while (true) {
             try {
-                System.out.print("\n Enter the number of Days that are Away from the date you chose: ");
-                dayAway = input.nextInt();
+                do {
+                    System.out.print("\n Enter the number of Days that are Away from the date you chose (max:585 " +
+                            "days): ");
+                    dayAway = input.nextInt();
+                } while (dayAway >= 585);
                 return dayAway;
             } catch (Exception e) {
                 input.next();
-                System.out.print("Invalid Input! Please enter again: ");
+                System.out.print("Invalid Input! Please enter again!\n ");
             }
         }
     }
