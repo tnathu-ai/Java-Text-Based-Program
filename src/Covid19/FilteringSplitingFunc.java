@@ -6,6 +6,7 @@ import java.util.*;
 
 import static Covid19.Metrics.metricDisplay;
 
+//select date from a a particular location
 class DateLocationFiltering {
     public static CovidData getDataFromDate(String chosenDate, String endDate, CovidData dataRow, int DataChoice) throws ParseException {
         ArrayList<Date> datesInRange = new ArrayList<Date>();
@@ -31,7 +32,7 @@ class DateLocationFiltering {
         return locationData;
     }
 
-
+    // select location from the CSV
     public static CovidData getDataFromLocation(CovidData dataRow,
                                                 String inputlocation) {
         if (dataRow.getContinent().equalsIgnoreCase(inputlocation) == false
@@ -43,6 +44,7 @@ class DateLocationFiltering {
 }
 
 class DayGroupSplitting {
+    // split data by group
     public static ArrayList<Integer> splitGroupsEqually(int x, int n) {
         //x: dayAway
         //n: groups
@@ -74,6 +76,7 @@ class DayGroupSplitting {
         return groupsSplittedArr;
     }
 
+    // split data by days
     public static ArrayList<Integer> splitEqualDays(int x, int d) {
         //x: dayAway
         //n: groups
@@ -104,8 +107,7 @@ class DayGroupSplitting {
         return groupsSplittedArr;
     }
 
-    // Function to print difference in
-    // time chosenDate and endDate for inclusive date range grouping
+    // Function to print difference in time chosenDate and endDate for inclusive date range grouping
     public static int calculateDayAway(String chosenDate, String endDate) {
         // SimpleDateFormat converts the
         // string format to date object
@@ -131,7 +133,6 @@ class DayGroupSplitting {
             System.out.print("Difference " + "between two dates is: ");
             System.out.println(dayAway + " days, ");
         }
-
         // Catch the Exception
         catch (ParseException e) {
             e.printStackTrace();
