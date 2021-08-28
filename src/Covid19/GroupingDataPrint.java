@@ -46,7 +46,7 @@ public class GroupingDataPrint {
             new TabularDisplay().TabularPrint(initialInput.chosenDate, endDate, metricsArr, DisplayOption);
         else {
             System.out.println("*");
-            System.out.println("There is no ratio for no grouping option so there is no chart");
+            System.out.println("\nThere is no ratio for no grouping option so there is no chart");
         }
 
     }
@@ -64,7 +64,7 @@ public class GroupingDataPrint {
 
         do {
             Scanner input = new Scanner(System.in);
-            System.out.print("Enter the number of Groups (smaller than the number of days): ");
+            System.out.print("\nEnter the number of Groups (smaller than the number of days): ");
             groups = input.nextInt();
         } while (groups > initialInput.dayAway);
         ArrayList<Integer> groupsSplittedArr = new ArrayList<>();
@@ -97,7 +97,7 @@ public class GroupingDataPrint {
 
         do {
             Scanner input = new Scanner(System.in);
-            System.out.print("Enter the number of Days per Group (larger than 1): ");
+            System.out.print("\nEnter the number of Days per Group (LARGER than 1): ");
             daysPerGroup = input.nextInt();
         } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS

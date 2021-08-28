@@ -18,7 +18,7 @@ class TimeRelatedFunctions {
             //Setting the date to the given date
             c.setTime(date);
         } catch (ParseException e) {
-            System.out.println("invalid input");
+            System.out.println("Invalid input!");
             e.printStackTrace();
         }
         //Number of Days to add
