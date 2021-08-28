@@ -24,13 +24,13 @@ public class UserInterface {
                     System.out.print("\nPlease input your option: ");
                     DataChoice = input.nextInt();
                     if ((DataChoice < 1) || (DataChoice > 3)) {
-                        System.out.println("You have entered the wrong option. Please choose again!");
+                        System.out.println("\nYou have entered the wrong option. Please choose again!");
                     }
                 } while ((DataChoice < 1) || (DataChoice > 3));
                 return DataChoice;
             } catch (Exception e) {
                 input.next();
-                System.out.println("Invalid input. Please enter again!");
+                System.out.println("\nInvalid input. Please enter again!");
             }
         }
     }
