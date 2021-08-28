@@ -59,14 +59,5 @@ public class UserInterface {
             runIndividualProgram(DataChoice);
         }
     }
-
-//        //Metric ( 3 possible metric: positive cases, deaths, people vaccinated )
-//
-//        //Way of calculation
-//
-//
-//        //display summary data
-//    }
-
 }
 
