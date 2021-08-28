@@ -1,25 +1,79 @@
-//package Covid19;
-//
-//import java.io.IOException;
-//import java.text.ParseException;
-//import java.util.Scanner;
-//
-//public class UserInterface {
-//    public static void main(String[] args) throws ParseException, IOException {
+package Covid19;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Scanner;
+
+public class UserInterface {
+    public static void main(String[] args) throws ParseException, IOException {
+//        List<CovidData> extractedData = extractedData();
+        int DataChoice = getDataChoice();
+        runIndividualProgram(DataChoice);
+    }
+
+    public static int getDataChoice() {
+        Scanner input = new Scanner(System.in);
+        int DataChoice;
+        //Data choice input
+        System.out.println("\nChoose the type of Range");
+        System.out.println("1. A pair of start date and end date");
+        System.out.println("2. A number of days or weeks from particular date");
+        System.out.println("3. A number of days or weeks to particular date");
+        while (true) {
+            try {
+                do {
+                    System.out.print("\nPlease input your option: ");
+                    DataChoice = input.nextInt();
+                    if ((DataChoice < 1) || (DataChoice > 3)) {
+                        System.out.println("You have entered the wrong option. Please choose again!");
+                    }
+                } while ((DataChoice < 1) || (DataChoice > 3));
+                return DataChoice;
+            } catch (Exception e) {
+                input.next();
+                System.out.println("Invalid input. Please enter again!");
+            }
+        }
+    }
+
+    public static void runIndividualProgram(int DataChoice) throws ParseException, IOException {
+        //get User Input
+        UserInitialInput initialInput = UserInitialInput.userInputRequest(DataChoice);
+        //get Grouping Option
+        int option = initialInput.groupingOption;
+
+        GroupingDataPrint groupDisplayPrint = new GroupingDataPrint();
+        groupDisplayPrint.setInitialInput(initialInput);
+
+        //print Grouping option
+        if (option == 1) {
+            groupDisplayPrint.PrintOption1(DataChoice);
+
+        } else if (option == 2) {
+            groupDisplayPrint.PrintOption2(DataChoice);
+
+        } else if (option == 3) {
+            groupDisplayPrint.PrintOption3(DataChoice);
+
+        } else {
+            //Just in case sth else happens
+            runIndividualProgram(DataChoice);
+        }
+    }
+
+//    public static List<CovidData> extractedData() throws IOException, ParseException {
+//        List<CovidData> extractedData = new ArrayList<>();
 //        while (true) {
 //            Scanner scanner = new Scanner(System.in);
 //            int DataChoice;
-//            int DisplayChoice;
-//            int FinalChoice;
-//
 //            //Data choice input
-//            System.out.println("Choose the type of Range");
+//            System.out.println("\nChoose the type of Range");
 //            System.out.println("1. A pair of start date and end date");
 //            System.out.println("2. A number of days or weeks from particular date");
 //            System.out.println("3. A number of days or weeks to particular date");
 //
 //            do {
-//                System.out.print("Please input your option: ");
+//                System.out.print("Please input your option:");
 //                DataChoice = scanner.nextInt();
 //                if ((DataChoice < 1) || (DataChoice > 3)) {
 //                    System.out.println("You have entered the wrong option. Please choose again!");
@@ -28,68 +82,20 @@
 //
 //            switch (DataChoice) {
 //                case 1 -> ReadInclusiveDateRange.main();
-//                case 2 -> DaysFromAParticularDate.Process();
+//                case 2 -> DaysFromAParticularDate.runTypeofRange();
 //                case 3 -> DaysToAParticularDate.main();
 //            }
-//
-//            //Grouping condition
-//
-//            //Metric ( 3 possible metric: positive cases, deaths, people vaccinated )
-//
-//            //Way of calculation
-//
-//
-//            //display summary data
-//
-//            System.out.println("\nPlease choose one way to display");
-//            System.out.println("1. Tabular Display");
-//            System.out.println("2. Chart Display");
-//
-//            do {
-//                DisplayChoice = scanner.nextInt();
-//                if ((DisplayChoice < 1) || (DisplayChoice > 2)) {
-//                    System.out.println("You have entered the wrong option. Please choose again!");
-//                }
-//            }
-//            while ((DisplayChoice < 1) || (DisplayChoice > 2));
-//
-//            switch (DisplayChoice) {
-//                case 1 -> Tabular();
-//                case 2 -> Chart();
-//            }
-//
-//
-//            //Continue or stop the program - Final Choice
-//            System.out.println("This is the end of the program. Do you want to restart or not? ");
-//            System.out.println("1. Restart the program");
-//            System.out.println("2. End the program");
-//
-//            do {
-//                FinalChoice = scanner.nextInt();
-//                if ((FinalChoice < 1) || (FinalChoice > 2)) {
-//                    System.out.println("You have entered the wrong option. Please choose again!");
-//                }
-//            }
-//            while ((FinalChoice < 1) || (FinalChoice > 2));
-//
-//            switch (FinalChoice) {
-//                case 1 -> System.out.println("The program will restart.");
-//
-//                case 2 -> {
-//                    System.out.println("Good bye! Thank you for using our program");
-//                    System.exit(0);
-//                }
-//            }
 //        }
+//
+//
+//
+//        //Metric ( 3 possible metric: positive cases, deaths, people vaccinated )
+//
+//        //Way of calculation
+//
+//
+//        //display summary data
 //    }
-//
-//
-//    public static void Tabular() {
-//        System.out.println("You have chosen Tabular Display ");
-//    }
-//
-//    public static void Chart() {
-//        System.out.println("You have chosen Chart Display ");
-//    }
-//
-//}
+
+}
+

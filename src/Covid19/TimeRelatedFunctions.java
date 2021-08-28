@@ -23,10 +23,6 @@ class TimeRelatedFunctions {
             System.out.println("invalid input");
             e.printStackTrace();
         }
-        if (DataChoice == 1) {
-            String endDate = sdf.format(c.getTime());
-            dayAway = calculateDayAway(chosenDate, endDate);
-        }
         //Number of Days to add
         if (DataChoice == 1 || DataChoice == 2) {
             c.add(Calendar.DAY_OF_MONTH, dayAway);
