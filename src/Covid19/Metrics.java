@@ -7,7 +7,7 @@ public class Metrics {
     //GET METRIC INPUT
     public static int metricUserInput() {
 
-        System.out.println("\n Enter one of the number below to calculate an additional metric:");
+        System.out.println("\nEnter one of the number below to calculate an additional metric:");
         System.out.println("1. Total positive cases. ");
         System.out.println("2. Total deaths. ");
         System.out.println("3. Total people vaccinated. ");

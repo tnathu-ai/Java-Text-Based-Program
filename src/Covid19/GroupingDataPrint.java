@@ -13,11 +13,13 @@ import static Covid19.TimeRelatedFunctions.calculateDayAway;
 
 public class GroupingDataPrint {
     UserInitialInput initialInput;
-
+    // setter for initial inputs
     public void setInitialInput(UserInitialInput initialInput) {
         this.initialInput = initialInput;
     }
 
+    // Print first data grouping option
+    // A pair of start date and end dates (inclusive)
     public void PrintOption1(int DataChoice) throws IOException, ParseException {
         //filter and get the required Data
         ArrayList<CovidData> bigGroup = readCsvRow(
@@ -52,6 +54,8 @@ public class GroupingDataPrint {
 
     }
 
+    // Print second data grouping option
+    // A number of days or weeks from a particular date
     public void PrintOption2(int DataChoice) throws IOException, ParseException {
         int groups;
         //filter and get the required Data
@@ -86,6 +90,8 @@ public class GroupingDataPrint {
         putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice, groups);
     }
 
+    // Print third grouping data option
+    // A number of days or weeks to a particular date
     public void PrintOption3(int DataChoice) throws IOException, ParseException {
         Scanner sc = new Scanner(System.in);
         int daysPerGroup;
@@ -96,6 +102,7 @@ public class GroupingDataPrint {
                 initialInput.chosenDate,
                 initialInput.endInputDate,
                 initialInput.dayAway, DataChoice);
+
         do {
             Scanner input = new Scanner(System.in);
             System.out.print("\nEnter the number of Days per Group (LARGER than 1): ");
@@ -141,6 +148,7 @@ public class GroupingDataPrint {
                 groupsSplittedArr.size());
     }
 
+    // function for grouping data base on user choice
     public void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
                                String originalStartDate, int metricOption, int DisplayOption, int DataChoice, int groups) throws ParseException {
         ArrayList<CovidData> groupsDaysArr = new ArrayList<>();

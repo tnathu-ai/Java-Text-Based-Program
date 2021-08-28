@@ -178,6 +178,7 @@ class ChartDisplay {
 
         if (ValueOfPipe != 0) ValueOfPipeFinal = ValueOfPipe;
         //Find the position of each data point
+        //The chart depends on max value and min value to get the ratio of 23 pipes
         //Find x value
         int[] PositionY = new int[IntArrayMetricForChart.length];
         for (int i = 0; i < PositionY.length; i++) {
