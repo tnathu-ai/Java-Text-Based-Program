@@ -68,8 +68,7 @@ public class UserInitialInput {
         while (true) {
             try {
                 do {
-                    System.out.print("\nEnter the number of Days that are Away from the date you chose (max:585 " +
-                            "days): ");
+                    System.out.print("\nEnter the number of Days that are Away from the date you chose: ");
                     dayAway = input.nextInt();
                 } while (dayAway >= 586);
                 return dayAway;
@@ -155,7 +154,7 @@ public class UserInitialInput {
             //Parse Error: occurs when user input data that cannot be converted into date (ex: dsfnui, 234)
             boolean error = true;
             do {
-                System.out.print("\nThe date should be in the range from 1/1/2020 to 7/8/2021: ");
+                System.out.print("The date should be in the range from 1/1/2020 to 7/8/2021: ");
                 inputEndDate = input.nextLine();
                 try {
                     chosenDateDateFormat = sdf.parse(inputEndDate);
@@ -204,7 +203,7 @@ public class UserInitialInput {
             //Parse Error: occurs when user input data that cannot be converted into date (ex: dsfnui, 234)
             boolean error = true;
             do {
-                System.out.print("\nThe date should be in the range from 1/1/2020 to 7/8/2021: ");
+                System.out.print("The date should be in the range from 1/1/2020 to 7/8/2021: ");
                 inputChosenDate = input.nextLine();
                 try {
                     chosenDateDateFormat = sdf.parse(inputChosenDate);
