@@ -5,7 +5,7 @@ Implement a text-based program using Java language and OOP techniques.
 ##### Video Demonstration: 
 
 ## Local Environment Setup
-+ This part is intended to guide RMIT grading staff to set up their local environment to host our application correctly for grading purpose, as requested by our instructor [@BaoNguyen](https://github.com/baothien). Ignore this part if it is not applicable to you.
++ This part is intended to guide RMIT grading staff to set up their local environment to host our application correctly for grading purpose, as requested by our instructor [@TriDang](https://github.com/TriDang). Ignore this part if it is not applicable to you.
 + Please make sure that you have IntelliJ IDEA version 2021.1 installed on your system. No other software or libraries required.
 + Your work will be tested on a Windows 10 64-bit machine, using Java 16 JVM or one specified by Dr. Bao (you should ask him about this)
 + The following files are required: source code and supported files. Your source code should be organized according to your package structure
