@@ -4,6 +4,9 @@ Implement a text-based program using Java language and OOP techniques.
 ##### GitHub repo URL of your project: https://github.com/tnathu-ai/Java-Text-Based-Program-Project
 ##### Video Demonstration: 
 
+##### Another example: All contributions are the same
+
+
 ## Local Environment Setup
 + This part is intended to guide RMIT grading staff to set up their local environment to host our application correctly for grading purpose, as requested by our instructor [@TriDang](https://github.com/TriDang). Ignore this part if it is not applicable to you.
 + Please make sure that you have IntelliJ IDEA version 2021.1 installed on your system. No other software or libraries required.
@@ -28,8 +31,8 @@ An example of contribution information is
 Person 1: +1
 Person 2: -2
 Person 3: +1
-Another example
-All contributions are the same
+
+Another example: All contributions are the same
 
 + Compress all files as one .zip file and submit the .zip file to Canvas
 
