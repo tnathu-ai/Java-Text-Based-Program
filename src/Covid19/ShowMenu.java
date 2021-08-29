@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 public class ShowMenu {
+
     // Show a menu that lets users choose data
     public static int getDataChoice() {
         Scanner input = new Scanner(System.in);
@@ -37,10 +38,8 @@ public class ShowMenu {
         UserInitialInput initialInput = UserInitialInput.userInputRequest(DataChoice);
         //get Grouping Option
         int option = initialInput.groupingOption;
-
         GroupingDataPrint groupDisplayPrint = new GroupingDataPrint();
         groupDisplayPrint.setInitialInput(initialInput);
-
         //print Grouping option
         if (option == 1) {
             groupDisplayPrint.PrintOption1(DataChoice);
@@ -73,13 +72,12 @@ public class ShowMenu {
                 }
             }
             while ((FinalChoice < 1) || (FinalChoice > 2));
-
             switch (FinalChoice) {
                 case 1 -> System.out.println("The program will restart.");
-
                 case 2 -> {
                     System.out.println("Good bye! Thank you for using our program");
-                    System.exit(0); }
+                    System.exit(0);
+                }
             }
         }
     }
