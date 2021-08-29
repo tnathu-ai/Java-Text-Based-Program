@@ -28,7 +28,7 @@ class ChartDisplayOption {
     }
 }
 
-
+// Display summary data in a table.
 class TabularDisplay {
     public static void TabularPrint(String chosenDate, String endDate, ArrayList<Long> metricsArr,
                                     int DisplayOption) {
@@ -50,8 +50,9 @@ class TabularDisplay {
             IntArrayMetricForChart[i] = Integer.parseInt(StringArrayMetricForChart[i]);
         }
 
+        // the “Range” column shows “date1 – date2,”
+        // where date1 and date2 are the first dates and last dates of a group
         String StringDay[] = {chosenDate, endDate};
-
         String[] DataStringDay = new String[StringDay.length];
         for (int DataCount = 0; DataCount < StringDay.length; DataCount = DataCount + 2) {
             DataStringDay[DataCount] = StringDay[DataCount] + "-" + StringDay[DataCount + 1];
@@ -68,12 +69,11 @@ class TabularDisplay {
 
                 arrays[i][j] = DataStringDay[count];
                 count++;
-
             }
             arrays[0][0] = "Days";
             arrays[0][1] = "Value";
-
         }
+
         Map<Integer, Integer> columnLengths = new HashMap<>();
         Arrays.stream(arrays).forEach(a -> Stream.iterate(0, (i -> i < arrays.length), (i -> ++i)).forEach(i -> {
             if (columnLengths.get(i) == null) {
@@ -164,10 +164,8 @@ class TabularDisplay {
     }
 }
 
-
 class ChartDisplay {
     public static void FindPosition(int[] IntArrayMetricForChart, int groups) {
-
         // Find max min and ratio of each pipe
         int[] IntArrayMetricForChartToSort = IntArrayMetricForChart.clone();
         Arrays.sort(IntArrayMetricForChartToSort);

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Metrics {
-    //GET METRIC INPUT
+    //GET CALCULATED COLUMNS INPUT
     public static int metricUserInput() {
-
+        // Get user input for getting the calculated result
         System.out.println("\nEnter one of the number below to calculate an additional metric:");
         System.out.println("1. Total positive cases. ");
         System.out.println("2. Total deaths. ");
@@ -29,7 +29,7 @@ public class Metrics {
     }
 
     //METRICS TOTAL-CALCULATING METHODS
-    //os new data for each date
+    //is new data for each date
     public static long totalNewCases(ArrayList<CovidData> groupDataArr) {
         long sum = 0;
         for (int i = 0; i < groupDataArr.size(); i++) {
@@ -54,7 +54,7 @@ public class Metrics {
         return upTo;
     }
 
-    //DISPLAY METRICS
+    //DISPLAY CALCULATED RESULT
     public static void metricDisplay(int metricOption, ArrayList<CovidData> groupsDaysArr,
                                      ArrayList<Long> metricsArr) {
         // Using Array List to print

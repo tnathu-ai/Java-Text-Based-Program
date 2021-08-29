@@ -103,7 +103,6 @@ public class GroupingDataPrint {
                 initialInput.chosenDate,
                 initialInput.endInputDate,
                 initialInput.dayAway, DataChoice);
-
         do {
             System.out.print("\nEnter the number of Days per Group (LARGER than 1): ");
             daysPerGroup = sc.nextInt();
@@ -154,7 +153,7 @@ public class GroupingDataPrint {
                 groupsSplittedArr.size());
     }
 
-    // function for grouping data base on user choice
+    // function for grouping data base on user choice for all the data extracting processes
     public void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
                                String originalStartDate, int metricOption, int DisplayOption, int DataChoice, int groups) throws ParseException {
         ArrayList<CovidData> groupsDaysArr = new ArrayList<>();

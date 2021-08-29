@@ -4,15 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static Covid19.Metrics.metricDisplay;
-
 //select date from a a particular location
 class DateLocationFiltering {
     public static CovidData getDataFromDate(String chosenDate, String endDate, CovidData dataRow, int DataChoice) throws ParseException {
         ArrayList<Date> datesInRange = new ArrayList<Date>();
         ArrayList<String> datesInRangeStr = new ArrayList<String>();
         CovidData locationData = null;
-
         if (dataRow == null) {
             locationData = null;
         } else if (dataRow != null) {
@@ -44,6 +41,7 @@ class DateLocationFiltering {
 }
 
 class DayGroupSplitting {
+
     // split data by group
     public static ArrayList<Integer> splitGroupsEqually(int x, int n) {
         //x: dayAway

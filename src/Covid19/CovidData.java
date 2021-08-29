@@ -1,7 +1,7 @@
 package Covid19;
 
 public class CovidData {
-    // private fields
+    // private fields to protect our original data objects
     private String iso_code;
     private String continent;
     private String location;
@@ -56,6 +56,7 @@ public class CovidData {
         return this.population;
     }
 
+    // print out the CSV data
     public String toPrintString() {
         return "COVID-DATA [iso_code=" + this.iso_code + ", continent=" + this.continent + ", location=" + this.location +
                 ", date=" + this.date + ", new_cases=" + this.new_cases + ", new_deaths=" + this.new_deaths +

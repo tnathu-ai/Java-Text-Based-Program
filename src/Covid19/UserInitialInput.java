@@ -11,6 +11,7 @@ import java.util.Scanner;
 import static Covid19.DayGroupSplitting.*;
 import static Covid19.ReadWriteCsvData.replaceNullCsv;
 
+// User input Object
 public class UserInitialInput {
     String pathToNewCsv;
     String location;
@@ -45,7 +46,6 @@ public class UserInitialInput {
         } else {
             dayAway = dayAwayValidate();
         }
-
         // choose type of grouping methods:
         int groupingOption = groupOptionValidate();
         UserInitialInput userDataInput;
@@ -61,6 +61,7 @@ public class UserInitialInput {
         }
     }
 
+    // Validate day away from user input
     public static int dayAwayValidate() {
         Scanner input = new Scanner(System.in);
         int dayAway;
@@ -78,6 +79,7 @@ public class UserInitialInput {
         }
     }
 
+    // Validate grouping options from user input
     public static int groupOptionValidate() {
         Scanner input = new Scanner(System.in);
         System.out.println("\nThere are 3 ways you can choose to group your days: ");
@@ -88,7 +90,6 @@ public class UserInitialInput {
                 "(If it is not possible to divide groups equally, the program will raise an error). ");
         System.out.println();
         int groupingOption;
-
         while (true) {
             try {
                 do {
@@ -103,6 +104,7 @@ public class UserInitialInput {
         }
     }
 
+    // Validate geographic area in the dataset from user input
     public static String locationValidate(String pathToNewCSV) throws IOException {
         Scanner input = new Scanner(System.in);
         String location = null;
@@ -131,6 +133,7 @@ public class UserInitialInput {
         return location;
     }
 
+    // Validate end date from user input
     public static String EndInputDateValidate(String pathToNewCSV) throws IOException, ParseException {
         Scanner input = new Scanner(System.in);
         String endDate = null;
@@ -139,7 +142,6 @@ public class UserInitialInput {
         SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
         Date smallestDate = sdf.parse("1/1/2020");
         Date largestDate = sdf.parse("7/8/2021");
-
         do {
             BufferedReader csvReader = new BufferedReader(new FileReader(pathToNewCSV));
             String row = "";
@@ -179,6 +181,7 @@ public class UserInitialInput {
         return endDate;
     }
 
+    // Validate start date from user input
     public static String chosenDateValidate(String pathToNewCSV) throws IOException, ParseException {
         Scanner input = new Scanner(System.in);
         String chosenDate = null;
@@ -187,7 +190,6 @@ public class UserInitialInput {
         SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
         Date smallestDate = sdf.parse("1/1/2020");
         Date largestDate = sdf.parse("7/8/2021");
-
         do {
             BufferedReader csvReader = new BufferedReader(new FileReader(pathToNewCSV));
             String row = "";
@@ -211,7 +213,6 @@ public class UserInitialInput {
                     System.out.println("\nPlease enter the date in this FORMAT 'M/d/yyyy' !!!");
                 }
             } while (error);
-
             if (chosenDate == null) {
                 while ((row = csvReader.readLine()) != null) {
                     String[] data = row.split(",", -1);
