@@ -4,6 +4,23 @@ Implement a text-based program using Java language and OOP techniques.
 ##### GitHub repo URL of your project: https://github.com/tnathu-ai/Java-Text-Based-Program-Project
 ##### Video Demonstration: 
 
+## Local Environment Setup
++ This part is intended to guide RMIT grading staff to set up their local environment to host our application correctly for grading purpose, as requested by our instructor [@BaoNguyen](https://github.com/baothien). Ignore this part if it is not applicable to you.
++ Please make sure that you have IntelliJ IDEA version 2021.1 installed on your system. No other software or libraries required.
++ Your work will be tested on a Windows 10 64-bit machine, using Java 16 JVM or one specified by Dr. Bao (you should ask him about this)
++ The following files are required: source code and supported files. Your source code should be organized according to your package structure
++ Don't put the git folder into your submission
++ The entry point of your program (i.e. the main() method) must be in a file named Main.java. If I cannot start from Main, I consider your program is not able to run
++ There is a README file on the root directory of your submission. It needs to contain contribution information, the GitHub repo URL of your project, and the link to your video demonstration (your video should be uploaded to YouTube - the uploaded time is used to check for late submission)
++ Contribution information: 1/ The total increase must equal the total decrease. For example, if the team decides to increase 2 marks for person 1, there must be 2 marks decrease for someone(s) else (decrease 2 marks for person 2 OR decrease 0.5 marks for person 2 and 1.5 marks for person 3, etc.). 2/ The maximum increase/decrease for each person is 3 (it is the mark for this rubric section). So, the maximum mark for a person on this "Team Contribution" is 6 and the minimum mark is zero. 3/ If a person gets zero on "Team Contribution", the final mark of this person for the assignment will be zero. 4/ If a person's contribution is zero, the mark of this person (3) cannot be used to increase other people.  5/ The unit of increase/decrease is 0.1 marks.
+An example of contribution information is
+Person 1: +1
+Person 2: -2
+Person 3: +1
+Another example
+All contributions are the same
++ Compress all files as one .zip file and submit the .zip file to Canvas
+
 ## Assignment Requirements
 - [Notion Display](https://first-network-e11.notion.site/Prog-JAVA-Group-Asm-199a53a3094f4ca286f713a6da9eb67a)
 
@@ -124,24 +141,6 @@ eg:
 - Student: Linh Vu [@Linh-0v0](https://github.com/Linh-0v0)
 - Student: Nhat Nguyen[@NhatNguyen3001](https://github.com/NhatNguyen3001)
 ***
-
-## Local Environment Setup
-+ This part is intended to guide RMIT grading staff to set up their local environment to host our application correctly for grading purpose, as requested by our instructor [@BaoNguyen](https://github.com/baothien). Ignore this part if it is not applicable to you.
-+ Please make sure that you have IntelliJ IDEA version 2021.1 installed on your system. No other software or libraries required.
-+ Your work will be tested on a Windows 10 64-bit machine, using Java 16 JVM or one specified by Dr. Bao (you should ask him about this)
-+ The following files are required: source code and supported files. Your source code should be organized according to your package structure
-+ Don't put the git folder into your submission
-+ The entry point of your program (i.e. the main() method) must be in a file named Main.java. If I cannot start from Main, I consider your program is not able to run
-+ There is a README file on the root directory of your submission. It needs to contain contribution information, the GitHub repo URL of your project, and the link to your video demonstration (your video should be uploaded to YouTube - the uploaded time is used to check for late submission)
-+ Contribution information: 1/ The total increase must equal the total decrease. For example, if the team decides to increase 2 marks for person 1, there must be 2 marks decrease for someone(s) else (decrease 2 marks for person 2 OR decrease 0.5 marks for person 2 and 1.5 marks for person 3, etc.). 2/ The maximum increase/decrease for each person is 3 (it is the mark for this rubric section). So, the maximum mark for a person on this "Team Contribution" is 6 and the minimum mark is zero. 3/ If a person gets zero on "Team Contribution", the final mark of this person for the assignment will be zero. 4/ If a person's contribution is zero, the mark of this person (3) cannot be used to increase other people.  5/ The unit of increase/decrease is 0.1 marks.
-An example of contribution information is
-Person 1: +1
-Person 2: -2
-Person 3: +1
-Another example
-All contributions are the same
-+ Compress all files as one .zip file and submit the .zip file to Canvas
-
 
 ## Grading Criteria
 + **Clean Code**: Use standard guidelines; apply consistent naming, style, and indentation; add appropriate comments, etc.
