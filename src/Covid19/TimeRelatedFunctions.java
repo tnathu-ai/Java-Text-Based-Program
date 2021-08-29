@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 class TimeRelatedFunctions {
+    // get the end date base on the start date and day away
     public static String displayStartEndDate(String chosenDate, int dayAway, int DataChoice) {
         //Specifying date format
         SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
@@ -18,7 +19,7 @@ class TimeRelatedFunctions {
             //Setting the date to the given date
             c.setTime(date);
         } catch (ParseException e) {
-            System.out.println("invalid input");
+            System.out.println("Invalid input!");
             e.printStackTrace();
         }
         //Number of Days to add
@@ -27,7 +28,6 @@ class TimeRelatedFunctions {
         } else {
             c.add(Calendar.DAY_OF_MONTH, -dayAway);
         }
-
         //Day after adding the days to the input date
         String endDate = sdf.format(c.getTime());
         //Displaying the new Date after addition of Days
@@ -35,6 +35,7 @@ class TimeRelatedFunctions {
         return endDate;
     }
 
+    // Get the dates between 2 dates
     public static ArrayList<Date> getDatesBetween(String startDate, String endDate, int DataChoice) throws ParseException {
         //convert String to Date
         SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
@@ -64,6 +65,7 @@ class TimeRelatedFunctions {
         return datesInRange;
     }
 
+    // Convert Date DataType into Sting DataType for an ArrayList
     public static ArrayList<String> convertDateToString(ArrayList<Date> ArrList) {
         DateFormat df = new SimpleDateFormat("M/d/yyyy");
         ArrayList<String> dateToStrArr = new ArrayList<String>();
@@ -89,21 +91,17 @@ class TimeRelatedFunctions {
             // produce the date
             Date d1 = sdf.parse(chosenDate);
             Date d2 = sdf.parse(endDate);
-
-            // Calucalte time difference
-            // in time and days
+            // Calculate the time difference in time
             long timeDifference
                     = d2.getTime() - d1.getTime();
-
+            // Calculate the time difference in days
             dayAway = (timeDifference
                     / (1000 * 60 * 60 * 24))
                     % 365;
-
             // Print the date difference in days
             System.out.print("Difference " + "between two dates is: ");
             System.out.println(dayAway + " days, ");
         }
-
         // Catch the Exception
         catch (ParseException e) {
             e.printStackTrace();

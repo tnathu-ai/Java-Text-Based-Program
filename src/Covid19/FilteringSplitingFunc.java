@@ -4,14 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static Covid19.Metrics.metricDisplay;
-
+//select date from a a particular location
 class DateLocationFiltering {
     public static CovidData getDataFromDate(String chosenDate, String endDate, CovidData dataRow, int DataChoice) throws ParseException {
         ArrayList<Date> datesInRange = new ArrayList<Date>();
         ArrayList<String> datesInRangeStr = new ArrayList<String>();
         CovidData locationData = null;
-
         if (dataRow == null) {
             locationData = null;
         } else if (dataRow != null) {
@@ -31,7 +29,7 @@ class DateLocationFiltering {
         return locationData;
     }
 
-
+    // select location from the CSV
     public static CovidData getDataFromLocation(CovidData dataRow,
                                                 String inputlocation) {
         if (dataRow.getContinent().equalsIgnoreCase(inputlocation) == false
@@ -43,6 +41,8 @@ class DateLocationFiltering {
 }
 
 class DayGroupSplitting {
+
+    // split data by group
     public static ArrayList<Integer> splitGroupsEqually(int x, int n) {
         //x: dayAway
         //n: groups
@@ -74,6 +74,7 @@ class DayGroupSplitting {
         return groupsSplittedArr;
     }
 
+    // split data by days
     public static ArrayList<Integer> splitEqualDays(int x, int d) {
         //x: dayAway
         //n: groups
@@ -96,7 +97,8 @@ class DayGroupSplitting {
                         groupsSplittedArr.add(x / n);
                     }
                 } else {
-                    System.out.println("It is not possible to divide equally!!!");
+                    System.out.println("It is NOT POSSIBLE to divide EQUALLY!!!");
+                    groupsSplittedArr = null;
                     break;
                 }
             }
@@ -104,8 +106,7 @@ class DayGroupSplitting {
         return groupsSplittedArr;
     }
 
-    // Function to print difference in
-    // time chosenDate and endDate for inclusive date range grouping
+    // Function to print difference in time chosenDate and endDate for inclusive date range grouping
     public static int calculateDayAway(String chosenDate, String endDate) {
         // SimpleDateFormat converts the
         // string format to date object
@@ -131,7 +132,6 @@ class DayGroupSplitting {
             System.out.print("Difference " + "between two dates is: ");
             System.out.println(dayAway + " days, ");
         }
-
         // Catch the Exception
         catch (ParseException e) {
             e.printStackTrace();

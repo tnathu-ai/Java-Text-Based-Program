@@ -4,32 +4,32 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Metrics {
-    //GET METRIC INPUT
+    //GET CALCULATED COLUMNS INPUT
     public static int metricUserInput() {
-
-        System.out.println("\n Enter one of the number below to calculate an additional metric:");
+        // Get user input for getting the calculated result
+        System.out.println("\nEnter one of the number below to calculate an additional metric:");
         System.out.println("1. Total positive cases. ");
         System.out.println("2. Total deaths. ");
         System.out.println("3. Total people vaccinated. ");
 
         Scanner input = new Scanner(System.in);
         int metricOption;
-        do {
-            System.out.print("Please enter the number in those 3 options to choose: ");
-            while (true) {
-                try {
+        System.out.print("Please enter the number in those 3 options to choose: ");
+        while (true) {
+            try {
+                do {
                     metricOption = input.nextInt();
                     return metricOption;
-                } catch (NumberFormatException e) {
-                    input.next();
-                    System.out.print("Invalid Input! Please enter again: ");
-                }
+                } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+            } catch (NumberFormatException e) {
+                input.next();
+                System.out.print("\nInvalid Input! Please enter again: ");
             }
-        } while (metricOption != 1 && metricOption != 2 && metricOption != 3);
+        }
     }
 
     //METRICS TOTAL-CALCULATING METHODS
-    //os new data for each date
+    //is new data for each date
     public static long totalNewCases(ArrayList<CovidData> groupDataArr) {
         long sum = 0;
         for (int i = 0; i < groupDataArr.size(); i++) {
@@ -54,7 +54,7 @@ public class Metrics {
         return upTo;
     }
 
-    //DISPLAY METRICS
+    //DISPLAY CALCULATED RESULT
     public static void metricDisplay(int metricOption, ArrayList<CovidData> groupsDaysArr,
                                      ArrayList<Long> metricsArr) {
         // Using Array List to print

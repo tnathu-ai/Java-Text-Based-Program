@@ -8,14 +8,14 @@ import java.util.stream.Stream;
 class ChartDisplayOption {
     public static int chartDisplayOption() {
         //Choose way of displaying
-        System.out.println("\n Choose one way to display");
+        System.out.println("\nChoose one way to display");
         System.out.println("1. Tabular display. ");
         System.out.println("2. Chart display. ");
 
         Scanner input = new Scanner(System.in);
         int DisplayOption;
         do {
-            System.out.print("\n Please enter only the number in those 3 options to choose: ");
+            System.out.print("\nPlease enter only the number in those 3 options to choose: ");
             while (true) {
                 try {
                     DisplayOption = input.nextInt();
@@ -28,7 +28,7 @@ class ChartDisplayOption {
     }
 }
 
-
+// Display summary data in a table.
 class TabularDisplay {
     public static void TabularPrint(String chosenDate, String endDate, ArrayList<Long> metricsArr,
                                     int DisplayOption) {
@@ -50,8 +50,9 @@ class TabularDisplay {
             IntArrayMetricForChart[i] = Integer.parseInt(StringArrayMetricForChart[i]);
         }
 
+        // the “Range” column shows “date1 – date2,”
+        // where date1 and date2 are the first dates and last dates of a group
         String StringDay[] = {chosenDate, endDate};
-
         String[] DataStringDay = new String[StringDay.length];
         for (int DataCount = 0; DataCount < StringDay.length; DataCount = DataCount + 2) {
             DataStringDay[DataCount] = StringDay[DataCount] + "-" + StringDay[DataCount + 1];
@@ -68,12 +69,11 @@ class TabularDisplay {
 
                 arrays[i][j] = DataStringDay[count];
                 count++;
-
             }
             arrays[0][0] = "Days";
             arrays[0][1] = "Value";
-
         }
+
         Map<Integer, Integer> columnLengths = new HashMap<>();
         Arrays.stream(arrays).forEach(a -> Stream.iterate(0, (i -> i < arrays.length), (i -> ++i)).forEach(i -> {
             if (columnLengths.get(i) == null) {
@@ -164,13 +164,12 @@ class TabularDisplay {
     }
 }
 
-
 class ChartDisplay {
     public static void FindPosition(int[] IntArrayMetricForChart, int groups) {
-
         // Find max min and ratio of each pipe
         int[] IntArrayMetricForChartToSort = IntArrayMetricForChart.clone();
         Arrays.sort(IntArrayMetricForChartToSort);
+        //Find min and max metric to get value of 1 pipe
         int MinMetric = IntArrayMetricForChartToSort[0];
         int MaxMetric = IntArrayMetricForChartToSort[IntArrayMetricForChartToSort.length - 1];
         int ValueOfPipeFinal = 1;
@@ -178,6 +177,7 @@ class ChartDisplay {
 
         if (ValueOfPipe != 0) ValueOfPipeFinal = ValueOfPipe;
         //Find the position of each data point
+        //The chart depends on max value and min value to get the ratio of 23 pipes
         //Find x value
         int[] PositionY = new int[IntArrayMetricForChart.length];
         for (int i = 0; i < PositionY.length; i++) {
@@ -193,13 +193,14 @@ class ChartDisplay {
             count += TheSpace;
         }
 
+        //Find position of data point
         int[] Position = new int[PositionX.length + PositionY.length];
         int n = 0, z = 0, e = 0;
         while (n < PositionX.length && z < PositionY.length) {
             Position[e++] = PositionX[n++];
             Position[e++] = PositionY[z++];
         }
-
+        //put all data point into array
         int[][] ChartArrays = new int[Position.length / 2][2];
         int count1 = 0;
         for (int i = 0; i < Position.length; i++) {

@@ -9,13 +9,15 @@ import static Covid19.TimeRelatedFunctions.*;
 import static Covid19.DateLocationFiltering.*;
 
 public class ReadWriteCsvData {
-
+    // Read the CSV file
     public static ArrayList<CovidData> readCsvRow(String pathToNewCSV, String location,
                                                   String chosenDate, String endInputDate, int dayAway, int DataChoice)
             throws IOException, ParseException {
 
         String endDate = null;
+        // Store the read data inside bigGroup ArrayList
         ArrayList<CovidData> bigGroup = new ArrayList<CovidData>();
+        // Store the Date Range according to the chosen chosen choice inside getDatesBetweenArr ArrayList
         ArrayList<Date> getDatesBetweenArr = new ArrayList<Date>();
 
         //Get and Print the Date Range according to the chosen chosen choice
@@ -62,6 +64,7 @@ public class ReadWriteCsvData {
         return bigGroup;
     }
 
+    // Replace the null values in the original CSV with 0 filled values CSV
     public static void replaceNullCsv(String pathToCSV,
                                       String pathToNewCSV) {
         try {
@@ -70,7 +73,6 @@ public class ReadWriteCsvData {
             BufferedWriter csvWriter =
                     new BufferedWriter(new FileWriter(pathToNewCSV));
             String line = "";
-
             while ((line = csvReader.readLine()) != null) {
                 String[] values = line.split(",", -1);
                 //make an array out of string
@@ -85,7 +87,6 @@ public class ReadWriteCsvData {
                         al.add(element);
                     }
                 }
-
                 //add commas between elements
                 for (String s : al) {
                     writableString = writableString + s + ",";

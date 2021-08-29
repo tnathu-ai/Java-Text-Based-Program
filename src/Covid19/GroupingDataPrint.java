@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static Covid19.DayGroupSplitting.splitEqualDays;
 import static Covid19.Metrics.metricDisplay;
 import static Covid19.Metrics.metricUserInput;
 import static Covid19.ReadWriteCsvData.readCsvRow;
@@ -13,10 +14,13 @@ import static Covid19.TimeRelatedFunctions.calculateDayAway;
 public class GroupingDataPrint {
     UserInitialInput initialInput;
 
+    // setter for initial inputs
     public void setInitialInput(UserInitialInput initialInput) {
         this.initialInput = initialInput;
     }
 
+    // Print first data grouping option
+    // A pair of start date and end dates (inclusive)
     public void PrintOption1(int DataChoice) throws IOException, ParseException {
         //filter and get the required Data
         ArrayList<CovidData> bigGroup = readCsvRow(
@@ -46,11 +50,13 @@ public class GroupingDataPrint {
             new TabularDisplay().TabularPrint(initialInput.chosenDate, endDate, metricsArr, DisplayOption);
         else {
             System.out.println("*");
-            System.out.println("There is no ratio for no grouping option so there is no chart");
+            System.out.println("\nThere is no ratio for no grouping option so there is no chart");
         }
 
     }
 
+    // Print second data grouping option
+    // A number of days or weeks from a particular date
     public void PrintOption2(int DataChoice) throws IOException, ParseException {
         int groups;
         //filter and get the required Data
@@ -64,7 +70,7 @@ public class GroupingDataPrint {
 
         do {
             Scanner input = new Scanner(System.in);
-            System.out.print("Enter the number of Groups (smaller than the number of days): ");
+            System.out.print("\nEnter the number of Groups (smaller than the number of days): ");
             groups = input.nextInt();
         } while (groups > initialInput.dayAway);
         ArrayList<Integer> groupsSplittedArr = new ArrayList<>();
@@ -85,7 +91,10 @@ public class GroupingDataPrint {
         putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice, groups);
     }
 
+    // Print third grouping data option
+    // A number of days or weeks to a particular date
     public void PrintOption3(int DataChoice) throws IOException, ParseException {
+        Scanner sc = new Scanner(System.in);
         int daysPerGroup;
         //filter and get the required Data
         ArrayList<CovidData> bigGroup = readCsvRow(
@@ -94,19 +103,45 @@ public class GroupingDataPrint {
                 initialInput.chosenDate,
                 initialInput.endInputDate,
                 initialInput.dayAway, DataChoice);
-
         do {
-            Scanner input = new Scanner(System.in);
-            System.out.print("Enter the number of Days per Group (larger than 1): ");
-            daysPerGroup = input.nextInt();
+            System.out.print("\nEnter the number of Days per Group (LARGER than 1): ");
+            daysPerGroup = sc.nextInt();
         } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
         //GETTING THE NUMBER OF NEEDED-SPLITTED GROUPS
-        ArrayList<Integer> groupsSplittedArr = new ArrayList<Integer>();
+        ArrayList<Integer> groupsSplittedArr;
         if (DataChoice == 1) {
             int dayAway = calculateDayAway(initialInput.chosenDate, initialInput.endInputDate);
-            groupsSplittedArr = DayGroupSplitting.splitEqualDays(dayAway, daysPerGroup);
+            groupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
+            if (groupsSplittedArr == null) {
+                do {
+                    System.out.println("Please choose another Start Date / End Date to divide equally!!!");
+                    //new Start Date
+                    initialInput.chosenDate = UserInitialInput.chosenDateValidate(initialInput.pathToNewCsv);
+                    System.out.println();
+                    //new End Date
+                    initialInput.endInputDate = UserInitialInput.EndInputDateValidate(initialInput.pathToNewCsv);
+                    dayAway = calculateDayAway(initialInput.chosenDate, initialInput.endInputDate);
+                    do {
+                        System.out.print("Enter the number of Days per Group (LARGER than 1 & SMALLER or EQUAL to the DAY AWAY): ");
+                        daysPerGroup = sc.nextInt();
+                    } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
+                    groupsSplittedArr = splitEqualDays(dayAway, daysPerGroup);
+                } while (groupsSplittedArr == null);
+            }
         } else {
-            groupsSplittedArr = DayGroupSplitting.splitEqualDays(initialInput.dayAway, daysPerGroup);
+            groupsSplittedArr = splitEqualDays(initialInput.dayAway, daysPerGroup);
+            if (groupsSplittedArr == null) {
+                do {
+                    System.out.println("\nPlease choose another number of DAYS AWAY to divide EQUALLY! ");
+                    System.out.print("1.Enter the number of Days that are Away from the date you chose: ");
+                    initialInput.dayAway = sc.nextInt();
+                    do {
+                        System.out.print("2.Enter the number of DAYS per GROUP (LARGER than 1 & SMALLER or EQUAL to the DAY AWAY): ");
+                        daysPerGroup = sc.nextInt();
+                    } while (daysPerGroup > initialInput.dayAway && daysPerGroup > 1);
+                    groupsSplittedArr = splitEqualDays(initialInput.dayAway, daysPerGroup);
+                } while (groupsSplittedArr == null);
+            }
         }
 
         //get Metric option
@@ -118,6 +153,7 @@ public class GroupingDataPrint {
                 groupsSplittedArr.size());
     }
 
+    // function for grouping data base on user choice for all the data extracting processes
     public void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
                                String originalStartDate, int metricOption, int DisplayOption, int DataChoice, int groups) throws ParseException {
         ArrayList<CovidData> groupsDaysArr = new ArrayList<>();
