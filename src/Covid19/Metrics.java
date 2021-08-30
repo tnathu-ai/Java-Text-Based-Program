@@ -1,6 +1,8 @@
 package Covid19;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Metrics {
@@ -48,19 +50,25 @@ public class Metrics {
     }
 
     //is an accumulated values up to a date
-    public static long totalNewVaccinated(ArrayList<CovidData> groupDataArr, ArrayList<String> dayRangeStr) {
+    public static long totalNewVaccinated(ArrayList<CovidData> groupDataArr) {
         long upTo = 0;
+        HashMap<String, Long> countries = new HashMap<String, Long>();
         for (int i = 0; i < groupDataArr.size(); i++) {
-            if ((groupDataArr.get(i).getDate()).equals(dayRangeStr.get(dayRangeStr.size() - 1))) {
-                upTo += groupDataArr.get(i).getPeople_vaccinated();
+            String location = groupDataArr.get(i).getLocation();
+            Long vaccinated = groupDataArr.get(i).getPeople_vaccinated();
+            if (vaccinated != 0) {
+                countries.put(location, vaccinated);
             }
+        }
+        for (String j : countries.keySet()) {
+            upTo += countries.get(j);
         }
         return upTo;
     }
 
     //DISPLAY CALCULATED RESULT
     public static void metricDisplay(int metricOption, ArrayList<CovidData> groupsDaysArr,
-                                     ArrayList<Long> metricsArr, ArrayList<String> dayRangeStr) {
+                                     ArrayList<Long> metricsArr) {
         // Using Array List to print
         switch (metricOption) {
             //option 1: totalNewCases
@@ -83,7 +91,7 @@ public class Metrics {
 
             //option 3: totalNewVaccinated
             case 3:
-                long totalNewVaccinated = totalNewVaccinated(groupsDaysArr, dayRangeStr);
+                long totalNewVaccinated = totalNewVaccinated(groupsDaysArr);
                 metricsArr.add(totalNewVaccinated);
                 for (long l : metricsArr) {
                     System.out.println("__TOTAL NEW VACCINATED__: " + totalNewVaccinated);

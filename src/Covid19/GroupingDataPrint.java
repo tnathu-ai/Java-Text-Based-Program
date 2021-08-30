@@ -40,9 +40,7 @@ public class GroupingDataPrint {
         }
         //metricsArr for saving the metric result
         ArrayList<Long> metricsArr = new ArrayList<>();
-        ArrayList<String> dayRangeStr = TimeRelatedFunctions.convertDateToString(
-                TimeRelatedFunctions.getDatesBetween(initialInput.chosenDate, initialInput.endInputDate, DataChoice));
-        metricDisplay(metricOption, bigGroup, metricsArr, dayRangeStr);
+        metricDisplay(metricOption, bigGroup, metricsArr);
         //Display Option and Table
         int DisplayOption = GeneralVisualDisplayOption.GeneralVisualDisplayOption();
         String endDate = TimeRelatedFunctions.displayStartEndDate(initialInput.chosenDate, initialInput.dayAway,
@@ -206,7 +204,7 @@ public class GroupingDataPrint {
                 }
             }
             //Display Chosen Metric Result
-            metricDisplay(metricOption, groupsDaysArr, metricsArr, dayRangeStr);
+            metricDisplay(metricOption, groupsDaysArr, metricsArr);
             groupsDaysArr.clear();
             count += 1;
             AllMetric.addAll(metricsArr);
