@@ -44,7 +44,7 @@ public class UserInitialInput {
         if (DataChoice == 1) {
             endInputDate = EndInputDateValidate(pathToNewCSV);
         } else {
-            dayAway = dayAwayValidate(chosenDate);
+            dayAway = dayAwayValidate(chosenDate, DataChoice);
         }
         // choose type of grouping methods:
         int groupingOption = groupOptionValidate();
@@ -62,19 +62,30 @@ public class UserInitialInput {
     }
 
     // Validate day away from user input
-    public static int dayAwayValidate(String chosenDate) {
+    public static int dayAwayValidate(String chosenDate, int DataChoice) {
         Scanner input = new Scanner(System.in);
         int dayAway;
+        String smallestDate = "1/1/2020";
         String largestDate = "7/8/2021";
         //currentDayAway = largestDate - chosenDate
-        int currentDayAway = TimeRelatedFunctions.calculateDayAwayDiffMsg(chosenDate, largestDate);
+
         while (true) {
             try {
-                do {
-                    System.out.print("\nEnter the number of DAYS AWAY from the date you chose: ");
-                    dayAway = input.nextInt();
-                } while (dayAway > currentDayAway);
-                return dayAway;
+                if (DataChoice == 2) {
+                    int currentDayAway = TimeRelatedFunctions.calculateDayAwayDiffMsg(chosenDate, largestDate);
+                    do {
+                        System.out.print("\nEnter the number of DAYS AWAY from the date you chose: ");
+                        dayAway = input.nextInt();
+                    } while (dayAway > currentDayAway);
+                    return dayAway;
+                } else if (DataChoice == 3) {
+                    int currentDayAway = TimeRelatedFunctions.calculateDayAwayDiffMsg(smallestDate, chosenDate);
+                    do {
+                        System.out.print("\nEnter the number of DAYS AWAY to the date you chose: ");
+                        dayAway = input.nextInt();
+                    } while (dayAway > currentDayAway);
+                    return dayAway;
+                }
             } catch (Exception e) {
                 input.next();
                 System.out.print("\nInvalid Input! Please enter again!\n ");
