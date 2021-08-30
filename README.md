@@ -4,16 +4,17 @@ Implement a text-based program using Java language and OOP techniques.
 ##### GitHub repo URL of your project: https://github.com/tnathu-ai/Java-Text-Based-Program-Project
 ##### Video Demonstration: 
 
-##### Contribution information: All contributions are the same
+##### Contribution information: ALL CONTRIBUTION ARE THE SAME
 
 
 ## Local Environment Setup
 + This part is intended to guide RMIT grading staff to set up their local environment to host our application correctly for grading purpose, as requested by our instructor [@TriDang](https://github.com/TriDang). Ignore this part if it is not applicable to you.
 + Please make sure that you have IntelliJ IDEA version 2021.1 installed on your system. No other software or libraries required.
-+ Your work will be tested on a Windows 10 64-bit machine, using Java 16 JVM or one specified by Dr. Bao (you should ask him about this)
++ Your work will be tested on a Windows 10 64-bit machine, using Java 16 JVM
 + The following files are required: source code and supported files. Your source code should be organized according to your package structure
 + Don't put the git folder into your submission
-+ The entry point of your program (i.e. the main() method) must be in a file named Main.java. If I cannot start from Main, I consider your program is not able to run
++ The entry point of our program is Main.java. 
++ **Note**:
 + There is a README file on the root directory of your submission. It needs to contain contribution information, the GitHub repo URL of your project, and the link to your video demonstration (your video should be uploaded to YouTube - the uploaded time is used to check for late submission)
 + Contribution information: 
 
