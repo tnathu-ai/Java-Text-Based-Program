@@ -98,6 +98,7 @@ public class TabularDisplay {
 
         //Convert Days from Arraylist into array StringDay
         StringDay = Days.toArray(StringDay);
+        //Create main array DataStringDay to add Days in format and Metric into array
         String[] DataStringDay = new String[StringDay.length];
         for (int DataCount = 0; DataCount < StringDay.length; DataCount = DataCount + 2) {
             DataStringDay[DataCount] = StringDay[DataCount] + "-" + StringDay[DataCount + 1];
@@ -105,9 +106,12 @@ public class TabularDisplay {
         for (int DataCount = 0; DataCount < Metric.length; DataCount = DataCount + 2) {
             DataStringDay[DataCount + 1] = Metric[DataCount];
         }
+        //create 2D arrays
+        //add "Days" and "Values " as first row of table
         String[][] arrays = new String[((DataStringDay.length) / 2) + 1][2];
         arrays[0][0] = "Days";
         arrays[0][1] = "Value";
+        //split main array DataStringDay into 2D array
         int count = 0;
         for (int i = 1; i < DataStringDay.length; i++) {
             for (int j = 0; j < 2; j++) {
@@ -117,6 +121,8 @@ public class TabularDisplay {
                 count++;
             }
         }
+        //Find column amount of table
+        //use hashmap and add 2d arrays as value
         Map<Integer, Integer> columnLengths = new HashMap<>();
         Arrays.stream(arrays).forEach(a -> Stream.iterate(0, (i -> i < a.length), (i -> ++i)).forEach(i -> {
             if (columnLengths.get(i) == null) {
@@ -126,15 +132,16 @@ public class TabularDisplay {
                 columnLengths.put(i, a[i].length());
             }
         }));
-        //
+        //Create table format
         final StringBuilder formatString = new StringBuilder("");
         String flag = leftJustifiedRows ? "-" : "";
         columnLengths.entrySet().stream().forEach(e -> formatString.append("| %" + flag + e.getValue() + "s "));
         formatString.append("|\n");
 
+        //If user choose to display table, use iterate to loop through array and add it into table
         if (DisplayOption == 1) {
-            Stream.iterate(0, (i -> i < arrays.length), (i -> ++i))
-                    .forEach(a -> System.out.printf(formatString.toString(), arrays[a]));
+            Stream.iterate(0, (i -> i < arrays.length), (i -> ++i));
+//
         } else {
             ChartDisplay.FindPosition(IntArrayMetricForChart, groups);
         }
