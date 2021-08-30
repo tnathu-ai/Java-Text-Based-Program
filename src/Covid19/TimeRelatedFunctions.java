@@ -69,7 +69,6 @@ class TimeRelatedFunctions {
     public static ArrayList<String> convertDateToString(ArrayList<Date> ArrList) {
         DateFormat df = new SimpleDateFormat("M/d/yyyy");
         ArrayList<String> dateToStrArr = new ArrayList<String>();
-
         for (int i = 0; i < ArrList.size(); i++) {
             Date DateInArr = ArrList.get(i);
             String dateToString = df.format(DateInArr);
@@ -80,8 +79,7 @@ class TimeRelatedFunctions {
 
     // Function to print difference in time chosenDate and endDate
     static int calculateDayAway(String chosenDate, String endDate) {
-        // SimpleDateFormat converts the
-        // string format to date object
+        // SimpleDateFormat converts string to date object
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         // Try Block
         long dayAway = 0;

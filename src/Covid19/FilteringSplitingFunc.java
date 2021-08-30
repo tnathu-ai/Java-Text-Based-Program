@@ -119,7 +119,7 @@ class DayGroupSplitting {
             Date d1 = sdf.parse(chosenDate);
             Date d2 = sdf.parse(endDate);
 
-            // Calucalte time difference
+            // Calculate the time difference
             // in time and days
             long timeDifference
                     = d2.getTime() - d1.getTime();
