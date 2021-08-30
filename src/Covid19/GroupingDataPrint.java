@@ -3,6 +3,7 @@ package Covid19;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 import static Covid19.DayGroupSplitting.splitEqualDays;
@@ -40,7 +41,9 @@ public class GroupingDataPrint {
         }
         //metricsArr for saving the metric result
         ArrayList<Long> metricsArr = new ArrayList<>();
-        metricDisplay(metricOption, bigGroup, metricsArr);
+        ArrayList<String> dayRangeStr = TimeRelatedFunctions.convertDateToString(
+                TimeRelatedFunctions.getDatesBetween(initialInput.chosenDate, initialInput.endInputDate, DataChoice));
+        metricDisplay(metricOption, bigGroup, metricsArr, dayRangeStr);
         //Display Option and Table
         int DisplayOption = GeneralVisualDisplayOption.GeneralVisualDisplayOption();
         String endDate = TimeRelatedFunctions.displayStartEndDate(initialInput.chosenDate, initialInput.dayAway,
@@ -169,8 +172,9 @@ public class GroupingDataPrint {
             String newEndDate = TimeRelatedFunctions.displayStartEndDate(osd, plusDay, DataChoice);
 //            Days.add(osd);
             //Get the new "temporary dayRangeStr"
-            ArrayList<String> dayRangeStr = TimeRelatedFunctions.convertDateToString(
-                    TimeRelatedFunctions.getDatesBetween(osd, newEndDate, DataChoice));
+            ArrayList<String> dayRangeStr =
+                    TimeRelatedFunctions.convertDateToString(TimeRelatedFunctions.getDatesBetween(osd, newEndDate,
+                            DataChoice));
             System.out.println(dayRangeStr);
 
             //put into Days array for Display Table, Chart
@@ -181,7 +185,7 @@ public class GroupingDataPrint {
             //put "metricsArr" here to save the data for Displaying in Table, Chart
             ArrayList<Long> metricsArr = new ArrayList<>();
 
-            //innerInd: group{3,5,7} -> bigGroup.size = 3; bigGroup.size = 5, bigGroup.size = 7
+            //innerInd: group{3,5,7} -> innerInd = 3; innerInd = 5, innerInd = 7
             for (int innerInd = 0; innerInd < bigGroup.size(); innerInd++) {
                 CovidData dateElement = bigGroup.get(k);
                 //Accept dataElement if it is in the Range of osd-oed
@@ -203,7 +207,7 @@ public class GroupingDataPrint {
                 }
             }
             //Display Chosen Metric Result
-            metricDisplay(metricOption, groupsDaysArr, metricsArr);
+            metricDisplay(metricOption, groupsDaysArr, metricsArr, dayRangeStr);
             groupsDaysArr.clear();
             count += 1;
             AllMetric.addAll(metricsArr);

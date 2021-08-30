@@ -2,6 +2,7 @@ package Covid19;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Date;
 
 public class Metrics {
     //GET CALCULATED COLUMNS INPUT
@@ -48,15 +49,19 @@ public class Metrics {
     }
 
     //is an accumulated values up to a date
-    public static long totalNewVaccinated(ArrayList<CovidData> groupDataArr) {
+    public static long totalNewVaccinated(ArrayList<CovidData> groupDataArr, ArrayList<String> dayRangeStr) {
         long upTo = 0;
-        upTo = groupDataArr.get(groupDataArr.size() - 1).getPeople_vaccinated();
+        for (int i = 0; i < groupDataArr.size(); i++) {
+            if ((groupDataArr.get(i).getDate()).equals(dayRangeStr.get(dayRangeStr.size() - 1))) {
+                upTo += groupDataArr.get(i).getPeople_vaccinated();
+            }
+        }
         return upTo;
     }
 
     //DISPLAY CALCULATED RESULT
     public static void metricDisplay(int metricOption, ArrayList<CovidData> groupsDaysArr,
-                                     ArrayList<Long> metricsArr) {
+                                     ArrayList<Long> metricsArr, ArrayList<String> dayRangeStr) {
         // Using Array List to print
         switch (metricOption) {
             //option 1: totalNewCases
@@ -79,7 +84,7 @@ public class Metrics {
 
             //option 3: totalNewVaccinated
             case 3:
-                long totalNewVaccinated = totalNewVaccinated(groupsDaysArr);
+                long totalNewVaccinated = totalNewVaccinated(groupsDaysArr, dayRangeStr);
                 metricsArr.add(totalNewVaccinated);
                 for (long l : metricsArr) {
                     System.out.println("__TOTAL NEW VACCINATED__: " + totalNewVaccinated);
