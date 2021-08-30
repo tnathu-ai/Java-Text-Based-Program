@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 
 public class TabularDisplay {
     // Display summary data in a row and column format.
-    public static void TabularPrint(String chosenDate, String endDate, ArrayList<Long> metricsArr,
-                                    int DisplayOption) {
+    public static void TabularPrint(String chosenDate, String endDate,
+                                    ArrayList<Long> metricsArr, int DisplayOption) {
         boolean leftJustifiedRows = false;
         String listString = "";
         String MetricForChart = "";
@@ -132,6 +132,7 @@ public class TabularDisplay {
                 columnLengths.put(i, a[i].length());
             }
         }));
+
         //Create table format
         final StringBuilder formatString = new StringBuilder("");
         String flag = leftJustifiedRows ? "-" : "";
@@ -140,7 +141,8 @@ public class TabularDisplay {
 
         //If user choose to display table, use iterate to loop through array and add it into table
         if (DisplayOption == 1) {
-            Stream.iterate(0, (i -> i < arrays.length), (i -> ++i));
+            Stream.iterate(0, (i -> i < arrays.length), (i -> ++i))
+                    .forEach(a -> System.out.printf(formatString.toString(), arrays[a]));
 //
         } else {
             ChartDisplay.FindPosition(IntArrayMetricForChart, groups);
