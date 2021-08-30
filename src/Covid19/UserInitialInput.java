@@ -158,7 +158,7 @@ public class UserInitialInput {
             //Parse Error: occurs when user input data that cannot be converted into date (ex: dsfnui, 234)
             boolean error = true;
             do {
-                System.out.print("The date should be in the RANGE from 1/1/2020 to 7/8/2021: ");
+                System.out.print("The date should be in the RANGE from 1/1/2020-(0h) to 7/8/2021-(24h): ");
                 inputEndDate = input.nextLine();
                 try {
                     chosenDateDateFormat = sdf.parse(inputEndDate);
@@ -207,7 +207,7 @@ public class UserInitialInput {
             //Parse Error: occurs when user input data that cannot be converted into date (ex: dsfnui, 234)
             boolean error = true;
             do {
-                System.out.print("The date should be in the RANGE from 1/1/2020 to 7/8/2021: ");
+                System.out.print("The date should be in the RANGE from 1/1/2020-(0h) to 7/8/2021-(24h): ");
                 inputChosenDate = input.nextLine();
                 try {
                     chosenDateDateFormat = sdf.parse(inputChosenDate);
