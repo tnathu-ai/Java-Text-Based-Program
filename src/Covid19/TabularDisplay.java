@@ -126,7 +126,7 @@ public class TabularDisplay {
                 columnLengths.put(i, a[i].length());
             }
         }));
-
+        //
         final StringBuilder formatString = new StringBuilder("");
         String flag = leftJustifiedRows ? "-" : "";
         columnLengths.entrySet().stream().forEach(e -> formatString.append("| %" + flag + e.getValue() + "s "));
