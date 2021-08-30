@@ -154,7 +154,7 @@ public class GroupingDataPrint {
 
     // function for grouping data base on user choice for all the data extracting processes
     public void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
-                               String originalStartDate, int metricOption, int DisplayOption, int DataChoice, int groups) throws ParseException {
+                               String originalStartDate, int metricOption, int DisplayOption, int DataChoice, int groups) throws ParseException, IOException {
         ArrayList<CovidData> groupsDaysArr = new ArrayList<>();
         int count = 1;
         int k = 0;
