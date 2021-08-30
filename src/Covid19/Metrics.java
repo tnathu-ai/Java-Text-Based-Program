@@ -51,10 +51,15 @@ public class Metrics {
     //is an accumulated values up to a date
     public static long totalNewVaccinated(ArrayList<CovidData> groupDataArr) {
         long upTo = 0;
+        //HashMap "countries": have the latest "people_vaccinated" value
+        //1. of every countries in a continent (in case user insert continent as location)
+        //2. of a country (user insert country as location)
         HashMap<String, Long> countries = new HashMap<String, Long>();
         for (int i = 0; i < groupDataArr.size(); i++) {
             String location = groupDataArr.get(i).getLocation();
             Long vaccinated = groupDataArr.get(i).getPeople_vaccinated();
+            //the location with the latest day will overwrite this location in previous day
+            //the latest day won't be able to overwrite if the people_vaccinated = 0
             if (vaccinated != 0) {
                 countries.put(location, vaccinated);
             }
