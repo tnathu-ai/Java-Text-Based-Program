@@ -108,4 +108,35 @@ class TimeRelatedFunctions {
         }
         return (int) dayAway;
     }
+
+    static int calculateDayAwayDiffMsg(String chosenDate, String endDate) {
+        // SimpleDateFormat converts the
+        // string format to date object
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        // Try Block
+        long dayAway = 0;
+        try {
+            // parse method is used to parse
+            // the text from a string to
+            // produce the date
+            Date d1 = sdf.parse(chosenDate);
+
+            Date d2 = sdf.parse(endDate);
+            // Calculate the time difference in time
+            long timeDifference
+                    = d2.getTime() - d1.getTime();
+            // Calculate the time difference in days
+            dayAway = (timeDifference
+                    / (1000 * 60 * 60 * 24))
+                    % 365;
+            // Print the date difference in days
+            System.out.print("Difference between Chosen date and Largest date in our database: ");
+            System.out.println(dayAway + " days.");
+        }
+        // Catch the Exception
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return (int) dayAway;
+    }
 }

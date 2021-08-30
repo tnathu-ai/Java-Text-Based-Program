@@ -44,7 +44,7 @@ public class UserInitialInput {
         if (DataChoice == 1) {
             endInputDate = EndInputDateValidate(pathToNewCSV);
         } else {
-            dayAway = dayAwayValidate();
+            dayAway = dayAwayValidate(chosenDate);
         }
         // choose type of grouping methods:
         int groupingOption = groupOptionValidate();
@@ -62,15 +62,18 @@ public class UserInitialInput {
     }
 
     // Validate day away from user input
-    public static int dayAwayValidate() {
+    public static int dayAwayValidate(String chosenDate) {
         Scanner input = new Scanner(System.in);
         int dayAway;
+        String largestDate = "7/8/2021";
+        //currentDayAway = largestDate - chosenDate
+        int currentDayAway = TimeRelatedFunctions.calculateDayAwayDiffMsg(chosenDate, largestDate);
         while (true) {
             try {
                 do {
                     System.out.print("\nEnter the number of DAYS AWAY from the date you chose: ");
                     dayAway = input.nextInt();
-                } while (dayAway >= 586);
+                } while (dayAway > currentDayAway);
                 return dayAway;
             } catch (Exception e) {
                 input.next();
