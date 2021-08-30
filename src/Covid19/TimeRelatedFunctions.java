@@ -107,7 +107,7 @@ class TimeRelatedFunctions {
         return (int) dayAway;
     }
 
-    static int calculateDayAwayDiffMsg(String chosenDate, String endDate) {
+    static int calculateDayAwayDiffMsg(String chosenDate, String endDate, int DataChoice) {
         // SimpleDateFormat converts the
         // string format to date object
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -128,7 +128,11 @@ class TimeRelatedFunctions {
                     / (1000 * 60 * 60 * 24))
                     % 365) + 1;
             // Print the date difference in days
-            System.out.print("Difference between Chosen date and Largest date in our database: ");
+            if (DataChoice == 2) {
+                System.out.print("Difference between Chosen date and Largest date in our database: ");
+            } else if (DataChoice == 3) {
+                System.out.print("Difference between Chosen date and Smallest date in our database: ");
+            }
             System.out.println(dayAway + " days.");
         }
         // Catch the Exception

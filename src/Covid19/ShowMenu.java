@@ -62,22 +62,30 @@ public class ShowMenu {
             int DataChoice = getDataChoice();
             runIndividualProgram(DataChoice);
             //Continue or stop the program - Final Choice
-            System.out.println("\n\n_____________________________________________________________________________________");
+            System.out.println("\n" +
+                    "\n_____________________________________________________________________________________");
             System.out.println("\nThis is the end of the program. Do you want to restart or not? ");
             System.out.println("1. Restart the program");
             System.out.println("2. End the program");
-            do {
-                FinalChoice = scanner.nextInt();
-                if ((FinalChoice < 1) || (FinalChoice > 2)) {
-                    System.out.println("You have entered the wrong option. Please choose again!");
-                }
-            }
-            while ((FinalChoice < 1) || (FinalChoice > 2));
-            switch (FinalChoice) {
-                case 1 -> System.out.println("The program will restart.");
-                case 2 -> {
-                    System.out.println("Good bye! Thank you for using our program");
-                    System.exit(0);
+            while (true) {
+                try {
+                    do {
+                        System.out.print("Enter your option: ");
+                        FinalChoice = scanner.nextInt();
+                        if ((FinalChoice < 1) || (FinalChoice > 2)) {
+                            System.out.println("You have entered the wrong option. Please choose again!");
+                        }
+                        switch (FinalChoice) {
+                            case 1 -> System.out.println("The program will restart.");
+                            case 2 -> {
+                                System.out.println("Good bye! Thank you for using our program!");
+                                System.exit(0);
+                            }
+                        }
+                    } while ((FinalChoice < 1) || (FinalChoice > 2));
+                } catch (Exception e) {
+                    scanner.next();
+                    System.out.print("\nInvalid Input! Please enter again! ");
                 }
             }
         }

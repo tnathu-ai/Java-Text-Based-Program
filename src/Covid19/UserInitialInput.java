@@ -72,14 +72,15 @@ public class UserInitialInput {
         while (true) {
             try {
                 if (DataChoice == 2) {
-                    int currentDayAway = TimeRelatedFunctions.calculateDayAwayDiffMsg(chosenDate, largestDate);
+                    int currentDayAway = TimeRelatedFunctions.calculateDayAwayDiffMsg(chosenDate, largestDate,
+                            DataChoice);
                     do {
                         System.out.print("\nEnter the number of DAYS AWAY from the date you chose: ");
                         dayAway = input.nextInt();
                     } while (dayAway > currentDayAway);
                     return dayAway;
                 } else if (DataChoice == 3) {
-                    int currentDayAway = TimeRelatedFunctions.calculateDayAwayDiffMsg(smallestDate, chosenDate);
+                    int currentDayAway = TimeRelatedFunctions.calculateDayAwayDiffMsg(smallestDate, chosenDate, DataChoice);
                     do {
                         System.out.print("\nEnter the number of DAYS AWAY to the date you chose: ");
                         dayAway = input.nextInt();
