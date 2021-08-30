@@ -141,7 +141,8 @@ public class TabularDisplay {
 
         //If user choose to display table, use iterate to loop through array and add it into table
         if (DisplayOption == 1) {
-            Stream.iterate(0, (i -> i < arrays.length), (i -> ++i));
+            Stream.iterate(0, (i -> i < arrays.length), (i -> ++i))
+                    .forEach(a -> System.out.printf(formatString.toString(), arrays[a]));
 //
         } else {
             ChartDisplay.FindPosition(IntArrayMetricForChart, groups);
