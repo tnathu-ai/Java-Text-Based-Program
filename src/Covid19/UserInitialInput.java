@@ -20,8 +20,8 @@ public class UserInitialInput {
     String endInputDate;
     int groupingOption;
 
-    public UserInitialInput(String pathToNewCsv, String location, String chosenDate, String endInputDate, int dayAway
-            , int groupingOption) {
+    public UserInitialInput(String pathToNewCsv, String location, String chosenDate, String endInputDate,
+                            int dayAway, int groupingOption) {
         this.pathToNewCsv = pathToNewCsv;
         this.location = location;
         this.chosenDate = chosenDate;

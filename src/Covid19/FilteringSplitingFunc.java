@@ -41,7 +41,6 @@ class DateLocationFiltering {
 }
 
 class DayGroupSplitting {
-
     // split data by group
     public static ArrayList<Integer> splitGroupsEqually(int x, int n) {
         //x: dayAway

@@ -1,7 +1,7 @@
 package Covid19;
 
 public class CovidData {
-    // private fields to protect our original data objects
+    // private instance fields to protect our original data object states
     private String iso_code;
     private String continent;
     private String location;
@@ -11,8 +11,10 @@ public class CovidData {
     private long people_vaccinated;
     private long population;
 
-    // Parameterized Constructor
-    public CovidData(String iso_code, String continent, String location, String date, long new_cases, long new_deaths, long people_vaccinated, long population) {
+    // Constructor takes in 8 parameters
+    public CovidData(String iso_code, String continent, String location, String date, long new_cases,
+                     long new_deaths, long people_vaccinated, long population) {
+        // Assign instance variable to parameter values
         this.iso_code = iso_code;
         this.continent = continent;
         this.location = location;
@@ -23,7 +25,7 @@ public class CovidData {
         this.population = population;
     }
 
-    // getter methods for the CSV columns
+    // give other classes access to a private instance variables
     public String getIso_code() {
         return this.iso_code;
     }
@@ -56,11 +58,11 @@ public class CovidData {
         return this.population;
     }
 
-    // print out the CSV data
+    // create a unique output when printing CovidData object
     public String toPrintString() {
-        return "COVID-DATA [iso_code=" + this.iso_code + ", continent=" + this.continent + ", location=" + this.location +
-                ", date=" + this.date + ", new_cases=" + this.new_cases + ", new_deaths=" + this.new_deaths +
-                ", people_vaccinated=" + this.people_vaccinated + ", " + "population=" + this.population + "]";
+        return "COVID-DATA [iso code: " + this.iso_code + ", continent: " + this.continent + ", location: " + this.location +
+                ", date: " + this.date + ", new cases: " + this.new_cases + ", new deaths: " + this.new_deaths +
+                ", people vaccinated: " + this.people_vaccinated + ", " + "population: " + this.population + "]";
     }
 }
 
