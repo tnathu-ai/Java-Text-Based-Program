@@ -1,35 +1,13 @@
 package Covid19;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-class ChartDisplayOption {
-    public static int chartDisplayOption() {
-        //Choose way of displaying
-        System.out.println("\nChoose one way to display");
-        System.out.println("1. Tabular display. ");
-        System.out.println("2. Chart display. ");
-
-        Scanner input = new Scanner(System.in);
-        int DisplayOption;
-        do {
-            System.out.print("\nPlease enter only the number in those 3 options to choose: ");
-            while (true) {
-                try {
-                    DisplayOption = input.nextInt();
-                    return DisplayOption;
-                } catch (Exception e) {
-                    input.next();
-                }
-            }
-        } while (DisplayOption != 1 && DisplayOption != 2);
-    }
-}
-
-// Display summary data in a table.
-class TabularDisplay {
+public class TabularDisplay {
+    // Display summary data in a row and column format.
     public static void TabularPrint(String chosenDate, String endDate, ArrayList<Long> metricsArr,
                                     int DisplayOption) {
         boolean leftJustifiedRows = false;
@@ -138,7 +116,6 @@ class TabularDisplay {
                 arrays[i][j] = DataStringDay[count];
                 count++;
             }
-
         }
         Map<Integer, Integer> columnLengths = new HashMap<>();
         Arrays.stream(arrays).forEach(a -> Stream.iterate(0, (i -> i < a.length), (i -> ++i)).forEach(i -> {
@@ -163,103 +140,3 @@ class TabularDisplay {
         }
     }
 }
-
-class ChartDisplay {
-    public static void FindPosition(int[] IntArrayMetricForChart, int groups) {
-        // Find max min and ratio of each pipe
-        int[] IntArrayMetricForChartToSort = IntArrayMetricForChart.clone();
-        Arrays.sort(IntArrayMetricForChartToSort);
-        //Find min and max metric to get value of 1 pipe
-        int MinMetric = IntArrayMetricForChartToSort[0];
-        int MaxMetric = IntArrayMetricForChartToSort[IntArrayMetricForChartToSort.length - 1];
-        int ValueOfPipeFinal = 1;
-        int ValueOfPipe = (MaxMetric - MinMetric) / 24;
-
-        if (ValueOfPipe != 0) ValueOfPipeFinal = ValueOfPipe;
-        //Find the position of each data point
-        //The chart depends on max value and min value to get the ratio of 23 pipes
-        //Find x value
-        int[] PositionY = new int[IntArrayMetricForChart.length];
-        for (int i = 0; i < PositionY.length; i++) {
-            PositionY[i] = (IntArrayMetricForChart[i] - MinMetric) / ValueOfPipeFinal;
-        }
-
-        //Find y value
-        int[] PositionX = new int[IntArrayMetricForChart.length];
-        int TheSpace = 80 / groups;
-        int count = 0;
-        for (int i = 0; i < PositionX.length; i++) {
-            PositionX[i] = count;
-            count += TheSpace;
-        }
-
-        //Find position of data point
-        int[] Position = new int[PositionX.length + PositionY.length];
-        int n = 0, z = 0, e = 0;
-        while (n < PositionX.length && z < PositionY.length) {
-            Position[e++] = PositionX[n++];
-            Position[e++] = PositionY[z++];
-        }
-        //put all data point into array
-        int[][] ChartArrays = new int[Position.length / 2][2];
-        int count1 = 0;
-        for (int i = 0; i < Position.length; i++) {
-            for (int y = 0; y < 2; y++) {
-                if (count1 == Position.length)
-                    break;
-
-                ChartArrays[i][y] = Position[count1];
-                count1++;
-            }
-        }
-
-        // set max y (23) and max x (79)
-        int x = 80;
-        int y = 24;
-        // loop through all rows
-        for (int i = y; i >= 0; i--) {
-            // print values of y axis
-            System.out.print("|");
-            // loop through all targets list and filter targets vc
-            ArrayList<int[]> list = new ArrayList<>();
-            for (int[] k : ChartArrays) {
-                int subY = k[1];
-                if (subY == i) list.add(k);
-            }
-
-            // loop through each values of the row
-            for (int j = 0; j <= x; j++) {
-                boolean hasTarget = false;
-                for (int[] subList : list) {
-                    if (subList[0] == j) {
-                        hasTarget = true;
-                        break;
-                    }
-                }
-
-                if (!hasTarget) {
-                    System.out.print(" " + " ");
-                } else {
-                    for (int[] subList : list) {
-                        if (subList[0] == j) {
-                            if (j > 0 || j == 0 && i < 10)
-                                System.out.print("*" + " ");
-                            else if (j == 0)
-                                System.out.print("*" + " ");
-                            break;
-                        }
-                    }
-                }
-            }
-            // print the x axis
-            System.out.println();
-            if (i == 0) {
-                System.out.print("+");
-                for (int j = 0; j <= x; j++) {
-                    System.out.print("_" + " ");
-                }
-            }
-        }
-    }
-}
-

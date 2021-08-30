@@ -42,10 +42,9 @@ public class GroupingDataPrint {
         ArrayList<Long> metricsArr = new ArrayList<>();
         metricDisplay(metricOption, bigGroup, metricsArr);
         //Display Option and Table
-        int DisplayOption = ChartDisplayOption.chartDisplayOption();
+        int DisplayOption = GeneralVisualDisplayOption.GeneralVisualDisplayOption();
         String endDate = TimeRelatedFunctions.displayStartEndDate(initialInput.chosenDate, initialInput.dayAway,
                 DataChoice);
-
         if (DisplayOption == 1)
             new TabularDisplay().TabularPrint(initialInput.chosenDate, endDate, metricsArr, DisplayOption);
         else {
@@ -67,7 +66,6 @@ public class GroupingDataPrint {
                 initialInput.endInputDate,
                 initialInput.dayAway,
                 DataChoice);
-
         do {
             Scanner input = new Scanner(System.in);
             System.out.print("\nEnter the number of Groups (smaller than the number of days): ");
@@ -86,7 +84,7 @@ public class GroupingDataPrint {
         //get Metric option
         int metricOption = metricUserInput();
         //Display Option and Table
-        int DisplayOption = ChartDisplayOption.chartDisplayOption();
+        int DisplayOption = GeneralVisualDisplayOption.GeneralVisualDisplayOption();
         //Put data into groups and print out
         putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice, groups);
     }
@@ -143,11 +141,10 @@ public class GroupingDataPrint {
                 } while (groupsSplittedArr == null);
             }
         }
-
         //get Metric option
         int metricOption = metricUserInput();
         //Display Option and Table
-        int DisplayOption = ChartDisplayOption.chartDisplayOption();
+        int DisplayOption = GeneralVisualDisplayOption.GeneralVisualDisplayOption();
         //Put data into groups and print out
         putDataInGroup(bigGroup, groupsSplittedArr, initialInput.chosenDate, metricOption, DisplayOption, DataChoice,
                 groupsSplittedArr.size());
@@ -157,7 +154,6 @@ public class GroupingDataPrint {
     public void putDataInGroup(ArrayList<CovidData> bigGroup, ArrayList<Integer> groupsSplittedArr,
                                String originalStartDate, int metricOption, int DisplayOption, int DataChoice, int groups) throws ParseException {
         ArrayList<CovidData> groupsDaysArr = new ArrayList<>();
-
         int count = 1;
         int k = 0;
         String osd = originalStartDate;
@@ -176,6 +172,7 @@ public class GroupingDataPrint {
             ArrayList<String> dayRangeStr = TimeRelatedFunctions.convertDateToString(
                     TimeRelatedFunctions.getDatesBetween(osd, newEndDate, DataChoice));
             System.out.println(dayRangeStr);
+
             //put into Days array for Display Table, Chart
             String firstDay = dayRangeStr.get(0);
             String lastday = dayRangeStr.get(dayRangeStr.size() - 1);
@@ -196,6 +193,7 @@ public class GroupingDataPrint {
             }
             k = 0;
             osd = newEndDate;
+
             for (CovidData gda : groupsDaysArr) {
                 //must not null to be able to convert to String
                 if (gda != null) {
