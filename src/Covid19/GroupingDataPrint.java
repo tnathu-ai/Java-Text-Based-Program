@@ -3,7 +3,6 @@ package Covid19;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 import static Covid19.DayGroupSplitting.splitEqualDays;

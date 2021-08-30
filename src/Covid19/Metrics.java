@@ -2,7 +2,6 @@ package Covid19;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Date;
 
 public class Metrics {
     //GET CALCULATED COLUMNS INPUT
