@@ -36,7 +36,10 @@ Person 3: +1
 Another example: All contributions are the same
 
 + Compress all files as one .zip file and submit the .zip file to Canvas
-+ ![](Java-Text-Based-Program-Class-Diagram.png)
+
+
+### Class Diagram
++ ![Java-Text-Based-Program-Class-Diagram](Java-Text-Based-Program-Class-Diagram.png)
 
 ## Assignment Requirements
 - [Notion Display](https://first-network-e11.notion.site/Prog-JAVA-Group-Asm-199a53a3094f4ca286f713a6da9eb67a)
