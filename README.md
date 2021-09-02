@@ -4,6 +4,8 @@ Implement a text-based program using Java language and OOP techniques.
 ##### GitHub repo URL of your project: https://github.com/tnathu-ai/Java-Text-Based-Program-Project
 ##### Video Demonstration: https://youtu.be/mXBVpvW7YEs
 ##### Link to our Drive folder: https://drive.google.com/drive/folders/1AK4bJvsep2yo2p_9RdynRIYJKf98mgIp?usp=sharing
+##### [Notion Display](https://first-network-e11.notion.site/Prog-JAVA-Group-Asm-199a53a3094f4ca286f713a6da9eb67a)
+
 
 ##### Contribution information: ALL CONTRIBUTION ARE THE SAME
 
@@ -43,7 +45,6 @@ Another example: All contributions are the same
 + ![Java-Text-Based-Program-Class-Diagram](Java-Text-Based-Program-Class-Diagram.png)
 
 ## Assignment Requirements
-- [Notion Display](https://first-network-e11.notion.site/Prog-JAVA-Group-Asm-199a53a3094f4ca286f713a6da9eb67a)
 
 ### 1. Three Main Parts
 + OOP design and implementation: you need to design and implement a class hierarchy to make your program flexible and easy to maintain
