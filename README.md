@@ -38,7 +38,7 @@ You can get the data here. (https://raw.githubusercontent.com/TriDang/cosc2081/m
 
 Note: Dr. Tri has not checked the data thoroughly. From what I learn so far, the data is sorted by country, then by date. The dates are consecutive without any gaps. If there are any missing dates (i.e., there are gaps), you can treat the missing dates as they contain all zero)
 
-### 3. Specific Requirements
+### 4. Specific Requirements
 You will use the OOP paradigm to design and develop this project. There are **3 main object hierarchies** in this project.
 
 #### a. Data: each data object has a geographic area, which can be either a country (e.g., Vietnam) or a continent (e.g., Asia), and a time range. The time range can be specified as one of the following:
