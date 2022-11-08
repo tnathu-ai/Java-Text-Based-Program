@@ -16,26 +16,7 @@ Implement a text-based program using Java language and OOP techniques.
 + The entry point of our program is Main.java. 
 + **Note**:
 + There is a README file on the root directory of your submission. It needs to contain contribution information, the GitHub repo URL of your project, and the link to your video demonstration (your video should be uploaded to YouTube - the uploaded time is used to check for late submission)
-+ Contribution information: 
 
-1/ The total increase must equal the total decrease. For example, if the team decides to increase 2 marks for person 1, there must be 2 marks decrease for someone(s) else (decrease 2 marks for person 2 OR decrease 0.5 marks for person 2 and 1.5 marks for person 3, etc.). 
-
-2/ The maximum increase/decrease for each person is 3 (it is the mark for this rubric section). So, the maximum mark for a person on this "Team Contribution" is 6, and the minimum mark is zero. 
-
-3/ If a person gets zero on "Team Contribution," the final mark of this person for the assignment will be zero. 
-
-4/ If a person's contribution is zero, the mark of this person (3) cannot be used to increase other people. 
-
-5/ The unit of increase/decrease is 0.1 marks.
-
-An example of contribution information is
-Person 1: +1
-Person 2: -2
-Person 3: +1
-
-Another example: All contributions are the same
-
-+ Compress all files as one .zip file and submit the .zip file to Canvas
 
 
 ### Class Diagram
@@ -113,7 +94,6 @@ Finally, users of your program can choose one of the following result types (exp
 ##### User interface
 Your program should show a menu that lets users choose data (area and range), summary (grouping condition, metric, and way of calculation), and Display (tabular or chart). Users can continue as many times as they want. They can choose to end the program when they finish.
 
-### More specific details provided on [RMIT Canvas](https://rmit.instructure.com/courses/88189/assignments/589549) (Login with RMIT ID)
 ***
 
 ## Implementation
