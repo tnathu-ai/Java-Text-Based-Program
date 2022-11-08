@@ -1,7 +1,6 @@
 # Java-Text-Based-Program-Project
 Implement a text-based program using Java language and OOP techniques.
 
-##### GitHub repo URL of your project: https://github.com/tnathu-ai/Java-Text-Based-Program-Project
 ##### Video Demonstration: https://youtu.be/mXBVpvW7YEs
 
 ##### Contribution information: ALL CONTRIBUTION ARE THE SAME
