@@ -3,9 +3,6 @@ Implement a text-based program using Java language and OOP techniques.
 
 ##### GitHub repo URL of your project: https://github.com/tnathu-ai/Java-Text-Based-Program-Project
 ##### Video Demonstration: https://youtu.be/mXBVpvW7YEs
-##### Link to our Drive folder: https://drive.google.com/drive/folders/1AK4bJvsep2yo2p_9RdynRIYJKf98mgIp?usp=sharing
-##### [Notion Display](https://first-network-e11.notion.site/Prog-JAVA-Group-Asm-199a53a3094f4ca286f713a6da9eb67a)
-
 
 ##### Contribution information: ALL CONTRIBUTION ARE THE SAME
 
@@ -164,12 +161,3 @@ eg:
 - Student: Nhat Nguyen[@NhatNguyen3001](https://github.com/NhatNguyen3001)
 ***
 
-## Grading Criteria
-+ **Clean Code**: Use standard guidelines; apply consistent naming, style, and indentation; add appropriate comments, etc.
-+ **Video Demonstration**: Explain clearly how the system is developed; Demonstrate exactly the system's functionalities
-+ **Team Contribution**: Teams decide how much increase/decrease for each member depends on his/her contribution
-+ **OOP Design**: Easy to extend; Use appropriate access modifiers; Effective code reuse; Less code duplication between classes; Single responsibility for each class, etc.
-+ **User Interface & Interaction**: Users can choose different options at all steps; All steps need to be linked together naturally; Users can quit smoothly
-+ **Extract Data**: Data extracted correctly (area and time range)
-+ **Summary Creation**: Correctly creating summary data based on original data and grouping, metric, and required calculation
-+ ** Display**: Display summary data in tabular and chart formats
