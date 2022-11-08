@@ -22,7 +22,7 @@ Implement a text-based program using Java language and OOP techniques.
 ### Class Diagram
 + ![Java-Text-Based-Program-Class-Diagram](Java-Text-Based-Program-Class-Diagram.png)
 
-## Assignment Requirements
+## Requirements
 
 ### 1. Three Main Parts
 + OOP design and implementation: you need to design and implement a class hierarchy to make your program flexible and easy to maintain
